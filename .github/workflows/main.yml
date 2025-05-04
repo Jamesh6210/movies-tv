@@ -1,0 +1,38 @@
+name: Daily Nunflix M3U Scraper
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # Run every day at 4 AM UTC
+  workflow_dispatch:     # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Nunflix Scraper
+        run: npx ts-node main.ts
+
+      - name: Commit and Push M3U Playlist
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "Jamesh6210"
+          git config user.email "adidassport2016@gmail.com"
+          git add movies&tvshows.m3u
+          git commit -m "Auto-updated Nunflix M3U playlist" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/Jamesh6210/movies-tv.git
+          git push origin main
