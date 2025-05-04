@@ -11,7 +11,10 @@ export interface NunflixMovie {
 }
 
 export async function getTrendingMoviesPuppeteer(): Promise<NunflixMovie[]> {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
 
   await page.goto(`${BASE_URL}/explore/movie?sort=popularity.desc`, {
