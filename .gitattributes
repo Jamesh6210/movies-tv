@@ -1,0 +1,9 @@
+* text=auto
+
+# For M3U playlists, force LF to avoid problems with players
+*.m3u text eol=lf
+
+# For JSON and TS files, standard LF
+*.json text eol=lf
+*.ts text eol=lf
+*.js text eol=lf

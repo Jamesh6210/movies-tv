@@ -1,0 +1,16 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qWTfHG8KdXwr0bqypYbNZLenh0J.jpg" group-title="Movies", Exterritorial - IMDb 6.8
+https://cdn-1.celestialodyssey.site/video-stream/16807762/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Movies", A Working Man - IMDb 6.5
+https://cdn-1.celestialodyssey.site/video-stream/fd54add1/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/r46leE6PSzLR3pnVzaxx5Q30yUF.jpg" group-title="Movies", Havoc - IMDb 6.6
+https://cdn-1.celestialodyssey.site/video-stream/a687926f/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/z73X4WKZghBh5fri31o8P6vBEB2.jpg" group-title="Movies", Van Gogh by Vincent - IMDb 6.2
+https://cdn-1.celestialodyssey.site/video-stream/1048ba02/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/iPPTGh2OXuIv6d7cwuoPkw8govp.jpg" group-title="Movies", A Minecraft Movie - IMDb 6.2
+https://cdn-1.celestialodyssey.site/video-stream/1e2f529e/playlist.m3u8
