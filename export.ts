@@ -12,7 +12,7 @@ export function exportToM3U(filename: string, items: M3UItem[]) {
   let content = '#EXTM3U\n\n';
 
   for (const item of items) {
-    const titleLine = `#EXTINF:-1 tvg-logo="${item.logo}" group-title="${item.group}", ${item.title}${item.description ? ` - ${item.description}` : ''}`;
+    const titleLine = `#EXTINF:-1 tvg-logo="${item.logo}" group-title="Trending ${item.group}", ${item.title}${item.description ? ` - ${item.description}` : ''}`;
     content += `${titleLine}\n${item.streamUrl}\n\n`;
   }
 
