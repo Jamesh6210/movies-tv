@@ -10,12 +10,23 @@ import { fetchTMDBInfo } from './Scraper/tmdb';
 
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
-    .replace(/([a-z])([A-Z][a-z]{2})/, '$1 $2') // insert space before month
+    // Insert space before month if stuck to title, e.g. "Moana 2Nov" → "Moana 2 Nov"
+    .replace(/([a-zA-Z])((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{1,2},\s?\d{2})/, '$1 $2')
+
+    // Remove any date pattern like "Nov 21, 24"
     .replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{2}\b/gi, '')
-    .replace(/•.*/g, '') // remove labels
+
+    // Remove everything after the first "•"
+    .replace(/•.*/, '')
+
+    // Optional: Add space in PascalCase (GoodFellas → Good Fellas)
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+
+    // Collapse extra spaces
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
+
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -26,7 +37,7 @@ function cleanMovieTitle(rawTitle: string): string {
   const movies = await getTrendingMoviesPuppeteer(browser);
   const items: M3UItem[] = [];
 
-  for (const movie of movies.slice(0, 40)) {
+  for (const movie of movies.slice(0, 30)) {
     console.log(`\n🎬 ${movie.title}`);
     console.log(`Watch page: ${movie.watchPage}`);
 
