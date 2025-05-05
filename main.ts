@@ -71,33 +71,37 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
-  const movies = await getTrendingMoviesPuppeteer(browser);
   const items: M3UItem[] = [];
 
-  for (const movie of movies.slice(0, 40)) {
-    try {
-      const item = await Promise.race([
-        processMovie(movie, browser),
-        new Promise<null>((_, reject) =>
-          setTimeout(() => reject(new Error('⏱️ Movie processing timed out')), 30000)
-        ),
-      ]);
+  try {
+    const movies = await getTrendingMoviesPuppeteer(browser);
 
-      if (item) {
-        items.push(item);
-        console.log(`✅ Playlist so far: ${items.length} items`);
+    for (const movie of movies.slice(0, 40)) {
+      try {
+        const item = await Promise.race([
+          processMovie(movie, browser),
+          new Promise<null>((_, reject) =>
+            setTimeout(() => reject(new Error('⏱️ Movie processing timed out')), 30000)
+          ),
+        ]);
+
+        if (item) {
+          items.push(item);
+          console.log(`✅ Playlist so far: ${items.length} items`);
+        }
+      } catch (err) {
+        console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
       }
-    } catch (err) {
-      console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
     }
-  }
 
-  await browser.close();
-
-  if (items.length > 0) {
-    exportToM3U('movies&tvshows.m3u', items);
-    console.log(`✅ M3U exported with ${items.length} items.`);
-  } else {
-    console.log('⚠️ No playable streams found to export.');
+    if (items.length > 0) {
+      exportToM3U('movies&tvshows.m3u', items);
+      console.log(`✅ M3U exported with ${items.length} items.`);
+    } else {
+      console.log('⚠️ No playable streams found to export.');
+    }
+  } finally {
+    await browser.close();
+    console.log('🧹 Browser closed, script finished.');
   }
 })();
