@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -10,22 +10,17 @@ export interface NunflixMovie {
   watchPage: string;
 }
 
-export async function getTrendingMoviesPuppeteer(): Promise<NunflixMovie[]> {
-  const browser = await puppeteer.launch({
-  headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+// ⏩ Reuse browser
+export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<NunflixMovie[]> {
   const page = await browser.newPage();
 
   await page.goto(`${BASE_URL}/explore/movie?sort=popularity.desc`, {
     waitUntil: 'networkidle2',
-    timeout: 60000, // wait up to 60 seconds
+    timeout: 60000,
   });
-  
 
   await page.waitForSelector('a.movieCard');
   await new Promise(resolve => setTimeout(resolve, 1000));
-
 
   const cards = await page.$$('a.movieCard');
   const movies: NunflixMovie[] = [];
@@ -45,78 +40,49 @@ export async function getTrendingMoviesPuppeteer(): Promise<NunflixMovie[]> {
     let poster = '';
     const lazyEl = await card.$('.posterBlock span.lazy-load-image-background');
     if (lazyEl) {
-      const bgString = await page.evaluate(el => {
-        const style = window.getComputedStyle(el);
-        return style.backgroundImage;
-      }, lazyEl);
-
+      const bgString = await page.evaluate(el => window.getComputedStyle(el).backgroundImage, lazyEl);
       const match = bgString.match(/url\(["']?(.*?)["']?\)/);
-      if (match && match[1]) {
-        poster = match[1];
-      }
+      if (match && match[1]) poster = match[1];
     }
 
     movies.push({ id, title, poster, detailPage, watchPage });
   }
 
-  await browser.close();
+  await page.close();
   return movies;
 }
 
-export async function getStreamLinksFromWatchPage(watchUrl: string): Promise<string[]> {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
-  
-    const page = await browser.newPage();
-  
-    await page.goto(watchUrl, { waitUntil: 'networkidle2' });
-  
-    // Wait for iframes or the server list to load
-    await page.waitForSelector('iframe', { timeout: 5000 }).catch(() => null);
-  
-    const iframeLinks = await page.evaluate(() => {
-      const iframes = Array.from(document.querySelectorAll('iframe'));
-      return iframes.map((frame) => frame.src).filter(Boolean);
-    });
-  
-    await browser.close();
-    return iframeLinks;
-  }
-  
-  export async function resolveM3U8FromEmbed(embedUrl: string): Promise<string | null> {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
-  
-    const page = await browser.newPage();
-    let m3u8Url: string | null = null;
-  
-    // Listen for network requests
-    page.on('request', (req) => {
-      const url = req.url();
-      if (url.includes('.m3u8')) {
-        m3u8Url = url;
-      }
-    });
-  
-    try {
-      await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
-  
-      // Wait for iframe or player to load
-      await new Promise(resolve => setTimeout(resolve, 3000));
+export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
+  const page = await browser.newPage();
+  await page.goto(watchUrl, { waitUntil: 'networkidle2' });
+  await page.waitForSelector('iframe', { timeout: 5000 }).catch(() => null);
 
-  
-      // Simulate click on video player area (usually triggers video load)
-      await page.mouse.click(400, 300); // Adjust coords as needed
-      await new Promise(resolve => setTimeout(resolve, 5000));
-    } catch (err) {
-      console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
-    }
-  
-    await browser.close();
-    return m3u8Url;
+  const iframeLinks = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('iframe')).map((f) => f.src).filter(Boolean);
+  });
+
+  await page.close();
+  return iframeLinks;
+}
+
+export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
+  const page = await browser.newPage();
+  let m3u8Url: string | null = null;
+
+  page.on('request', (req) => {
+    const url = req.url();
+    if (url.includes('.m3u8')) m3u8Url = url;
+  });
+
+  try {
+    await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    await page.mouse.click(400, 300);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+  } catch (err) {
+    console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
   }
-  
+
+  await page.close();
+  return m3u8Url;
+}
