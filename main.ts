@@ -10,23 +10,56 @@ import { fetchTMDBInfo } from './Scraper/tmdb';
 
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
-    // Insert space before month if stuck to title, e.g. "Moana 2Nov" → "Moana 2 Nov"
-    .replace(/([a-zA-Z])((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{1,2},\s?\d{2})/, '$1 $2')
-
-    // Remove any date pattern like "Nov 21, 24"
+    .replace(/([a-zA-Z\d])((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{1,2},\s?\d{2})/, '$1 $2')
     .replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{2}\b/gi, '')
-
-    // Remove everything after the first "•"
-    .replace(/•.*/, '')
-
-    // Optional: Add space in PascalCase (GoodFellas → Good Fellas)
+    .replace(/•.*/g, '')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
-
-    // Collapse extra spaces
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
 
+async function processMovie(movie: M3UItem, browser: puppeteer.Browser): Promise<M3UItem | null> {
+  console.log(`\n🎬 ${movie.title}`);
+  console.log(`Watch page: ${movie.watchPage}`);
+
+  const embedLinks = await getStreamLinksFromWatchPage(browser, movie.watchPage);
+  console.log(`\n🧩 Trying up to 3 servers for: ${movie.title}`);
+
+  const limitedLinks = embedLinks.slice(0, 3);
+  const results = await Promise.allSettled(
+    limitedLinks.map((embed) => resolveM3U8FromEmbed(browser, embed))
+  );
+
+  const successful = results.find(
+    (res): res is PromiseFulfilledResult<string> => res.status === 'fulfilled' && !!res.value
+  );
+
+  const m3u8 = successful?.value;
+
+  if (!m3u8) {
+    console.log('❌ No .m3u8 found from any server.');
+    return null;
+  }
+
+  console.log(`✅ Found .m3u8: ${m3u8}`);
+
+  const cleanTitle = cleanMovieTitle(movie.title);
+  console.log(`🧪 Raw title: "${movie.title}"`);
+  console.log(`🔎 Cleaned title for TMDb: "${cleanTitle}"`);
+
+  const tmdbInfo = await fetchTMDBInfo(cleanTitle);
+  if (!tmdbInfo) {
+    console.log(`⚠️ TMDb not found: ${movie.title} — using fallback info.`);
+  }
+
+  return {
+    title: tmdbInfo?.title || movie.title,
+    logo: tmdbInfo?.posterUrl || movie.poster || '',
+    group: 'Movies',
+    streamUrl: m3u8,
+    description: tmdbInfo ? `IMDb ${tmdbInfo.rating}` : '',
+  };
+}
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -38,49 +71,21 @@ function cleanMovieTitle(rawTitle: string): string {
   const items: M3UItem[] = [];
 
   for (const movie of movies.slice(0, 40)) {
-    console.log(`\n🎬 ${movie.title}`);
-    console.log(`Watch page: ${movie.watchPage}`);
+    try {
+      const item = await Promise.race([
+        processMovie(movie, browser),
+        new Promise<null>((_, reject) =>
+          setTimeout(() => reject(new Error('⏱️ Movie processing timed out')), 30000)
+        ),
+      ]);
 
-    const embedLinks = await getStreamLinksFromWatchPage(browser, movie.watchPage);
-
-    console.log(`\n🧩 Trying up to 3 servers for: ${movie.title}`);
-
-    // Try first 3 embed links in parallel
-    const limitedLinks = embedLinks.slice(0, 3);
-    
-    const results = await Promise.allSettled(
-      limitedLinks.map((embed) => resolveM3U8FromEmbed(browser, embed))
-    );
-    
-    const successful = results.find(
-      (res): res is PromiseFulfilledResult<string> => res.status === 'fulfilled' && !!res.value
-    );
-    
-    const m3u8 = successful?.value;
-    
-    if (m3u8) {
-      console.log(`✅ Found .m3u8: ${m3u8}`);
-    
-      const cleanTitle = cleanMovieTitle(movie.title);
-      console.log(`🧪 Raw title: "${movie.title}"`);
-      console.log(`🔎 Cleaned title for TMDb: "${cleanTitle}"`);
-    
-      const tmdbInfo = await fetchTMDBInfo(cleanTitle);
-      if (!tmdbInfo) {
-        console.log(`⚠️ TMDb not found: ${movie.title} — using fallback info.`);
+      if (item) {
+        items.push(item);
+        console.log(`✅ Playlist so far: ${items.length} items`);
       }
-    
-      items.push({
-        title: tmdbInfo?.title || movie.title,
-        logo: tmdbInfo?.posterUrl || movie.poster || '',
-        group: 'Movies',
-        streamUrl: m3u8,
-        description: tmdbInfo ? `IMDb ${tmdbInfo.rating}` : '',
-      });
-    } else {
-      console.log('❌ No .m3u8 found from any server.');
+    } catch (err) {
+      console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
     }
-    
   }
 
   await browser.close();
