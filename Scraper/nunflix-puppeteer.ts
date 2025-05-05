@@ -22,9 +22,9 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
   await page.waitForSelector('a.movieCard');
 
   // Scroll down to load more content
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 10; i++) {
     await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
   }
 
   const cards = await page.$$('a.movieCard');
