@@ -20,7 +20,12 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
   });
 
   await page.waitForSelector('a.movieCard');
-  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  // Scroll down to load more content
+  for (let i = 0; i < 3; i++) {
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
 
   const cards = await page.$$('a.movieCard');
   const movies: NunflixMovie[] = [];
