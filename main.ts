@@ -37,7 +37,7 @@ function cleanMovieTitle(rawTitle: string): string {
   const movies = await getTrendingMoviesPuppeteer(browser);
   const items: M3UItem[] = [];
 
-  for (const movie of movies.slice(0, 30)) {
+  for (const movie of movies.slice(0, 40)) {
     console.log(`\n🎬 ${movie.title}`);
     console.log(`Watch page: ${movie.watchPage}`);
 
@@ -87,6 +87,7 @@ function cleanMovieTitle(rawTitle: string): string {
 
   if (items.length > 0) {
     exportToM3U('movies&tvshows.m3u', items);
+    console.log(`✅ M3U exported with ${items.length} items.`);
   } else {
     console.log('⚠️ No playable streams found to export.');
   }
