@@ -18,7 +18,11 @@ function cleanMovieTitle(rawTitle: string): string {
     .trim();
 }
 
-async function processMovie(movie: M3UItem, browser: puppeteer.Browser): Promise<M3UItem | null> {
+import type { Browser } from 'puppeteer';
+import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
+
+async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
+
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
 
