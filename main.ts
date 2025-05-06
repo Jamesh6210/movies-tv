@@ -76,7 +76,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   try {
     const movies = await getTrendingMoviesPuppeteer(browser);
 
-    for (const movie of movies.slice(0, 40)) {
+    for (const movie of movies.slice(0, 5)) {
       try {
         const item = await Promise.race([
           processMovie(movie, browser),
@@ -101,7 +101,12 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
       console.log('⚠️ No playable streams found to export.');
     }
   } finally {
-    await browser.close();
-    console.log('🧹 Browser closed, script finished.');
+    try {
+      await browser.close();
+      console.log('🧹 Browser closed, script finished.');
+    } catch (err) {
+      console.error('❌ Failed to close browser:', err);
+    }
   }
+  
 })();

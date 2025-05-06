@@ -1,4 +1,4 @@
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser, HTTPRequest } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -10,7 +10,6 @@ export interface NunflixMovie {
   watchPage: string;
 }
 
-// ⏩ Reuse browser
 export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<NunflixMovie[]> {
   const page = await browser.newPage();
 
@@ -71,32 +70,29 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 }
 
 export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
-  return Promise.race([
-    (async () => {
-      const page = await browser.newPage();
-      let m3u8Url: string | null = null;
+  const page = await browser.newPage();
+  let m3u8Url: string | null = null;
 
-      page.on('request', (req) => {
-        const url = req.url();
-        if (url.includes('.m3u8')) m3u8Url = url;
-      });
+  const handleRequest = (req: HTTPRequest) => {
+    const url = req.url();
+    if (url.includes('.m3u8')) {
+      m3u8Url = url;
+    }
+  };
 
-      try {
-        await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        await page.mouse.click(400, 300);
-        await new Promise(resolve => setTimeout(resolve, 5000));
-      } catch (err) {
-        console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
-      }
+  page.on('request', handleRequest);
 
-      await page.close();
-      return m3u8Url;
-    })(),
+  try {
+    await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    await page.mouse.click(400, 300);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+  } catch (err) {
+    console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
+  } finally {
+    page.off('request', handleRequest); // ✅ Corrected cleanup method
+    await page.close();
+  }
 
-    new Promise<null>((resolve) =>
-      setTimeout(() => resolve(null), 20000) // fallback if nothing happens
-    ),
-  ]);
+  return m3u8Url;
 }
-
