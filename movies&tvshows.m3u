@@ -1,55 +1,16 @@
 #EXTM3U
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qWTfHG8KdXwr0bqypYbNZLenh0J.jpg" group-title="Movies", Exterritorial - IMDb 6.8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qWTfHG8KdXwr0bqypYbNZLenh0J.jpg" group-title="Trending Movies", Exterritorial - IMDb 6.8
 https://cdn-1.celestialodyssey.site/video-stream/16807762/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Movies", A Working Man - IMDb 6.5
-https://cdn-1.celestialodyssey.site/video-stream/fd54add1/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/wIg7TclH6PUcvTWFh0QdtU5Wcvt.jpg" group-title="Trending Movies", Tarzan - IMDb 5.7
+https://cdn-1.celestialodyssey.site/video-stream/6b008a0f/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/r46leE6PSzLR3pnVzaxx5Q30yUF.jpg" group-title="Movies", Havoc - IMDb 6.6
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Trending Movies", A Working Man - IMDb 6.5
+https://cdn-1.celestialodyssey.site/video-stream/3d6863af/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/r46leE6PSzLR3pnVzaxx5Q30yUF.jpg" group-title="Trending Movies", Havoc - IMDb 6.6
 https://cdn-1.celestialodyssey.site/video-stream/a687926f/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/z73X4WKZghBh5fri31o8P6vBEB2.jpg" group-title="Movies", Van Gogh by Vincent - IMDb 6.2
-https://cdn-1.celestialodyssey.site/video-stream/1048ba02/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/iPPTGh2OXuIv6d7cwuoPkw8govp.jpg" group-title="Movies", A Minecraft Movie - IMDb 6.2
-https://cdn-1.celestialodyssey.site/video-stream/1e2f529e/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/vnfgoohSwKNOcRfJOPULXTvX0cu.jpg" group-title="Movies", Thunderbolts* - IMDb 7.6
-https://sky.weathershare.site/v3-hls-playback/c562f05335ada0084c59bc047d6c020ff5ad6f05aeb2670e205a987bd33f0e6c379757a6cbd9d689c587a1dfa7c57e48e2fb83d6b97e804c4a05a9eea4d5b05448933728926f8649cfa4df500b138800a6ee93da66ad934621e09f8927f102e683c33caddb66c7b08ea39505843658484267a93f4830bee173900ed6152f17e3ec02efc69c90ec09328a8189568bc3701bd0548fcec2d0bf1ebba6a8d5dc93ba5fa24f8a953eb1e98168af8186814ce868b36013136cf0f0af89d7cf712c5519/1080/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/eujLbO0kf1eqWC8XpHUJdtAVW2J.jpg" group-title="Movies", Jewel Thief: The Heist Begins - IMDb 6.6
-https://cdn-1.celestialodyssey.site/video-stream/593fdc2b/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg" group-title="Movies", Captain America: Brave New World - IMDb 6.2
-https://cdn-1.celestialodyssey.site/video-stream/a0b5b251/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg" group-title="Movies", In the Lost Lands - IMDb 6.3
-https://cdn-1.celestialodyssey.site/video-stream/1a73fefe/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/lXR32JepFwD1UHkplWqtBP1K79z.jpg" group-title="Movies", Death of a Unicorn - IMDb 6.2
-https://cdn-1.celestialodyssey.site/video-stream/1e2436fe/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/cVSjSQryFUERYSdOmdgJ2m0eBte.jpg" group-title="Movies", Day of Reckoning - IMDb 6.8
-https://sky.weathershare.site/v3-hls-playback/afd63b5d23917233601757aa8a48b382cdb44f4bb02eed443973adf1e464ac76c774329e2a69683abe88740f92636dcbe2ba74698827186bb171bfe9f57971a107526812fb5b1ad7d91d7c3371c00a25c60f9acde9e6d840862c78a62e96003b284102ff4145fe14a3302ffb7c96fe0b71c0287aa2326a35cf0e06b20263e6fa52b9286f40f881d6a749cb500b30ac25b9f0586aab8badfdf2cecb629a5d26a870dde76b8d16578bfbd928b5b88b1c8a044fe9419db0d97a359e04c6a141628e/1080/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/jYfMTSiFFK7ffbY2lay4zyvTkEk.jpg" group-title="Movies", Sinners - IMDb 7.6
-https://cdn-1.celestialodyssey.site/video-stream/c1152197/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yYa8Onk9ow7ukcnfp2QWVvjWYel.jpg" group-title="Movies", The Monkey - IMDb 5.9
-https://cdn-1.celestialodyssey.site/video-stream/f9d52b44/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/zboCGZ4aIqPMd7VFI4HWnmc7KYJ.jpg" group-title="Movies", Another Simple Favor - IMDb 6.4
-https://sky.weathershare.site/v3-hls-playback/a7a1637916ee44df74c68030b48ce427fb02bd33f9c4a507f7d539d4001ee2e1a2fe74934bca244b17cbc373ab8a8d24caed46fbde70169d73cb02ab7f5f41ccf5ecc25b6c88cdc9fc9274cbdf76e2f3b0a2c553294f3db3222103fc5abf39a2ef5dff9d15800a52f6ff46bdcafba8bf8d08e4d66be0f0c2d6373f2489cc6285b7efd447f3981abd9f9bcf01e077dd9ef361cafefae01a1e65b0f307db58c6ce6fe8bd4f774a48ac60ca4c7910f8496af37fcda7fd94bfbe231847019f30803d/1080/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uxYMN7egzwU9dQWmlm9tVTVpBbe.jpg" group-title="Movies", Bullet Train Explosion - IMDb 6.8
-https://cdn-1.celestialodyssey.site/video-stream/b1ccef50/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg" group-title="Movies", Alien - IMDb 8.2
-https://cdn-1.celestialodyssey.site/video-stream/72310e01/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/dS2S5lpfgRIRQOb7LDCjNsQqKjp.jpg" group-title="Movies", Drop - IMDb 6.6
-https://cdn-1.celestialodyssey.site/video-stream/d53d39be/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/hVh4hMzkXNLnScudbid6hDvjMPk.jpg" group-title="Movies", The Siege - IMDb 5.3
-https://cdn-1.celestialodyssey.site/video-stream/80c1bacc/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg" group-title="Trending Movies", Thunderbolts* - IMDb 7.6
+https://sky.weathershare.site/v3-hls-playback/c562f05335ada0084c59bc047d6c020ff5ad6f05aeb2670e205a987bd33f0e6c379757a6cbd9d689c587a1dfa7c57e4832620d0b7812e2c0fca68eb30b7f376231b66c894d7d978599707984cb370b230c21f3fcfc9830efbc9da6600b1e3a1ede62dc8321a82dad8f40207c23ef1eaa0308221f7e39c131e962bcb16c6d8d1bbc694c162d8d66e265558a7873c5e72b75d027cc9d64129bf48cb718b0cea71ffc56092a8ade32981dad060922811cc9a9c622ec3d7053c32876c70b7ae9ee89/1080/index.m3u8
