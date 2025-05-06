@@ -1,4 +1,4 @@
-import puppeteer, { Browser, HTTPRequest } from 'puppeteer';
+import type { Browser, HTTPRequest } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -69,30 +69,49 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   return iframeLinks;
 }
 
-export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
-  const page = await browser.newPage();
-  let m3u8Url: string | null = null;
+export async function resolveM3U8FromEmbed(
+  browser: Browser,
+  embedUrl: string,
+  maxAttempts = 2
+): Promise<string | null> {
+  let attempt = 0;
 
-  const handleRequest = (req: HTTPRequest) => {
-    const url = req.url();
-    if (url.includes('.m3u8')) {
-      m3u8Url = url;
+  while (attempt < maxAttempts) {
+    const page = await browser.newPage();
+    let m3u8Url: string | null = null;
+
+    const handleRequest = (req: HTTPRequest) => {
+      const url = req.url();
+      if (url.includes('.m3u8')) {
+        m3u8Url = url;
+      }
+    };
+
+    page.on('request', handleRequest);
+
+    try {
+      console.log(`🔁 Attempt ${attempt + 1} for ${embedUrl}`);
+      await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 20000 });
+
+      // Wait longer to give video a chance to load
+      await new Promise((res) => setTimeout(res, 3000));
+      await page.mouse.click(400, 300); // simulate play click
+      await new Promise((res) => setTimeout(res, 6000)); // longer wait
+
+      if (m3u8Url) {
+        console.log(`🎯 Found .m3u8 on attempt ${attempt + 1}`);
+        return m3u8Url;
+      }
+    } catch (err) {
+      console.warn(`⚠️ Embed load failed on attempt ${attempt + 1}: ${err}`);
+    } finally {
+      page.off('request', handleRequest);
+      await page.close();
     }
-  };
 
-  page.on('request', handleRequest);
-
-  try {
-    await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    await page.mouse.click(400, 300);
-    await new Promise(resolve => setTimeout(resolve, 5000));
-  } catch (err) {
-    console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
-  } finally {
-    page.off('request', handleRequest); // ✅ Corrected cleanup method
-    await page.close();
+    attempt++;
   }
 
-  return m3u8Url;
+  console.warn(`❌ No .m3u8 found after ${maxAttempts} attempts for: ${embedUrl}`);
+  return null;
 }

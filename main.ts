@@ -102,6 +102,10 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     }
   } finally {
     try {
+      const pages = await browser.pages();
+      for (const p of pages) {
+        if (!p.isClosed()) await p.close();
+      }
       await browser.close();
       console.log('🧹 Browser closed, script finished.');
     } catch (err) {
