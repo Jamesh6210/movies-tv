@@ -7,6 +7,8 @@ import {
 
 import { exportToM3U, M3UItem } from './export';
 import { fetchTMDBInfo } from './Scraper/tmdb';
+import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
+import type { Browser } from 'puppeteer';
 
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
@@ -18,11 +20,7 @@ function cleanMovieTitle(rawTitle: string): string {
     .trim();
 }
 
-import type { Browser } from 'puppeteer';
-import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
-
 async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
-
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
 
@@ -39,7 +37,6 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   );
 
   const m3u8 = successful?.value;
-
   if (!m3u8) {
     console.log('❌ No .m3u8 found from any server.');
     return null;
@@ -102,15 +99,10 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     }
   } finally {
     try {
-      const pages = await browser.pages();
-      for (const p of pages) {
-        if (!p.isClosed()) await p.close();
-      }
       await browser.close();
       console.log('🧹 Browser closed, script finished.');
     } catch (err) {
       console.error('❌ Failed to close browser:', err);
     }
   }
-  
 })();

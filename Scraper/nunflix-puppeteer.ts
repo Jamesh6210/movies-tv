@@ -1,4 +1,4 @@
-import type { Browser, HTTPRequest, HTTPResponse } from 'puppeteer';
+import puppeteer, { Browser, HTTPRequest } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -20,7 +20,6 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
   await page.waitForSelector('a.movieCard');
 
-  // Scroll down to load more content
   for (let i = 0; i < 10; i++) {
     await page.evaluate(() => window.scrollBy(0, window.innerHeight));
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -37,7 +36,6 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
     const id = idMatch[1];
     const detailPage = `${BASE_URL}${href}`;
     const watchPage = `${BASE_URL}/watch/movie/${id}`;
-
     const rawTitle = await card.$eval('.textBlock', el => el.textContent?.trim() || '');
     const title = rawTitle.replace(/\s*\d{4}.*$/, '').trim();
 
@@ -69,57 +67,30 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   return iframeLinks;
 }
 
-export async function resolveM3U8FromEmbed(
-  browser: Browser,
-  embedUrl: string,
-  maxAttempts = 2
-): Promise<string | null> {
-  let attempt = 0;
+export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
+  const page = await browser.newPage();
+  let m3u8Url: string | null = null;
 
-  while (attempt < maxAttempts) {
-    const page = await browser.newPage();
-    let m3u8Url: string | null = null;
-
-    const handleRequest = (req: HTTPRequest) => {
-      const url = req.url();
-      if (url.includes('.m3u8')) {
-        m3u8Url = url;
-      }
-    };
-
-    const handleResponse = (res: HTTPResponse) => {
-      const url = res.url();
-      if (url.includes('.m3u8')) {
-        m3u8Url = url;
-      }
-    };
-
-    page.on('request', handleRequest);
-    page.on('response', handleResponse);
-
-    try {
-      console.log(`🔁 Attempt ${attempt + 1} for ${embedUrl}`);
-      await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 20000 });
-
-      await new Promise((res) => setTimeout(res, 3000));
-      await page.mouse.click(400, 300); // try to start video
-      await new Promise((res) => setTimeout(res, 8000)); // longer wait to trigger stream
-
-      if (m3u8Url) {
-        console.log(`🎯 Found .m3u8 on attempt ${attempt + 1}`);
-        return m3u8Url;
-      }
-    } catch (err) {
-      console.warn(`⚠️ Embed load failed on attempt ${attempt + 1}: ${err}`);
-    } finally {
-      page.off('request', handleRequest);
-      page.off('response', handleResponse);
-      await page.close();
+  const handleRequest = (req: HTTPRequest) => {
+    const url = req.url();
+    if (url.includes('.m3u8')) {
+      m3u8Url = url;
     }
+  };
 
-    attempt++;
+  page.on('request', handleRequest);
+
+  try {
+    await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 15000 });
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await page.mouse.click(400, 300);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+  } catch (err) {
+    console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
+  } finally {
+    page.off('request', handleRequest);
+    await page.close();
   }
 
-  console.warn(`❌ No .m3u8 found after ${maxAttempts} attempts for: ${embedUrl}`);
-  return null;
+  return m3u8Url;
 }
