@@ -1,4 +1,4 @@
-import type { Browser, HTTPRequest } from 'puppeteer';
+import type { Browser, HTTPRequest, HTTPResponse } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -87,16 +87,23 @@ export async function resolveM3U8FromEmbed(
       }
     };
 
+    const handleResponse = (res: HTTPResponse) => {
+      const url = res.url();
+      if (url.includes('.m3u8')) {
+        m3u8Url = url;
+      }
+    };
+
     page.on('request', handleRequest);
+    page.on('response', handleResponse);
 
     try {
       console.log(`🔁 Attempt ${attempt + 1} for ${embedUrl}`);
       await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 20000 });
 
-      // Wait longer to give video a chance to load
       await new Promise((res) => setTimeout(res, 3000));
-      await page.mouse.click(400, 300); // simulate play click
-      await new Promise((res) => setTimeout(res, 6000)); // longer wait
+      await page.mouse.click(400, 300); // try to start video
+      await new Promise((res) => setTimeout(res, 8000)); // longer wait to trigger stream
 
       if (m3u8Url) {
         console.log(`🎯 Found .m3u8 on attempt ${attempt + 1}`);
@@ -106,6 +113,7 @@ export async function resolveM3U8FromEmbed(
       console.warn(`⚠️ Embed load failed on attempt ${attempt + 1}: ${err}`);
     } finally {
       page.off('request', handleRequest);
+      page.off('response', handleResponse);
       await page.close();
     }
 
