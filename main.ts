@@ -115,18 +115,20 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
       console.log('⚠️ No playable streams found to export.');
     }
 
-    // ✅ FORCE CLOSE ALL PAGES
+    // ✅ Clean up open tabs BEFORE exit
     const pages = await browser.pages();
     for (const page of pages) {
-      if (!page.isClosed()) await page.close();
+      try {
+        if (!page.isClosed()) await page.close();
+      } catch (_) {}
     }
 
-    // ✅ CLOSE BROWSER
+    // ✅ Close browser
     await browser.close();
     console.log('🧹 Browser closed, script finished.');
 
-    // ✅ (Optional) Force Exit if on GitHub Actions
-    process.exit(0);
+    // ✅ Kill ALL remaining timers/listeners
+    setImmediate(() => process.exit(0));
 
   } catch (err) {
     console.error('❌ Error in main flow:', err);
@@ -134,3 +136,4 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     process.exit(1);
   }
 })();
+
