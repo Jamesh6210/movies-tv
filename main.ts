@@ -10,23 +10,19 @@ import { fetchTMDBInfo } from './Scraper/tmdb';
 import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
 import type { Browser } from 'puppeteer';
 
-// 🧼 Clean movie titles for TMDb search
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
     .replace(/([a-zA-Z\d])((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{1,2},\s?\d{2})/, '$1 $2')
     .replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{2}\b/gi, '')
-    .replace(/•.*/g, '')
+    .replace(/\u2022.*/g, '')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
 
-// ⏱️ Timeout wrapper
 async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise<T>((resolve, reject) => {
-    const timeoutId = setTimeout(() => {
-      reject(new Error('⏱️ Timeout exceeded'));
-    }, ms);
+    const timeoutId = setTimeout(() => reject(new Error('⏱️ Timeout exceeded')), ms);
 
     promise
       .then((res) => {
@@ -40,9 +36,6 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-
-
-// 🎥 Process one movie
 async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
@@ -96,7 +89,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   try {
     const movies = await getTrendingMoviesPuppeteer(browser);
 
-    for (const movie of movies.slice(0, 20)) {
+    for (const movie of movies.slice(0, 5)) {
       try {
         const item = await withTimeout(processMovie(movie, browser), 30000);
         if (item) {
@@ -114,26 +107,19 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     } else {
       console.log('⚠️ No playable streams found to export.');
     }
-
-    // ✅ Clean up open tabs BEFORE exit
+  } catch (err) {
+    console.error('❌ Error in main flow:', err);
+  } finally {
     const pages = await browser.pages();
     for (const page of pages) {
       try {
         if (!page.isClosed()) await page.close();
       } catch (_) {}
     }
-
-    // ✅ Close browser
     await browser.close();
     console.log('🧹 Browser closed, script finished.');
 
-    // ✅ Kill ALL remaining timers/listeners
-    setImmediate(() => process.exit(0));
-
-  } catch (err) {
-    console.error('❌ Error in main flow:', err);
-    await browser.close();
-    process.exit(1);
+    // ✅ Final cleanup for GitHub Actions
+    process.exit(0);
   }
 })();
-
