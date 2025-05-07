@@ -23,15 +23,24 @@ function cleanMovieTitle(rawTitle: string): string {
 
 // ⏱️ Timeout wrapper
 async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  let timeoutId: NodeJS.Timeout;
-  const timeout = new Promise<never>((_, reject) => {
-    timeoutId = setTimeout(() => reject(new Error('⏱️ Timeout exceeded')), ms);
-  });
+  return new Promise<T>((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error('⏱️ Timeout exceeded'));
+    }, ms);
 
-  const result = await Promise.race([promise, timeout]);
-  clearTimeout(timeoutId);
-  return result;
+    promise
+      .then((res) => {
+        clearTimeout(timeoutId);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timeoutId);
+        reject(err);
+      });
+  });
 }
+
+
 
 // 🎥 Process one movie
 async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
