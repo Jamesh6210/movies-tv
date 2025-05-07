@@ -35,7 +35,6 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
       });
   });
 }
-await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay between movies
 
 async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
