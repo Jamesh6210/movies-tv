@@ -10,6 +10,7 @@ import { fetchTMDBInfo } from './Scraper/tmdb';
 import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
 import type { Browser } from 'puppeteer';
 
+// 🧼 Clean movie titles for TMDb search
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
     .replace(/([a-zA-Z\d])((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{1,2},\s?\d{2})/, '$1 $2')
@@ -20,6 +21,19 @@ function cleanMovieTitle(rawTitle: string): string {
     .trim();
 }
 
+// ⏱️ Timeout wrapper
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timeoutId: NodeJS.Timeout;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error('⏱️ Timeout exceeded')), ms);
+  });
+
+  const result = await Promise.race([promise, timeout]);
+  clearTimeout(timeoutId);
+  return result;
+}
+
+// 🎥 Process one movie
 async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
@@ -75,21 +89,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
 
     for (const movie of movies.slice(0, 20)) {
       try {
-        let timeoutHandle: NodeJS.Timeout = setTimeout(() => {}, 0); // safe default
-    
-        const timeoutPromise = new Promise<null>((_, reject) => {
-          timeoutHandle = setTimeout(() => {
-            reject(new Error('⏱️ Movie processing timed out'));
-          }, 30000);
-        });
-    
-        const item = await Promise.race([
-          processMovie(movie, browser),
-          timeoutPromise
-        ]);
-    
-        clearTimeout(timeoutHandle); // ✅ Now always defined
-    
+        const item = await withTimeout(processMovie(movie, browser), 30000);
         if (item) {
           items.push(item);
           console.log(`✅ Playlist so far: ${items.length} items`);
@@ -98,8 +98,6 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
         console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
       }
     }
-    
-    
 
     if (items.length > 0) {
       exportToM3U('movies&tvshows.m3u', items);
@@ -108,21 +106,22 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
       console.log('⚠️ No playable streams found to export.');
     }
 
-  // ✅ FORCE CLOSE ALL PAGES
-  const pages = await browser.pages();
-  for (const page of pages) {
-    if (!page.isClosed()) await page.close();
+    // ✅ FORCE CLOSE ALL PAGES
+    const pages = await browser.pages();
+    for (const page of pages) {
+      if (!page.isClosed()) await page.close();
+    }
+
+    // ✅ CLOSE BROWSER
+    await browser.close();
+    console.log('🧹 Browser closed, script finished.');
+
+    // ✅ (Optional) Force Exit if on GitHub Actions
+    process.exit(0);
+
+  } catch (err) {
+    console.error('❌ Error in main flow:', err);
+    await browser.close();
+    process.exit(1);
   }
-
-  // ✅ CLOSE BROWSER
-  await browser.close();
-  console.log('🧹 Browser closed, script finished.');
-
-  // ✅ (Optional) Force Exit if on GitHub Actions
-  process.exit(0);
-
-} catch (err) {
-  console.error('❌ Error in main flow:', err);
-  process.exit(1);
-}
 })();
