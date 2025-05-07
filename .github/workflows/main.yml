@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      NODE_OPTIONS: "--max-old-space-size=512"
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
