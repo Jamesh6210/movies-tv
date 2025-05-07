@@ -75,13 +75,21 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
 
     for (const movie of movies.slice(0, 20)) {
       try {
+        let timeoutHandle: NodeJS.Timeout = setTimeout(() => {}, 0); // safe default
+    
+        const timeoutPromise = new Promise<null>((_, reject) => {
+          timeoutHandle = setTimeout(() => {
+            reject(new Error('⏱️ Movie processing timed out'));
+          }, 30000);
+        });
+    
         const item = await Promise.race([
           processMovie(movie, browser),
-          new Promise<null>((_, reject) =>
-            setTimeout(() => reject(new Error('⏱️ Movie processing timed out')), 30000)
-          ),
+          timeoutPromise
         ]);
-
+    
+        clearTimeout(timeoutHandle); // ✅ Now always defined
+    
         if (item) {
           items.push(item);
           console.log(`✅ Playlist so far: ${items.length} items`);
@@ -90,6 +98,8 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
         console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
       }
     }
+    
+    
 
     if (items.length > 0) {
       exportToM3U('movies&tvshows.m3u', items);
