@@ -89,7 +89,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   try {
     const movies = await getTrendingMoviesPuppeteer(browser);
 
-    for (const movie of movies.slice(0, 20)) {
+    for (const movie of movies.slice(0, 40)) {
       try {
         const item = await withTimeout(processMovie(movie, browser), 30000);
         if (item) {
