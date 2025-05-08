@@ -88,29 +88,16 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
 export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
   const page = await browser.newPage();
-  
-  // Optimize page for minimal resource usage
-  await page.setRequestInterception(true);
-  page.on('request', (request) => {
-    const resourceType = request.resourceType();
-    // Only allow necessary resources
-    if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
-      request.continue();
-    } else {
-      request.abort();
-    }
-  });
-  
+
   try {
-    await page.goto(watchUrl, { 
-      waitUntil: 'domcontentloaded', 
-      timeout: 15000 
-    });
-    
-    await page.waitForSelector('iframe', { timeout: 5000 }).catch(() => null);
+    await page.goto(watchUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+
+    await page.waitForSelector('iframe', { timeout: 10000 }).catch(() => null);
 
     const iframeLinks = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('iframe')).map((f) => f.src).filter(Boolean);
+      return Array.from(document.querySelectorAll('iframe'))
+        .map((f) => f.src)
+        .filter(Boolean);
     });
 
     return iframeLinks;
@@ -118,11 +105,10 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     console.warn(`⚠️ Error getting stream links from ${watchUrl}:`, err);
     return [];
   } finally {
-    // Clean up
-    await page.removeAllListeners();
     await page.close();
   }
 }
+
 
 export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
   const page = await browser.newPage();
