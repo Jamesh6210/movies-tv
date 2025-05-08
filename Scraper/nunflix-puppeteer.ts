@@ -36,7 +36,7 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
     
     // Scroll fewer times to reduce memory usage
     console.log('📜 Scrolling to load more movies...');
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       await page.evaluate(() => window.scrollBy(0, window.innerHeight));
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
