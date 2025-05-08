@@ -27,25 +27,39 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
+          
           # Install additional puppeteer dependencies
+          echo "Installing system dependencies for Puppeteer..."
           sudo apt-get update
-          sudo apt-get install -y libgbm-dev libasound2
+          
+          # Try to install libgbm-dev (continue if it fails)
+          sudo apt-get install -y libgbm-dev || echo "libgbm-dev installation failed, but continuing"
+          
+          # Try to find and install the appropriate audio library
+          if apt-cache search libasound2 | grep -q "libasound2 "; then
+            sudo apt-get install -y libasound2 || echo "libasound2 installation failed, but continuing"
+          elif apt-cache search libasound2t64 | grep -q "libasound2t64"; then
+            sudo apt-get install -y libasound2t64 || echo "libasound2t64 installation failed, but continuing"
+          else
+            echo "No suitable audio library found, continuing without it"
+          fi
 
-      - name: Configure System
+      - name: Free up disk space
         run: |
-          # Increase system limits
-          sudo sysctl -w fs.file-max=100000
-          ulimit -n 64000
-          # Free up disk space
+          # Free up disk space for more memory
+          echo "Cleaning up unnecessary files to free disk space..."
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
           sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/local/lib/android
+          sudo apt-get clean
+          df -h
 
       - name: Run Nunflix Scraper with Timeout
         run: |
+          echo "Starting scraper with 15 minute timeout..."
           # Run with timeout to ensure it doesn't hang
-          timeout -k 5m 15m npx ts-node main.ts
-        continue-on-error: true  # Allow the script to fail but continue the workflow
+          timeout -k 5m 15m npx ts-node main.ts || (echo "Script timed out or failed, checking for partial results..." && ls -la)
 
       - name: Verify M3U File
         run: |

@@ -128,10 +128,15 @@ async function safeCloseBrowser(browser: Browser) {
       '--disable-speech-api',
       '--disable-background-networking',
       '--disable-background-timer-throttling',
+      '--disable-component-extensions-with-background-pages',
+      '--disable-default-apps',
+      '--disable-features=TranslateUI,BlinkGenPropertyTrees',
+      '--disable-ipc-flooding-protection',
+      '--disable-renderer-backgrounding',
       '--single-process',
       '--mute-audio',
       '--js-flags=--max-old-space-size=256'
-    ],
+    ]
   });
 
   const items: M3UItem[] = [];
@@ -139,14 +144,17 @@ async function safeCloseBrowser(browser: Browser) {
   const MAX_RETRIES = 2;
 
   try {
+    // Determine number of movies to process - you can adjust this manually if needed
+    const moviesLimit = 15; // Process a reasonable number of movies to balance completion vs. size
+    
     const movies = await getTrendingMoviesPuppeteer(browser);
-    console.log(`📋 Found ${movies.length} movies, processing up to 20...`);
+    console.log(`📋 Found ${movies.length} movies, processing up to ${moviesLimit}...`);
     
     // Process in smaller batches to manage memory better
     const MAX_CONCURRENT = 1; // Process one movie at a time
     const movieBatches = [];
     
-    for (let i = 0; i < Math.min(movies.length, 20); i += MAX_CONCURRENT) {
+    for (let i = 0; i < Math.min(movies.length, moviesLimit); i += MAX_CONCURRENT) {
       movieBatches.push(movies.slice(i, i + MAX_CONCURRENT));
     }
     
