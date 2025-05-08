@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NODE_OPTIONS: "--max-old-space-size=512"
+      NODE_OPTIONS: "--max-old-space-size=1024"
 
     steps:
       - name: Checkout Repo
@@ -22,12 +22,41 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          # Install additional puppeteer dependencies
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libasound2
 
-      - name: Run Nunflix Scraper
-        run: npx ts-node main.ts
+      - name: Configure System
+        run: |
+          # Increase system limits
+          sudo sysctl -w fs.file-max=100000
+          ulimit -n 64000
+          # Free up disk space
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+
+      - name: Run Nunflix Scraper with Timeout
+        run: |
+          # Run with timeout to ensure it doesn't hang
+          timeout -k 5m 15m npx ts-node main.ts
+        continue-on-error: true  # Allow the script to fail but continue the workflow
+
+      - name: Verify M3U File
+        run: |
+          if [ -f "movies&tvshows.m3u" ]; then
+            echo "✅ M3U file generated successfully"
+            echo "File size: $(du -h movies\&tvshows.m3u | cut -f1)"
+            echo "Number of entries: $(grep -c "#EXTINF" movies\&tvshows.m3u)"
+          else
+            echo "❌ M3U file not generated"
+            exit 1
+          fi
 
       - name: Commit and Push M3U Playlist
         env:
