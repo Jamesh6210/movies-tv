@@ -3,17 +3,20 @@
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/j8tqBXwH2PxBPzbtO19BTF9Ukbf.jpg" group-title="Trending Movies", Warfare - IMDb 7.1
 https://cdn-1.celestialodyssey.site/video-stream/3c027b9f/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qycPITRqXgPai7zj1gKffjCdSB5.jpg" group-title="Trending Movies", Last Bullet - IMDb 6.8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qycPITRqXgPai7zj1gKffjCdSB5.jpg" group-title="Trending Movies", Last Bullet - IMDb 6.9
 https://cdn-1.celestialodyssey.site/video-stream/b0d523ad/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/lFFDrFLXywFhy6khHes1LCFVMsL.jpg" group-title="Trending Movies", Tin Soldier - IMDb 0
+https://cdn-1.celestialodyssey.site/video-stream/274fc0e8/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg" group-title="Trending Movies", Thunderbolts* - IMDb 7.5
 https://cdn-1.celestialodyssey.site/video-stream/5d24dbbc/playlist.m3u8
 
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/oLxWocqheC8XbXbxqJ3x422j9PW.jpg" group-title="Trending Movies", Snow White - IMDb 4.4
+https://cdn-1.celestialodyssey.site/video-stream/3767bb03/playlist.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/jM2uqCZNKbiyStyzXOERpMqAbdx.jpg" group-title="Trending Movies", Exterritorial - IMDb 6.7
 https://cdn-1.celestialodyssey.site/video-stream/16807762/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/lFFDrFLXywFhy6khHes1LCFVMsL.jpg" group-title="Trending Movies", Tin Soldier - IMDb 0
-https://cdn-1.celestialodyssey.site/video-stream/274fc0e8/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Trending Movies", A Working Man - IMDb 6.5
 https://cdn-1.celestialodyssey.site/video-stream/3d6863af/playlist.m3u8
@@ -21,17 +24,23 @@ https://cdn-1.celestialodyssey.site/video-stream/3d6863af/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/iPPTGh2OXuIv6d7cwuoPkw8govp.jpg" group-title="Trending Movies", A Minecraft Movie - IMDb 6.2
 https://cdn-1.celestialodyssey.site/video-stream/1e2f529e/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ixQoOExnnvIxYvnqGgfhaWqXeXc.jpg" group-title="Trending Movies", Brave Citizen - IMDb 7.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6Ea5i6APeTfm4hHh6dg5Z733JVS.jpg" group-title="Trending Movies", Brave Citizen - IMDb 7.1
 https://cdn-1.celestialodyssey.site/video-stream/e1932621/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/tbJ3RkA2s6X5qrBzrYHYTxvDBui.jpg" group-title="Trending Movies", Rust - IMDb 6.3
-https://cdn-1.celestialodyssey.site/video-stream/5b82a993/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/t4MiAeYpjL7saYvqvcn9xtOfA4K.jpg" group-title="Trending Movies", Conjuring the Cult - IMDb 4.2
 https://cdn-1.celestialodyssey.site/video-stream/e40a318b/playlist.m3u8
 
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/tbJ3RkA2s6X5qrBzrYHYTxvDBui.jpg" group-title="Trending Movies", Rust - IMDb 6.3
+https://cdn-1.celestialodyssey.site/video-stream/5b82a993/playlist.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg" group-title="Trending Movies", Captain America: Brave New World - IMDb 6.1
 https://cdn-1.celestialodyssey.site/video-stream/a0b5b251/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ghhooCOqQDqC6vhS1SVN2tCE0k8.jpg" group-title="Trending Movies", Bad Influence - IMDb 5.7
+https://water.weathershare.site/file2/t1yCwHrZ6P8I9eO+k8QKKetXYKPlbR4q5yKMGaT6EYo1BIsjFlrfeuUy6lsd8kqgyYxbnufZJAhz39wb17hUMeDHH5MRmnwfO~5k8bskQJBxuLsyWbTjD3czBushKi6wqxMj0ZDdCgOI8wKLaV5dZTCqHZGehvXREixn4Gf9hxQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/az0k8pzdeqrrEO9iu8vL081bjA0.jpg" group-title="Trending Movies", Stream - IMDb 5.6
+https://water.weathershare.site/file2/q7Wlun92y9~FfT3DQgxQ~IIF4bzOILckDUu2Te92E0AWa~Uinn75+pT84PMiEGy45EMaOX0xqDbjioureq5N77GEBNsplM+N9VDi2B1B6hmLUKz6tfXvf2P6blCjbNaqGB4XfNUFncuJ8ATpCtFK9d6Bj63FzlK37smJ3BOKjvk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg" group-title="Trending Movies", In the Lost Lands - IMDb 6.3
 https://cdn-1.celestialodyssey.site/video-stream/1a73fefe/playlist.m3u8
@@ -39,35 +48,26 @@ https://cdn-1.celestialodyssey.site/video-stream/1a73fefe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/r46leE6PSzLR3pnVzaxx5Q30yUF.jpg" group-title="Trending Movies", Havoc - IMDb 6.5
 https://cdn-1.celestialodyssey.site/video-stream/a687926f/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/fceheXB5fC4WrLVuWJ6OZv9FXYr.jpg" group-title="Trending Movies", The Accountant - IMDb 7.1
-https://cdn-1.celestialodyssey.site/video-stream/301fc67c/playlist.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ghhooCOqQDqC6vhS1SVN2tCE0k8.jpg" group-title="Trending Movies", Bad Influence - IMDb 5.8
-https://water.weathershare.site/file2/t1yCwHrZ6P8I9eO+k8QKKetXYKPlbR4q5yKMGaT6EYo1BIsjFlrfeuUy6lsd8kqgyYxbnufZJAhz39wb17hUMeDHH5MRmnwfO~5k8bskQJBxuLsyWbTjD3czBushKi6wqxMj0ZDdCgOI8wKLaV5dZTCqHZGehvXREixn4Gf9hxQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/az0k8pzdeqrrEO9iu8vL081bjA0.jpg" group-title="Trending Movies", Stream - IMDb 5.6
-https://water.weathershare.site/file2/q7Wlun92y9~FfT3DQgxQ~IIF4bzOILckDUu2Te92E0AWa~Uinn75+pT84PMiEGy45EMaOX0xqDbjioureq5N77GEBNsplM+N9VDi2B1B6hmLUKz6tfXvf2P6blCjbNaqGB4XfNUFncuJ8ATpCtFK9d6Bj63FzlK37smJ3BOKjvk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/lXR32JepFwD1UHkplWqtBP1K79z.jpg" group-title="Trending Movies", Death of a Unicorn - IMDb 6.5
 https://cdn-1.celestialodyssey.site/video-stream/1e2436fe/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/eujLbO0kf1eqWC8XpHUJdtAVW2J.jpg" group-title="Trending Movies", Jewel Thief: The Heist Begins - IMDb 6.7
-https://cdn-1.celestialodyssey.site/video-stream/593fdc2b/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/fceheXB5fC4WrLVuWJ6OZv9FXYr.jpg" group-title="Trending Movies", The Accountant - IMDb 7.1
+https://cdn-1.celestialodyssey.site/video-stream/301fc67c/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/cAoktVUBhGyULRoxV6mZ2LB3x7I.jpg" group-title="Trending Movies", Final Destination Bloodlines - IMDb 7.4
+https://cdn-1.celestialodyssey.site/video-stream/35701ed4/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/jYfMTSiFFK7ffbY2lay4zyvTkEk.jpg" group-title="Trending Movies", Sinners - IMDb 7.6
 https://cdn-1.celestialodyssey.site/video-stream/c1152197/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/cAoktVUBhGyULRoxV6mZ2LB3x7I.jpg" group-title="Trending Movies", Final Destination Bloodlines - IMDb 7.1
-https://water.weathershare.site/file2/vVCkUx8XyMrcY8J5zYZ8N2rEkLWZoD8CEwjTt4l0RHRVf1XGpxzkW7YeKQK2NdBDn3dAq6uT5fAkTXM11780WK1L0OW8dYeSmUDzJgOwhjAnhQsH3inUsysrHGshN8wuKkMz2~zT4W7eVjdOzTgra~D888AI2P2VP3ccRkubezI=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/z73X4WKZghBh5fri31o8P6vBEB2.jpg" group-title="Trending Movies", Van Gogh by Vincent - IMDb 6.4
-https://cdn-1.celestialodyssey.site/video-stream/1048ba02/playlist.m3u8
-
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yYa8Onk9ow7ukcnfp2QWVvjWYel.jpg" group-title="Trending Movies", The Monkey - IMDb 5.9
 https://cdn-1.celestialodyssey.site/video-stream/f9d52b44/playlist.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/l4gsNxFPGpzbq0D6QK1a8vO1lBz.jpg" group-title="Trending Movies", Laila - IMDb 5
-https://cdn-1.celestialodyssey.site/video-stream/305745c9/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ckI6bmQDvvGy20FPTIW1kfGKGRK.jpg" group-title="Trending Movies", Karate Kid: Legends - IMDb 7.4
+https://cdn-1.celestialodyssey.site/video-stream/37ff7d49/playlist.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg" group-title="Trending Movies", Moana 2 - IMDb 7.1
 https://cdn-1.celestialodyssey.site/video-stream/f78169d3/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/l4gsNxFPGpzbq0D6QK1a8vO1lBz.jpg" group-title="Trending Movies", Laila - IMDb 5
+https://cdn-1.celestialodyssey.site/video-stream/305745c9/playlist.m3u8
