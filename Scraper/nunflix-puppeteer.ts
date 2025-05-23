@@ -28,12 +28,13 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
   try {
     console.log('🔍 Navigating to movies page...');
     await page.goto(`${BASE_URL}/explore/movie?sort=popularity.desc`, {
-      waitUntil: 'domcontentloaded',
+      waitUntil: 'domcontentloaded', // Less resource-heavy than networkidle2
       timeout: 30000,
     });
 
     await page.waitForSelector('a.movieCard', { timeout: 10000 });
     
+    // Scroll fewer times to reduce memory usage
     console.log('📜 Scrolling to load more movies...');
     for (let i = 0; i < 10; i++) {
       await page.evaluate(() => window.scrollBy(0, window.innerHeight));
@@ -45,6 +46,7 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
     console.log(`🔢 Found ${cards.length} movie cards`);
     
+    // Process only what we need (up to 25 to ensure we get 20 valid)
     for (let i = 0; i < Math.min(cards.length, 25); i++) {
       const card = cards[i];
       
@@ -78,6 +80,7 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
     console.error('❌ Error getting trending movies:', err);
     return [];
   } finally {
+    // Make sure we clean up
     await page.removeAllListeners();
     await page.close();
   }
@@ -98,7 +101,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     await page.waitForSelector('button', { timeout: 15000 });
     
     // Give additional time for all buttons to render
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2000))
 
     // Get the current iframe src before clicking (if any exists)
     const oldIframeSrc = await page.evaluate(() => {
@@ -186,7 +189,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     }
 
     // Give iframe a moment to fully load
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2000))
 
     // Extract all relevant iframe links
     const iframeLinks = await page.evaluate(() => {
@@ -216,6 +219,9 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   }
 }
 
+
+
+
 export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
   const page = await browser.newPage();
   let m3u8Url: string | null = null;
@@ -226,85 +232,36 @@ export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): 
   const handleRequest = (req: HTTPRequest) => {
     const url = req.url();
     if (url.includes('.m3u8')) {
-      console.log(`🎯 Found M3U8 URL: ${url}`);
       m3u8Url = url;
     }
     
+    // Continue all requests to ensure page works
     req.continue();
   };
 
   page.on('request', handleRequest);
 
   try {
-    console.log(`🔗 Resolving M3U8 from embed: ${embedUrl}`);
+    console.log(`🔗 Checking embed URL: ${embedUrl}`);
     await page.goto(embedUrl, { 
       waitUntil: 'domcontentloaded', 
-      timeout: 15000 
+      timeout: 10000 
     });
     
-    // Wait for page to load
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Wait shorter time to avoid hangs
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     
-    // Try multiple click strategies to trigger video playback
+    // Attempt to click the play button
     try {
-      // Click in center of page
       await page.mouse.click(400, 300);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Look for and click play buttons
-      const playButtonClicked = await page.evaluate(() => {
-        const playSelectors = [
-          'button[aria-label*="play"]',
-          'button[title*="play"]',
-          '.play-button',
-          '.video-play-button',
-          '[class*="play"]',
-          'video'
-        ];
-        
-        for (const selector of playSelectors) {
-          const elements = document.querySelectorAll(selector);
-          if (elements.length > 0) {
-            (elements[0] as HTMLElement).click();
-            console.log(`Clicked play button: ${selector}`);
-            return true;
-          }
-        }
-        return false;
-      });
-      
-      if (playButtonClicked) {
-        console.log('🎮 Play button clicked');
-      }
-      
     } catch (clickErr) {
-      console.warn('⚠️ Click interaction failed:', clickErr);
+      console.warn('⚠️ Click failed, continuing anyway');
     }
     
-    // Wait for potential M3U8 request
-    await new Promise(resolve => setTimeout(resolve, 4000));
-    
-    // If no M3U8 found, try to extract from page source or network
-    if (!m3u8Url) {
-      console.log('🔍 No M3U8 found in requests, checking page content...');
-      
-      const pageM3U8 = await page.evaluate(() => {
-        const text = document.body.innerText || document.body.textContent || '';
-        const scripts = Array.from(document.scripts).map(s => s.textContent || '').join('\n');
-        const combined = text + '\n' + scripts;
-        
-        const m3u8Match = combined.match(/(https?:\/\/[^\s'"]+\.m3u8[^\s'"]*)/gi);
-        return m3u8Match ? m3u8Match[0] : null;
-      });
-      
-      if (pageM3U8) {
-        console.log(`📄 Found M3U8 in page content: ${pageM3U8}`);
-        m3u8Url = pageM3U8;
-      }
-    }
-    
+    // Wait for potential m3u8 request to be captured
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   } catch (err) {
-    console.warn(`⚠️ Failed to resolve M3U8 from ${embedUrl}:`, err);
+    console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);
   } finally {
     page.off('request', handleRequest);
     await page.removeAllListeners();

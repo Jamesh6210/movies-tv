@@ -1,0 +1,84 @@
+name: Daily Nunflix M3U Scraper
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # Run every day at 4 AM UTC
+  workflow_dispatch:     # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_OPTIONS: "--max-old-space-size=1024"
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          
+          # Install additional puppeteer dependencies
+          echo "Installing system dependencies for Puppeteer..."
+          sudo apt-get update
+          
+          # Try to install libgbm-dev (continue if it fails)
+          sudo apt-get install -y libgbm-dev || echo "libgbm-dev installation failed, but continuing"
+          
+          # Try to find and install the appropriate audio library
+          if apt-cache search libasound2 | grep -q "libasound2 "; then
+            sudo apt-get install -y libasound2 || echo "libasound2 installation failed, but continuing"
+          elif apt-cache search libasound2t64 | grep -q "libasound2t64"; then
+            sudo apt-get install -y libasound2t64 || echo "libasound2t64 installation failed, but continuing"
+          else
+            echo "No suitable audio library found, continuing without it"
+          fi
+
+      - name: Free up disk space
+        run: |
+          # Free up disk space for more memory
+          echo "Cleaning up unnecessary files to free disk space..."
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/local/lib/android
+          sudo apt-get clean
+          df -h
+
+      - name: Run Nunflix Scraper with Timeout
+        run: |
+          echo "Starting scraper with 15 minute timeout..."
+          # Run with timeout to ensure it doesn't hang
+          timeout -k 5m 15m npx ts-node main.ts || (echo "Script timed out or failed, checking for partial results..." && ls -la)
+
+      - name: Verify M3U File
+        run: |
+          if [ -f "movies&tvshows.m3u" ]; then
+            echo "✅ M3U file generated successfully"
+            echo "File size: $(du -h movies\&tvshows.m3u | cut -f1)"
+            echo "Number of entries: $(grep -c "#EXTINF" movies\&tvshows.m3u)"
+          else
+            echo "❌ M3U file not generated"
+            exit 1
+          fi
+
+      - name: Commit and Push M3U Playlist
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "Jamesh6210"
+          git config user.email "adidassport2016@gmail.com"
+          git add "movies&tvshows.m3u"
+          git commit -m "Auto-updated Nunflix M3U playlist" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/Jamesh6210/movies-tv.git
+          git push origin main
