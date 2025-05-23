@@ -90,59 +90,57 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   const page = await browser.newPage();
 
   try {
-    console.log(`\n🔗 Loading watch page: ${watchUrl}`);
-    await page.goto(watchUrl, {
-      waitUntil: 'domcontentloaded',
-      timeout: 20000,
+    console.log(`🔗 Loading watch page: ${watchUrl}`);
+    await page.goto(watchUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+
+    // Wait for server buttons
+    await page.waitForSelector('button', { timeout: 10000 }).catch(() => {});
+    await new Promise(resolve => setTimeout(resolve, 1000)); // brief buffer for rendering
+
+    // Check current iframe (for first 1–2 movies that load directly)
+    const oldIframeSrc = await page.evaluate(() => {
+      const iframe = document.querySelector('iframe');
+      return iframe ? iframe.src : '';
     });
 
-    // Wait for server buttons to load
-    console.log('⏳ Waiting for server buttons to load...');
-    await page.waitForSelector('button', { timeout: 10000 });
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log(`📺 Current iframe src: ${oldIframeSrc}`);
 
-    // Check if iframe is already VidFast
-    const initialIframe = await page.$eval('iframe', el => el.src).catch(() => '');
-    console.log(`📺 Current iframe src: ${initialIframe}`);
-    if (initialIframe.includes('vidfast') || initialIframe.includes('embed') || initialIframe.includes('movie')) {
+    if (oldIframeSrc.includes('vidfast.pro')) {
       console.log('✅ Iframe already pointing to VidFast.');
-      return [initialIframe];
+      return [oldIframeSrc];
     }
 
-    // Click VidFast button
-    const clicked = await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll('button'));
-      const target = buttons.find(btn =>
-        btn.textContent?.toLowerCase().includes('vidfast') ||
-        btn.textContent?.toLowerCase().includes('vf')
-      );
-      if (target) {
-        target.click();
-        return true;
+    // Try clicking "VidFast" button
+    const buttons = await page.$$('button');
+    let clicked = false;
+
+    for (const btn of buttons) {
+      const text = await btn.evaluate(el => el.textContent?.trim().toLowerCase() || '');
+      if (text.includes('vidfast') || text.includes('vid fast') || text.includes('vf')) {
+        await btn.click();
+        console.log('🖱️ Clicked VidFast server button');
+        clicked = true;
+        break;
       }
-      return false;
-    });
-
-    if (!clicked) {
-      console.warn('⚠️ No VidFast button found.');
-      return [];
     }
 
-    console.log('🖱️ VidFast button clicked, giving time for iframe to update...');
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait a bit for iframe to appear/change
+    if (clicked) {
+      await new Promise(resolve => setTimeout(resolve, 4000)); // wait for iframe to switch
+    } else {
+      console.warn('⚠️ No VidFast button found — fallback to checking all iframes.');
+    }
 
-    // Re-check all iframes
-    const finalIframes = await page.evaluate(() => {
+    // Grab all iframe links after click or fallback
+    const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
-        .filter(src => src && (src.includes('vidfast') || src.includes('embed') || src.includes('movie')));
+        .filter(src => src.includes('vidfast.pro') || src.includes('movie'));
     });
 
-    console.log(`🎬 Extracted ${finalIframes.length} iframe link(s):`, finalIframes);
-    return finalIframes;
-
+    console.log(`🎬 Extracted ${iframeLinks.length} iframe link(s):`, iframeLinks);
+    return iframeLinks;
   } catch (err) {
-    console.error(`❌ Error getting stream links from ${watchUrl}:`, err);
+    console.warn(`❌ Error getting stream links from ${watchUrl}:`, err);
     return [];
   } finally {
     await page.close();
