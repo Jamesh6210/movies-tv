@@ -88,16 +88,30 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
 export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
   const page = await browser.newPage();
+  await page.goto(watchUrl, { waitUntil: 'networkidle2' });
 
   try {
-    await page.goto(watchUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+    // Wait for server list to be loaded
+    await page.waitForSelector('button');
 
-    await page.waitForSelector('iframe', { timeout: 10000 }).catch(() => null);
+    // Click the "VidFast" server button
+    const buttons = await page.$$('button');
+    for (const btn of buttons) {
+      const text = await btn.evaluate(el => el.textContent?.trim() || '');
+      if (text.includes('VidFast')) {
+        await btn.click();
+        console.log('🖱️ Clicked VidFast server button');
+        break;
+      }
+    }
 
+    // Wait for iframe to load after switching server
+    await page.waitForTimeout(3000); // small delay for iframe to switch
+    await page.waitForSelector('iframe', { timeout: 5000 });
+
+    // Extract the current iframe's src
     const iframeLinks = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('iframe'))
-        .map((f) => f.src)
-        .filter(Boolean);
+      return Array.from(document.querySelectorAll('iframe')).map((f) => f.src).filter(Boolean);
     });
 
     return iframeLinks;
@@ -108,6 +122,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     await page.close();
   }
 }
+
 
 
 export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
