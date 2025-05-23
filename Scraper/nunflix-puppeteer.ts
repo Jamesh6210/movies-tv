@@ -95,7 +95,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
     // Wait for buttons to render
     await page.waitForSelector('button', { timeout: 10000 });
-    await page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     const oldIframeSrc = await page.evaluate(() => {
       const iframe = document.querySelector('iframe');
@@ -112,7 +112,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
       console.log(`🖱️ Trying button: "${label}"`);
       await btn.click();
-      await page.waitForTimeout(2000);
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       const newIframeSrc = await page.evaluate(() => {
         const iframe = document.querySelector('iframe');
