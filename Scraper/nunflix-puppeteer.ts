@@ -107,20 +107,14 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     }
 
     if (clicked) {
-      // ✅ Wait for new iframe with 'vidfast' in the src to appear
-      await page.waitForSelector('iframe', { timeout: 15000 });
-
-      // 👀 Give time for iframe to actually change src
-      await page.waitForFunction(() => {
-        const iframe = document.querySelector('iframe');
-        return iframe && iframe.src.includes('vidfast');
-      }, { timeout: 10000 });
+      // ✅ Give time for iframe to update
+      await page.waitForTimeout(4000); // Wait 4 seconds
     }
 
     const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
-        .filter(src => src.includes('vidfast'));
+        .filter(src => src.includes('vidfast') || src.includes('movie'));
     });
 
     return iframeLinks;
@@ -131,6 +125,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     await page.close();
   }
 }
+
 
 
 
