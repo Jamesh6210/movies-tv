@@ -41,24 +41,24 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   console.log(`Watch page: ${movie.watchPage}`);
 
   const embedLinks = await getStreamLinksFromWatchPage(browser, movie.watchPage);
-  console.log(`\n🧩 Trying up to 3 servers for: ${movie.title}`);
+  console.log(`\n🧩 Trying VidFast server for: ${movie.title}`);
 
-  const limitedLinks = embedLinks.slice(0, 3);
-  const results = await Promise.allSettled(
-    limitedLinks.map((embed) => resolveM3U8FromEmbed(browser, embed))
-  );
+  // Ensure there are at least 5 servers
+  if (embedLinks.length < 5) {
+    console.log('❌ VidFast (5th server) not available.');
+    return null;
+  }
 
-  const successful = results.find(
-    (res): res is PromiseFulfilledResult<string> => res.status === 'fulfilled' && !!res.value
-  );
+  const vidFastEmbed = embedLinks[4]; // 5th server
+  const m3u8 = await resolveM3U8FromEmbed(browser, vidFastEmbed);
 
-  const m3u8 = successful?.value;
   if (!m3u8) {
-    console.log('❌ No .m3u8 found from any server.');
+    console.log('❌ No .m3u8 found from VidFast server.');
     return null;
   }
 
   console.log(`✅ Found .m3u8: ${m3u8}`);
+
 
   const cleanTitle = cleanMovieTitle(movie.title);
   console.log(`🧪 Raw title: "${movie.title}"`);
