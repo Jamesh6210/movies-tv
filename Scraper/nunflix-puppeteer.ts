@@ -91,27 +91,33 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   await page.goto(watchUrl, { waitUntil: 'networkidle2' });
 
   try {
-    // Wait for server list to be loaded
     await page.waitForSelector('button');
 
-    // Click the "VidFast" server button
     const buttons = await page.$$('button');
+    let clicked = false;
     for (const btn of buttons) {
       const text = await btn.evaluate(el => el.textContent?.trim() || '');
       if (text.includes('VidFast')) {
         await btn.click();
         console.log('🖱️ Clicked VidFast server button');
+        clicked = true;
         break;
       }
     }
 
-    // Wait for iframe to load after switching server
-    await new Promise(resolve => setTimeout(resolve, 3000)); // wait for iframe to update
-    await page.waitForSelector('iframe', { timeout: 5000 });
+    if (clicked) {
+      // ✅ Wait for VidFast iframe to load by watching for src changes
+      await page.waitForFunction(() => {
+        const iframe = document.querySelector('iframe');
+        return iframe && iframe.src.includes('vidfast');
+      }, { timeout: 7000 });
+    }
 
-    // Extract the current iframe's src
+    // 🕵️‍♂️ Now safely collect updated iframes
     const iframeLinks = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('iframe')).map((f) => f.src).filter(Boolean);
+      return Array.from(document.querySelectorAll('iframe'))
+        .map((f) => f.src)
+        .filter(src => src.includes('vidfast')); // ✅ Filter only VidFast
     });
 
     return iframeLinks;
