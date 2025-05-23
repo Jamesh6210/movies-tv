@@ -88,33 +88,38 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
 export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
   const page = await browser.newPage();
-  await page.goto(watchUrl, { waitUntil: 'networkidle2' });
 
   try {
-    await page.waitForSelector('button');
+    await page.goto(watchUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    console.log(`🖱️ Attempting to click VidFast server button`);
 
-    const buttons = await page.$$('button');
-    let clicked = false;
+    // Click the VidFast server button and wait for iframe to update
+    await Promise.all([
+      page.waitForFunction(
+        () => {
+          const iframe = document.querySelector('iframe');
+          return iframe && iframe.src.includes('vidfast.pro');
+        },
+        { timeout: 10000 }
+      ),
+      page.evaluate(() => {
+        const buttons = Array.from(document.querySelectorAll('.serverBtn'));
+        const vidFast = buttons.find(btn => btn.textContent?.includes('VidFast'));
+        if (vidFast) (vidFast as HTMLElement).click();
+      }),
+    ]);
 
-    for (const btn of buttons) {
-      const text = await btn.evaluate(el => el.textContent?.trim() || '');
-      if (text.includes('VidFast')) {
-        await btn.click();
-        console.log('🖱️ Clicked VidFast server button');
-        clicked = true;
-        break;
-      }
-    }
+    console.log(`🖱️ Clicked VidFast server button`);
 
-    if (clicked) {
-      // ✅ Give time for iframe to update
-      await new Promise(resolve => setTimeout(resolve, 4000));
-    }
+    // Wait a moment in case the iframe takes a bit longer to fully load
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
+
+    // Extract the VidFast iframe link
     const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
-        .filter(src => src.includes('vidfast') || src.includes('movie'));
+        .filter(link => link.includes('vidfast.pro'));
     });
 
     return iframeLinks;
@@ -122,10 +127,11 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     console.warn(`⚠️ Error getting stream links from ${watchUrl}:`, err);
     return [];
   } finally {
-    await page.close();
+    try {
+      await page.close();
+    } catch (_) {}
   }
 }
-
 
 
 
