@@ -95,6 +95,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
     const buttons = await page.$$('button');
     let clicked = false;
+
     for (const btn of buttons) {
       const text = await btn.evaluate(el => el.textContent?.trim() || '');
       if (text.includes('VidFast')) {
@@ -106,18 +107,20 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     }
 
     if (clicked) {
-      // ✅ Wait for VidFast iframe to load by watching for src changes
+      // ✅ Wait for new iframe with 'vidfast' in the src to appear
+      await page.waitForSelector('iframe', { timeout: 15000 });
+
+      // 👀 Give time for iframe to actually change src
       await page.waitForFunction(() => {
         const iframe = document.querySelector('iframe');
         return iframe && iframe.src.includes('vidfast');
-      }, { timeout: 7000 });
+      }, { timeout: 10000 });
     }
 
-    // 🕵️‍♂️ Now safely collect updated iframes
     const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
-        .map((f) => f.src)
-        .filter(src => src.includes('vidfast')); // ✅ Filter only VidFast
+        .map(f => f.src)
+        .filter(src => src.includes('vidfast'));
     });
 
     return iframeLinks;
