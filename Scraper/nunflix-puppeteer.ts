@@ -91,35 +91,37 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
   try {
     await page.goto(watchUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+
     console.log(`🖱️ Attempting to click VidFast server button`);
 
-    // Click the VidFast server button and wait for iframe to update
-    await Promise.all([
-      page.waitForFunction(
-        () => {
-          const iframe = document.querySelector('iframe');
-          return iframe && iframe.src.includes('vidfast.pro');
-        },
-        { timeout: 10000 }
-      ),
-      page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll('.serverBtn'));
-        const vidFast = buttons.find(btn => btn.textContent?.includes('VidFast'));
-        if (vidFast) (vidFast as HTMLElement).click();
-      }),
-    ]);
+    // Get iframe before clicking
+    const oldIframeSrc = await page.$eval('iframe', iframe => iframe.src).catch(() => '');
 
-    console.log(`🖱️ Clicked VidFast server button`);
+    // Click the VidFast button
+    await page.evaluate(() => {
+      const buttons = Array.from(document.querySelectorAll('.serverBtn'));
+      const vidFast = buttons.find(btn => btn.textContent?.includes('VidFast'));
+      if (vidFast) (vidFast as HTMLElement).click();
+    });
 
-    // Wait a moment in case the iframe takes a bit longer to fully load
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Wait up to 10s for the iframe to change
+    await page.waitForFunction(
+      (prevSrc) => {
+        const iframe = document.querySelector('iframe');
+        return iframe && iframe.src !== prevSrc && iframe.src.includes('vidfast');
+      },
+      { timeout: 10000 },
+      oldIframeSrc
+    );
 
+    console.log(`✅ Clicked VidFast and iframe updated`);
 
-    // Extract the VidFast iframe link
+    await new Promise(resolve => setTimeout(resolve, 2000));// Give extra time for iframe to finalize loading
+
     const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
-        .filter(link => link.includes('vidfast.pro'));
+        .filter(link => link.includes('vidfast'));
     });
 
     return iframeLinks;
@@ -132,6 +134,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     } catch (_) {}
   }
 }
+
 
 
 
