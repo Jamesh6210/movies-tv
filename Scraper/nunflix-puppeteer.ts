@@ -106,7 +106,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     }
 
     // Wait for iframe to load after switching server
-    await page.waitForTimeout(3000); // small delay for iframe to switch
+    await new Promise(resolve => setTimeout(resolve, 3000)); // wait for iframe to update
     await page.waitForSelector('iframe', { timeout: 5000 });
 
     // Extract the current iframe's src
