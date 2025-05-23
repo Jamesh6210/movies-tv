@@ -108,7 +108,7 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
     if (clicked) {
       // ✅ Give time for iframe to update
-      await page.waitForTimeout(4000); // Wait 4 seconds
+      await new Promise(resolve => setTimeout(resolve, 4000));
     }
 
     const iframeLinks = await page.evaluate(() => {
