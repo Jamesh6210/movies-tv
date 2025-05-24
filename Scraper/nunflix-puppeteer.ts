@@ -105,20 +105,20 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
     // Shorter wait for buttons to render
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Check for existing iframes first (handles first 2 movies case)
-    const existingIframes = await page.evaluate(() => {
+    // Check for existing VidFast iframes first (handles first 2 movies case)
+    const existingVidFastIframes = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
-        .filter(src => src && (src.includes('vidfast') || src.includes('movie') || src.includes('embed')));
+        .filter(src => src && src.includes('vidfast'));
     });
 
-    if (existingIframes.length > 0) {
-      console.log('✅ Found existing iframe(s), no click needed:', existingIframes);
-      return existingIframes;
+    if (existingVidFastIframes.length > 0) {
+      console.log('✅ Found existing VidFast iframe(s), no click needed:', existingVidFastIframes);
+      return existingVidFastIframes;
     }
 
-    // No existing iframes, try to click VidFast button
-    console.log('🔍 No existing iframes, looking for VidFast button...');
+    // No existing VidFast iframes, try to click VidFast button
+    console.log('🔍 No existing VidFast iframes, looking for VidFast button...');
     
     const vidFastClicked = await page.evaluate(() => {
       const buttons = Array.from(document.querySelectorAll('button'));
