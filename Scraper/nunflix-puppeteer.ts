@@ -26,24 +26,59 @@ export async function getAvailableGenres(browser: Browser): Promise<GenreInfo[]>
       timeout: 30000,
     });
 
-    // Wait for genre buttons to load
-    await page.waitForSelector('button', { timeout: 10000 });
+    // Wait for page to load and try multiple selectors for genre elements
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     const genres = await page.evaluate(() => {
-      const genreButtons = Array.from(document.querySelectorAll('button'));
       const genres: { name: string; selector: string }[] = [];
       
-      genreButtons.forEach((button, index) => {
-        const text = button.textContent?.trim();
-        if (text && text !== 'All' && text !== 'Clear' && !text.includes('Sort')) {
-          // Create a unique selector for this button
-          const selector = `button:nth-of-type(${index + 1})`;
-          genres.push({
-            name: text,
-            selector: selector
-          });
-        }
-      });
+      // Try multiple possible selectors for genre buttons/elements
+      const possibleSelectors = [
+        'button', // regular buttons
+        '[role="button"]', // elements with button role
+        '.genre-button', // genre-specific class
+        '.filter-button', // filter button class
+        'div[onclick]', // clickable divs
+        'span[onclick]', // clickable spans
+        '*[data-genre]', // elements with genre data attribute
+        '.btn', // bootstrap-style buttons
+      ];
+      
+      for (const selector of possibleSelectors) {
+        const elements = Array.from(document.querySelectorAll(selector));
+        
+        elements.forEach((element, index) => {
+          const text = element.textContent?.trim();
+            if (text && 
+                text !== 'All' && 
+                text !== 'Clear' && 
+                !text.includes('Sort') && 
+                !text.includes('Filter') &&
+                text.length < 20 && // Genre names should be short
+                text.length > 2) { // But not too short
+              
+              // Check if it looks like a genre name
+              const genreKeywords = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 
+                                   'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 
+                                   'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 
+                                   'TV Movie', 'Thriller', 'War', 'Western'];
+              
+              if (genreKeywords.some(keyword => text.includes(keyword)) || 
+                  text.match(/^[A-Z][a-z\s]+$/)) { // Starts with capital, contains letters/spaces
+                
+                // Avoid duplicates
+                if (!genres.some(g => g.name === text)) {
+                  genres.push({
+                    name: text,
+                    selector: `${selector}:nth-of-type(${index + 1})`
+                  });
+                }
+              }
+            }
+        });
+        
+        if (genres.length > 0) break; // Stop if we found genres
+      }
       
       return genres;
     });
@@ -91,40 +126,104 @@ export async function getTrendingMoviesPuppeteer(
     if (genre) {
       console.log(`🎭 Filtering by genre: ${genre.name}`);
       
-      // Wait for buttons to be available
-      await page.waitForSelector('button', { timeout: 10000 });
+      // Wait for page elements to be available
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Clear any existing selections first
       await page.evaluate(() => {
-        const clearButton = Array.from(document.querySelectorAll('button'))
-          .find(btn => btn.textContent?.trim().toLowerCase().includes('clear'));
-        if (clearButton) {
-          (clearButton as HTMLButtonElement).click();
-        }
-      });
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Click the specific genre button
-      const genreClicked = await page.evaluate((selector) => {
-        const buttons = Array.from(document.querySelectorAll('button'));
-        for (let i = 0; i < buttons.length; i++) {
-          const button = buttons[i];
-          const text = button.textContent?.trim();
-          if (text === selector) {
-            (button as HTMLButtonElement).click();
+        // Try to find and click clear/reset button
+        const possibleClearSelectors = [
+          'button:contains("Clear")',
+          'button:contains("Reset")',
+          'button:contains("All")',
+          '[data-clear]',
+          '.clear-button'
+        ];
+        
+        for (const selector of possibleClearSelectors) {
+          const clearButton = Array.from(document.querySelectorAll('button'))
+            .find(btn => btn.textContent?.trim().toLowerCase().includes('clear') ||
+                        btn.textContent?.trim().toLowerCase().includes('all') ||
+                        btn.textContent?.trim().toLowerCase().includes('reset'));
+          if (clearButton) {
+            (clearButton as HTMLButtonElement).click();
             return true;
           }
         }
         return false;
+      });
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Click the specific genre element
+      const genreClicked = await page.evaluate((genreName) => {
+        // Try multiple strategies to find and click the genre
+        const strategies = [
+          // Strategy 1: Find by exact text match
+          () => {
+            const allElements = Array.from(document.querySelectorAll('*'));
+            for (const element of allElements) {
+              if (element.textContent?.trim() === genreName && 
+                  (element.tagName === 'BUTTON' || 
+                   element.getAttribute('role') === 'button' ||
+                   element.hasAttribute('onclick') ||
+                   element.classList.contains('clickable') ||
+                   window.getComputedStyle(element).cursor === 'pointer')) {
+                (element as HTMLElement).click();
+                return true;
+              }
+            }
+            return false;
+          },
+          
+          // Strategy 2: Find by partial text match in clickable elements
+          () => {
+            const clickableElements = Array.from(document.querySelectorAll('[onclick], [role="button"], button, .btn'));
+            for (const element of clickableElements) {
+              if (element.textContent?.trim().includes(genreName)) {
+                (element as HTMLElement).click();
+                return true;
+              }
+            }
+            return false;
+          },
+          
+          // Strategy 3: Look for genre-specific attributes or classes
+          () => {
+            const genreElements = Array.from(document.querySelectorAll('[data-genre], .genre, .filter-tag'));
+            for (const element of genreElements) {
+              if (element.textContent?.trim() === genreName) {
+                (element as HTMLElement).click();
+                return true;
+              }
+            }
+            return false;
+          }
+        ];
+        
+        for (const strategy of strategies) {
+          if (strategy()) return true;
+        }
+        
+        return false;
       }, genre.name);
       
       if (!genreClicked) {
-        console.warn(`⚠️ Could not click genre button for: ${genre.name}`);
+        console.warn(`⚠️ Could not click genre element for: ${genre.name}`);
+        console.log('🔍 Attempting to inspect page structure...');
+        
+        // Debug: log page structure
+        await page.evaluate(() => {
+          console.log('Available clickable elements:');
+          const clickables = Array.from(document.querySelectorAll('button, [role="button"], [onclick], .btn'));
+          clickables.forEach((el, i) => {
+            console.log(`${i}: ${el.tagName} - "${el.textContent?.trim()}" - classes: ${el.className}`);
+          });
+        });
       }
       
       // Wait for page to update with filtered results
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 4000));
     }
 
     await page.waitForSelector('a.movieCard', { timeout: 10000 });

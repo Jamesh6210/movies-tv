@@ -156,17 +156,30 @@ async function processGenre(
 
     // Get available genres
     const genres = await getAvailableGenres(browser);
-    if (genres.length === 0) {
+    
+    // Fallback: Use predefined genres if dynamic detection fails
+    const fallbackGenres = [
+      'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary',
+      'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music',
+      'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'
+    ];
+    
+    const genresToProcess = genres.length > 0 ? genres : 
+      fallbackGenres.map(name => ({ name, selector: name }));
+    
+    if (genresToProcess.length === 0) {
       console.warn('⚠️ No genres found, skipping genre-specific scraping');
     } else {
-      console.log(`\n📂 Processing ${genres.length} genres...`);
+      console.log(`\n📂 Processing ${genresToProcess.length} genres...`);
       
-      // Process each genre
-      for (const genre of genres) {
+      // Process each genre (limit to first 15 to avoid timeout issues)
+      const limitedGenres = genresToProcess.slice(0, 15);
+      
+      for (const genre of limitedGenres) {
         await processGenre(browser, genre, items);
         
         // Add a delay between genres to be respectful
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
       }
     }
 
