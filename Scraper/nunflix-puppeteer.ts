@@ -1,4 +1,4 @@
-import puppeteer, { Browser, HTTPRequest } from 'puppeteer';
+import puppeteer, { Browser, HTTPRequest, Page } from 'puppeteer';
 
 const BASE_URL = 'https://nunflix.org';
 
@@ -10,14 +10,67 @@ export interface NunflixMovie {
   watchPage: string;
 }
 
-export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<NunflixMovie[]> {
+export interface GenreInfo {
+  name: string;
+  selector: string; // The selector to click for this genre
+}
+
+// Function to get available genres from the page
+export async function getAvailableGenres(browser: Browser): Promise<GenreInfo[]> {
+  const page = await browser.newPage();
+  
+  try {
+    console.log('🔍 Getting available genres...');
+    await page.goto(`${BASE_URL}/explore/movie?sort=popularity.desc`, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
+    });
+
+    // Wait for genre buttons to load
+    await page.waitForSelector('button', { timeout: 10000 });
+
+    const genres = await page.evaluate(() => {
+      const genreButtons = Array.from(document.querySelectorAll('button'));
+      const genres: { name: string; selector: string }[] = [];
+      
+      genreButtons.forEach((button, index) => {
+        const text = button.textContent?.trim();
+        if (text && text !== 'All' && text !== 'Clear' && !text.includes('Sort')) {
+          // Create a unique selector for this button
+          const selector = `button:nth-of-type(${index + 1})`;
+          genres.push({
+            name: text,
+            selector: selector
+          });
+        }
+      });
+      
+      return genres;
+    });
+
+    console.log(`📂 Found ${genres.length} genres:`, genres.map(g => g.name));
+    return genres;
+    
+  } catch (err) {
+    console.error('❌ Error getting genres:', err);
+    return [];
+  } finally {
+    await page.close();
+  }
+}
+
+// Modified function to get movies with optional genre filtering
+export async function getTrendingMoviesPuppeteer(
+  browser: Browser, 
+  genre?: GenreInfo,
+  limit: number = 25
+): Promise<NunflixMovie[]> {
   const page = await browser.newPage();
   
   // Optimize page for minimal resource usage
   await page.setRequestInterception(true);
   page.on('request', (request) => {
     const resourceType = request.resourceType();
-    // Block unnecessary resources
     if (resourceType === 'image' || resourceType === 'font' || resourceType === 'media') {
       request.abort();
     } else {
@@ -26,16 +79,58 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
   });
   
   try {
-    console.log('🔍 Navigating to movies page...');
+    const pageTitle = genre ? `${genre.name} movies` : 'trending movies';
+    console.log(`🔍 Navigating to ${pageTitle} page...`);
+    
     await page.goto(`${BASE_URL}/explore/movie?sort=popularity.desc`, {
-      waitUntil: 'domcontentloaded', // Less resource-heavy than networkidle2
+      waitUntil: 'domcontentloaded',
       timeout: 30000,
     });
 
+    // If genre is specified, click the genre button
+    if (genre) {
+      console.log(`🎭 Filtering by genre: ${genre.name}`);
+      
+      // Wait for buttons to be available
+      await page.waitForSelector('button', { timeout: 10000 });
+      
+      // Clear any existing selections first
+      await page.evaluate(() => {
+        const clearButton = Array.from(document.querySelectorAll('button'))
+          .find(btn => btn.textContent?.trim().toLowerCase().includes('clear'));
+        if (clearButton) {
+          (clearButton as HTMLButtonElement).click();
+        }
+      });
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Click the specific genre button
+      const genreClicked = await page.evaluate((selector) => {
+        const buttons = Array.from(document.querySelectorAll('button'));
+        for (let i = 0; i < buttons.length; i++) {
+          const button = buttons[i];
+          const text = button.textContent?.trim();
+          if (text === selector) {
+            (button as HTMLButtonElement).click();
+            return true;
+          }
+        }
+        return false;
+      }, genre.name);
+      
+      if (!genreClicked) {
+        console.warn(`⚠️ Could not click genre button for: ${genre.name}`);
+      }
+      
+      // Wait for page to update with filtered results
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+
     await page.waitForSelector('a.movieCard', { timeout: 10000 });
     
-    // Scroll fewer times to reduce memory usage
-    console.log('📜 Scrolling to load more movies...');
+    console.log(`📜 Scrolling to load more ${pageTitle}...`);
+    // Scroll to load more movies
     for (let i = 0; i < 10; i++) {
       await page.evaluate(() => window.scrollBy(0, window.innerHeight));
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -44,10 +139,10 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
     const cards = await page.$$('a.movieCard');
     const movies: NunflixMovie[] = [];
 
-    console.log(`🔢 Found ${cards.length} movie cards`);
+    console.log(`🔢 Found ${cards.length} movie cards for ${pageTitle}`);
     
-    // Process only what we need (up to 25 to ensure we get 20 valid)
-    for (let i = 0; i < Math.min(cards.length, 25); i++) {
+    // Process movies up to the limit
+    for (let i = 0; i < Math.min(cards.length, limit + 5); i++) { // +5 buffer for invalid entries
       const card = cards[i];
       
       try {
@@ -70,6 +165,8 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
         }
 
         movies.push({ id, title, poster, detailPage, watchPage });
+        
+        if (movies.length >= limit) break;
       } catch (err) {
         console.warn(`⚠️ Error extracting movie info from card ${i}:`, err);
       }
@@ -77,35 +174,31 @@ export async function getTrendingMoviesPuppeteer(browser: Browser): Promise<Nunf
 
     return movies;
   } catch (err) {
-    console.error('❌ Error getting trending movies:', err);
+    console.error(`❌ Error getting ${genre ? genre.name : 'trending'} movies:`, err);
     return [];
   } finally {
-    // Make sure we clean up
     await page.removeAllListeners();
     await page.close();
   }
 }
 
+// Keep your existing functions unchanged
 export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
   const page = await browser.newPage();
   
   try {
     console.log(`🔗 Loading watch page: ${watchUrl}`);
     
-    // Use domcontentloaded for faster initial load, but with shorter timeout
     await page.goto(watchUrl, { 
       waitUntil: 'domcontentloaded', 
       timeout: 10000 
     });
 
-    // Wait for buttons with shorter timeout
     console.log('⏳ Waiting for server buttons...');
     await page.waitForSelector('button', { timeout: 8000 });
     
-    // Shorter wait for buttons to render
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Check for existing VidFast iframes first (handles first 2 movies case)
     const existingVidFastIframes = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
@@ -117,7 +210,6 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
       return existingVidFastIframes;
     }
 
-    // No existing VidFast iframes, try to click VidFast button
     console.log('🔍 No existing VidFast iframes, looking for VidFast button...');
     
     const vidFastClicked = await page.evaluate(() => {
@@ -126,7 +218,6 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
       for (const btn of buttons) {
         const text = btn.textContent?.trim().toLowerCase() || '';
         
-        // Flexible matching for VidFast
         if (text.includes('vidfast') || text.includes('vid fast') || text.includes('vf')) {
           console.log(`Clicking VidFast button: "${btn.textContent}"`);
           btn.click();
@@ -134,7 +225,6 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
         }
       }
       
-      // Fallback: look for first server button
       for (const btn of buttons) {
         const classList = Array.from(btn.classList).join(' ').toLowerCase();
         const id = (btn.id || '').toLowerCase();
@@ -151,13 +241,11 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
 
     if (vidFastClicked) {
       console.log('🖱️ Button clicked, waiting for iframe...');
-      // Shorter wait time - just enough for iframe to load
       await new Promise(resolve => setTimeout(resolve, 2500));
     } else {
       console.warn('⚠️ No clickable button found');
     }
 
-    // Extract iframe links
     const iframeLinks = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('iframe'))
         .map(f => f.src)
@@ -179,15 +267,10 @@ export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: st
   }
 }
 
-
-
-
-
 export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): Promise<string | null> {
   const page = await browser.newPage();
   let m3u8Url: string | null = null;
 
-  // Only capture M3U8 requests
   await page.setRequestInterception(true);
   
   const handleRequest = (req: HTTPRequest) => {
@@ -195,8 +278,6 @@ export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): 
     if (url.includes('.m3u8')) {
       m3u8Url = url;
     }
-    
-    // Continue all requests to ensure page works
     req.continue();
   };
 
@@ -209,17 +290,14 @@ export async function resolveM3U8FromEmbed(browser: Browser, embedUrl: string): 
       timeout: 10000 
     });
     
-    // Wait shorter time to avoid hangs
     await new Promise((resolve) => setTimeout(resolve, 2000));
     
-    // Attempt to click the play button
     try {
       await page.mouse.click(400, 300);
     } catch (clickErr) {
       console.warn('⚠️ Click failed, continuing anyway');
     }
     
-    // Wait for potential m3u8 request to be captured
     await new Promise((resolve) => setTimeout(resolve, 3000));
   } catch (err) {
     console.warn(`⚠️ Failed to load or interact with ${embedUrl}`);

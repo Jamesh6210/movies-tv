@@ -3,6 +3,8 @@ import {
   getTrendingMoviesPuppeteer,
   getStreamLinksFromWatchPage,
   resolveM3U8FromEmbed,
+  getAvailableGenres,
+  GenreInfo,
 } from './Scraper/nunflix-puppeteer';
 
 import { exportToM3U, M3UItem } from './export';
@@ -36,7 +38,11 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UItem | null> {
+async function processMovie(
+  movie: NunflixMovie, 
+  browser: Browser, 
+  groupName: string
+): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
 
@@ -72,10 +78,45 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   return {
     title: tmdbInfo?.title || movie.title,
     logo: tmdbInfo?.posterUrl || movie.poster || '',
-    group: 'Movies',
+    group: groupName,
     streamUrl: m3u8,
     description: tmdbInfo ? `IMDb ${tmdbInfo.rating}` : '',
   };
+}
+
+async function processGenre(
+  browser: Browser, 
+  genre: GenreInfo, 
+  items: M3UItem[]
+): Promise<void> {
+  console.log(`\n🎭 Processing genre: ${genre.name}`);
+  console.log(`==========================================`);
+  
+  try {
+    const movies = await getTrendingMoviesPuppeteer(browser, genre, 25);
+    console.log(`📊 Found ${movies.length} movies for ${genre.name}`);
+    
+    let processedCount = 0;
+    for (const movie of movies) {
+      try {
+        const item = await withTimeout(
+          processMovie(movie, browser, genre.name), 
+          30000
+        );
+        if (item) {
+          items.push(item);
+          processedCount++;
+          console.log(`✅ ${genre.name}: ${processedCount}/25 processed`);
+        }
+      } catch (err) {
+        console.warn(`⚠️ Skipped "${movie.title}" in ${genre.name} due to timeout or error.`);
+      }
+    }
+    
+    console.log(`🎯 Completed ${genre.name}: ${processedCount} items added`);
+  } catch (err) {
+    console.error(`❌ Error processing genre ${genre.name}:`, err);
+  }
 }
 
 (async () => {
@@ -87,26 +128,68 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
   const items: M3UItem[] = [];
 
   try {
-    const movies = await getTrendingMoviesPuppeteer(browser);
-
-    for (const movie of movies.slice(0, 40)) {
+    // First, get trending movies without genre filtering
+    console.log('\n🔥 Getting trending movies (no genre filter)...');
+    console.log('==========================================');
+    
+    const trendingMovies = await getTrendingMoviesPuppeteer(browser, undefined, 40);
+    console.log(`📊 Found ${trendingMovies.length} trending movies`);
+    
+    let trendingCount = 0;
+    for (const movie of trendingMovies) {
       try {
-        const item = await withTimeout(processMovie(movie, browser), 30000);
+        const item = await withTimeout(
+          processMovie(movie, browser, 'Trending Movies'), 
+          30000
+        );
         if (item) {
           items.push(item);
-          console.log(`✅ Playlist so far: ${items.length} items`);
+          trendingCount++;
+          console.log(`✅ Trending: ${trendingCount}/${trendingMovies.length} processed`);
         }
       } catch (err) {
-        console.warn(`⚠️ Skipped "${movie.title}" due to timeout or error.`);
+        console.warn(`⚠️ Skipped "${movie.title}" in trending due to timeout or error.`);
+      }
+    }
+    
+    console.log(`🎯 Completed trending movies: ${trendingCount} items added`);
+
+    // Get available genres
+    const genres = await getAvailableGenres(browser);
+    if (genres.length === 0) {
+      console.warn('⚠️ No genres found, skipping genre-specific scraping');
+    } else {
+      console.log(`\n📂 Processing ${genres.length} genres...`);
+      
+      // Process each genre
+      for (const genre of genres) {
+        await processGenre(browser, genre, items);
+        
+        // Add a delay between genres to be respectful
+        await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
 
+    // Export results
     if (items.length > 0) {
       exportToM3U('movies&tvshows.m3u', items);
-      console.log(`✅ M3U exported with ${items.length} items.`);
+      
+      // Log summary by group
+      const groupCounts = items.reduce((acc, item) => {
+        acc[item.group] = (acc[item.group] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      
+      console.log('\n📊 Final Summary:');
+      console.log('==========================================');
+      Object.entries(groupCounts).forEach(([group, count]) => {
+        console.log(`${group}: ${count} items`);
+      });
+      console.log(`Total: ${items.length} items exported`);
     } else {
       console.log('⚠️ No playable streams found to export.');
     }
+    
   } catch (err) {
     console.error('❌ Error in main flow:', err);
   } finally {
@@ -118,8 +201,6 @@ async function processMovie(movie: NunflixMovie, browser: Browser): Promise<M3UI
     }
     await browser.close();
     console.log('🧹 Browser closed, script finished.');
-
-    // ✅ Final cleanup for GitHub Actions
     process.exit(0);
   }
 })();
