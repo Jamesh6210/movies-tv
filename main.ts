@@ -132,7 +132,7 @@ async function processGenre(
     console.log('\n🔥 Getting trending movies (no genre filter)...');
     console.log('==========================================');
     
-    const trendingMovies = await getTrendingMoviesPuppeteer(browser, undefined, 40);
+    const trendingMovies = await getTrendingMoviesPuppeteer(browser, undefined, 25);
     console.log(`📊 Found ${trendingMovies.length} trending movies`);
     
     let trendingCount = 0;
