@@ -77,53 +77,74 @@ export async function getTrendingMoviesPuppeteer(
       timeout: 45000,
     });
 
-    // Wait for initial content to load
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
-    // If we want a specific genre, we need to click the genre button
-    if (genre) {
-      console.log(`🎭 Selecting genre: ${genre.name}`);
+   // Updated genre selection logic in getTrendingMoviesPuppeteer function
+if (genre) {
+  console.log(`🎭 Selecting genre: ${genre.name}`);
+  
+  try {
+    // First, make sure any previously selected genres are deselected
+    await page.evaluate(() => {
+      const activeButtons = document.querySelectorAll('button[class*="active"], button.selected');
+      activeButtons.forEach(btn => (btn as HTMLElement).click());
+    });
+    
+    // Wait a moment for deselection
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Now click the genre we want - using more flexible matching like the VidFast button
+    const genreClicked = await page.evaluate((genreName) => {
+      const buttons = Array.from(document.querySelectorAll('button'));
       
-      try {
-        // First, make sure any previously selected genres are deselected
-        // Look for active/selected genre buttons and click them to deselect
-        await page.evaluate(() => {
-          const activeButtons = document.querySelectorAll('button.genreTag[class*="active"], button.genreTag.selected');
-          activeButtons.forEach(btn => (btn as HTMLElement).click());
-        });
+      for (const btn of buttons) {
+        const text = btn.textContent?.trim().toLowerCase() || '';
+        const classList = Array.from(btn.classList).join(' ').toLowerCase();
         
-        // Wait a moment for deselection
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Now click the genre we want
-        const genreClicked = await page.evaluate((genreText) => {
-          const buttons = Array.from(document.querySelectorAll('button.genreTag'));
-          
-          for (const btn of buttons) {
-            const text = btn.textContent?.trim() || '';
-            if (text === genreText) {
-              console.log(`Clicking genre button: "${text}"`);
-              (btn as HTMLElement).click();
-              return true;
-            }
-          }
-          return false;
-        }, genre.buttonText);
-
-        if (genreClicked) {
-          console.log(`✅ Successfully clicked ${genre.name} genre button`);
-          // Wait for the filtered content to load
-          await new Promise(resolve => setTimeout(resolve, 3000));
-        } else {
-          console.warn(`⚠️ Could not find genre button for: ${genre.name}`);
-          // Continue anyway, might still get some results
+        // Match either by exact button text or if the genre name appears in text/class
+        if (text === genreName.toLowerCase() || 
+            text.includes(genreName.toLowerCase()) ||
+            classList.includes(genreName.toLowerCase().replace(' ', ''))) {
+          console.log(`Clicking genre button: "${btn.textContent}"`);
+          (btn as HTMLElement).click();
+          return true;
         }
+      }
+      return false;
+    }, genre.buttonText);
+
+    if (genreClicked) {
+      console.log(`✅ Successfully clicked ${genre.name} genre button`);
+      // Wait for the filtered content to load
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    } else {
+      console.warn(`⚠️ Could not find genre button for: ${genre.name}`);
+      // Try alternative approach - look for buttons with similar text
+      const alternativeClicked = await page.evaluate((genreName) => {
+        const buttons = Array.from(document.querySelectorAll('button'));
+        const words = genreName.toLowerCase().split(' ');
         
-      } catch (err) {
-        console.warn(`⚠️ Error selecting genre ${genre.name}:`, err);
-        // Continue anyway
+        for (const btn of buttons) {
+          const text = btn.textContent?.trim().toLowerCase() || '';
+          // Check if any word from genre name appears in button text
+          if (words.some(word => text.includes(word))) {
+            console.log(`Clicking alternative genre button: "${btn.textContent}"`);
+            (btn as HTMLElement).click();
+            return true;
+          }
+        }
+        return false;
+      }, genre.buttonText);
+      
+      if (alternativeClicked) {
+        console.log(`✅ Successfully clicked alternative button for ${genre.name}`);
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      } else {
+        console.warn(`⚠️ No matching button found for genre: ${genre.name}`);
       }
     }
+  } catch (err) {
+    console.warn(`⚠️ Error selecting genre ${genre.name}:`, err);
+  }
+}
 
     // Wait a bit more for content to stabilize after genre selection
     await new Promise(resolve => setTimeout(resolve, 2000));
