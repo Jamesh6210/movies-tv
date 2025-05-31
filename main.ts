@@ -93,7 +93,11 @@ async function processGenre(
   console.log(`==========================================`);
   
   try {
-    const movies = await getTrendingMoviesPuppeteer(browser, genre, 25);
+    const movies = await withTimeout(
+      getTrendingMoviesPuppeteer(browser, genre, 20), // Reduced from 25 to 20
+      120000 // 2 minutes timeout per genre
+    );
+    
     console.log(`📊 Found ${movies.length} movies for ${genre.name}`);
     
     let processedCount = 0;
@@ -101,12 +105,12 @@ async function processGenre(
       try {
         const item = await withTimeout(
           processMovie(movie, browser, genre.name), 
-          30000
+          25000 // Reduced timeout for individual movies
         );
         if (item) {
           items.push(item);
           processedCount++;
-          console.log(`✅ ${genre.name}: ${processedCount}/25 processed`);
+          console.log(`✅ ${genre.name}: ${processedCount}/${movies.length} processed`);
         }
       } catch (err) {
         console.warn(`⚠️ Skipped "${movie.title}" in ${genre.name} due to timeout or error.`);
@@ -119,12 +123,29 @@ async function processGenre(
   }
 }
 
-(async () => {
-  const browser = await puppeteer.launch({
+// Function to create a fresh browser instance
+async function createBrowser(): Promise<Browser> {
+  return await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--no-sandbox', 
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-web-security',
+      '--disable-features=VizDisplayCompositor',
+      '--disable-extensions',
+      '--disable-plugins',
+      '--disable-background-timer-throttling',
+      '--disable-backgrounding-occluded-windows',
+      '--disable-renderer-backgrounding'
+    ],
+    // Increase protocol timeout
+    protocolTimeout: 60000,
   });
+}
 
+(async () => {
+  let browser = await createBrowser();
   const items: M3UItem[] = [];
 
   try {
@@ -132,7 +153,10 @@ async function processGenre(
     console.log('\n🔥 Getting trending movies (no genre filter)...');
     console.log('==========================================');
     
-    const trendingMovies = await getTrendingMoviesPuppeteer(browser, undefined, 25);
+    const trendingMovies = await withTimeout(
+      getTrendingMoviesPuppeteer(browser, undefined, 25),
+      120000 // 2 minutes for trending
+    );
     console.log(`📊 Found ${trendingMovies.length} trending movies`);
     
     let trendingCount = 0;
@@ -140,7 +164,7 @@ async function processGenre(
       try {
         const item = await withTimeout(
           processMovie(movie, browser, 'Trending Movies'), 
-          30000
+          25000
         );
         if (item) {
           items.push(item);
@@ -154,32 +178,48 @@ async function processGenre(
     
     console.log(`🎯 Completed trending movies: ${trendingCount} items added`);
 
-    // Get available genres
-    const genres = await getAvailableGenres(browser);
+    // Get available genres - no longer needs browser instance
+    const genres = await getAvailableGenres();
     
-    // Fallback: Use predefined genres if dynamic detection fails
-    const fallbackGenres = [
-      'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary',
-      'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music',
-      'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'
-    ];
-    
-    const genresToProcess = genres.length > 0 ? genres : 
-      fallbackGenres.map(name => ({ name, selector: name }));
-    
-    if (genresToProcess.length === 0) {
+    if (genres.length === 0) {
       console.warn('⚠️ No genres found, skipping genre-specific scraping');
     } else {
-      console.log(`\n📂 Processing ${genresToProcess.length} genres...`);
+      console.log(`\n📂 Processing ${genres.length} genres...`);
       
-      // Process each genre (limit to first 15 to avoid timeout issues)
-      const limitedGenres = genresToProcess.slice(0, 15);
-      
-      for (const genre of limitedGenres) {
-        await processGenre(browser, genre, items);
+      // Process each genre with browser refresh every 3 genres to prevent memory issues
+      for (let i = 0; i < genres.length && i < 12; i++) { // Limit to 12 genres to prevent timeouts
+        const genre = genres[i];
         
-        // Add a delay between genres to be respectful
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        try {
+          // Refresh browser every 3 genres to prevent connection issues
+          if (i > 0 && i % 3 === 0) {
+            console.log('\n🔄 Refreshing browser to prevent connection issues...');
+            try {
+              await browser.close();
+            } catch (e) {
+              console.warn('⚠️ Error closing old browser:', e);
+            }
+            browser = await createBrowser();
+          }
+
+          await processGenre(browser, genre, items);
+          
+          // Add a delay between genres to be respectful
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          
+        } catch (err) {
+          console.error(`❌ Failed to process genre ${genre.name}:`, err);
+          
+          // Try to recover by creating a new browser
+          try {
+            await browser.close();
+            browser = await createBrowser();
+            console.log('🔄 Browser refreshed after error');
+          } catch (e) {
+            console.error('❌ Failed to refresh browser:', e);
+            break; // Exit if we can't recover
+          }
+        }
       }
     }
 
@@ -206,13 +246,19 @@ async function processGenre(
   } catch (err) {
     console.error('❌ Error in main flow:', err);
   } finally {
-    const pages = await browser.pages();
-    for (const page of pages) {
-      try {
-        if (!page.isClosed()) await page.close();
-      } catch (_) {}
+    // Cleanup
+    try {
+      const pages = await browser.pages();
+      for (const page of pages) {
+        try {
+          if (!page.isClosed()) await page.close();
+        } catch (_) {}
+      }
+      await browser.close();
+    } catch (e) {
+      console.warn('⚠️ Error during cleanup:', e);
     }
-    await browser.close();
+    
     console.log('🧹 Browser closed, script finished.');
     process.exit(0);
   }
