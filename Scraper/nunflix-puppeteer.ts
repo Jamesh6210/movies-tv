@@ -12,38 +12,37 @@ export interface NunflixMovie {
 
 export interface GenreInfo {
   name: string;
-  url: string; // Direct URL instead of selector-based approach
+  buttonText: string; // The text that appears on the genre button
 }
 
-// Simplified approach: Use direct URLs for genres
+// Updated to use the actual genre button texts from the site
 export async function getAvailableGenres(): Promise<GenreInfo[]> {
-  // Using predefined genre URLs that work with the site structure
   const knownGenres: GenreInfo[] = [
-    { name: 'Action', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=28` },
-    { name: 'Adventure', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=12` },
-    { name: 'Animation', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=16` },
-    { name: 'Comedy', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=35` },
-    { name: 'Crime', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=80` },
-    { name: 'Documentary', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=99` },
-    { name: 'Drama', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=18` },
-    { name: 'Family', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=10751` },
-    { name: 'Fantasy', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=14` },
-    { name: 'History', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=36` },
-    { name: 'Horror', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=27` },
-    { name: 'Music', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=10402` },
-    { name: 'Mystery', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=9648` },
-    { name: 'Romance', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=10749` },
-    { name: 'Science Fiction', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=878` },
-    { name: 'Thriller', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=53` },
-    { name: 'War', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=10752` },
-    { name: 'Western', url: `${BASE_URL}/explore/movie?sort=popularity.desc&with_genres=37` }
+    { name: 'Action', buttonText: 'Action' },
+    { name: 'Adventure', buttonText: 'Adventure' },
+    { name: 'Animation', buttonText: 'Animation' },
+    { name: 'Comedy', buttonText: 'Comedy' },
+    { name: 'Crime', buttonText: 'Crime' },
+    { name: 'Documentary', buttonText: 'Documentary' },
+    { name: 'Drama', buttonText: 'Drama' },
+    { name: 'Family', buttonText: 'Family' },
+    { name: 'Fantasy', buttonText: 'Fantasy' },
+    { name: 'History', buttonText: 'History' },
+    { name: 'Horror', buttonText: 'Horror' },
+    { name: 'Music', buttonText: 'Music' },
+    { name: 'Mystery', buttonText: 'Mystery' },
+    { name: 'Romance', buttonText: 'Romance' },
+    { name: 'Science Fiction', buttonText: 'Science Fiction' },
+    { name: 'Thriller', buttonText: 'Thriller' },
+    { name: 'War', buttonText: 'War' },
+    { name: 'Western', buttonText: 'Western' }
   ];
 
   console.log(`📂 Using ${knownGenres.length} predefined genres`);
   return knownGenres;
 }
 
-// Simplified function to get movies - direct URL navigation instead of clicking
+// Updated function to properly handle genre filtering by clicking buttons
 export async function getTrendingMoviesPuppeteer(
   browser: Browser, 
   genre?: GenreInfo,
@@ -67,10 +66,10 @@ export async function getTrendingMoviesPuppeteer(
   });
   
   try {
-    const targetUrl = genre ? genre.url : `${BASE_URL}/explore/movie?sort=popularity.desc`;
+    const targetUrl = `${BASE_URL}/explore/movie?sort=popularity.desc`;
     const pageTitle = genre ? `${genre.name} movies` : 'trending movies';
     
-    console.log(`🔍 Navigating directly to: ${pageTitle}`);
+    console.log(`🔍 Navigating to explore page for: ${pageTitle}`);
     console.log(`📍 URL: ${targetUrl}`);
     
     await page.goto(targetUrl, {
@@ -78,8 +77,56 @@ export async function getTrendingMoviesPuppeteer(
       timeout: 45000,
     });
 
-    // Wait for content to load
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    // Wait for initial content to load
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // If we want a specific genre, we need to click the genre button
+    if (genre) {
+      console.log(`🎭 Selecting genre: ${genre.name}`);
+      
+      try {
+        // First, make sure any previously selected genres are deselected
+        // Look for active/selected genre buttons and click them to deselect
+        await page.evaluate(() => {
+          const activeButtons = document.querySelectorAll('button.genreTag[class*="active"], button.genreTag.selected');
+          activeButtons.forEach(btn => (btn as HTMLElement).click());
+        });
+        
+        // Wait a moment for deselection
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Now click the genre we want
+        const genreClicked = await page.evaluate((genreText) => {
+          const buttons = Array.from(document.querySelectorAll('button.genreTag'));
+          
+          for (const btn of buttons) {
+            const text = btn.textContent?.trim() || '';
+            if (text === genreText) {
+              console.log(`Clicking genre button: "${text}"`);
+              (btn as HTMLElement).click();
+              return true;
+            }
+          }
+          return false;
+        }, genre.buttonText);
+
+        if (genreClicked) {
+          console.log(`✅ Successfully clicked ${genre.name} genre button`);
+          // Wait for the filtered content to load
+          await new Promise(resolve => setTimeout(resolve, 3000));
+        } else {
+          console.warn(`⚠️ Could not find genre button for: ${genre.name}`);
+          // Continue anyway, might still get some results
+        }
+        
+      } catch (err) {
+        console.warn(`⚠️ Error selecting genre ${genre.name}:`, err);
+        // Continue anyway
+      }
+    }
+
+    // Wait a bit more for content to stabilize after genre selection
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Check if we can find movie cards, with fallback selectors
     const cardSelectors = ['a.movieCard', '.movie-card', '[href*="/movie/"]', '.card'];
