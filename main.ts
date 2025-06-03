@@ -63,20 +63,6 @@ async function processMovie(movie: NunflixMovie, browser: Browser, groupName: st
 
   const tmdbInfo = await fetchTMDBInfo(cleanTitle);
 
-  let qualityBadge = '';
-  switch (movie.quality?.toUpperCase()) {
-    case 'CAM':
-      qualityBadge = '🔴 CAM';
-      break;
-    case '1080P':
-      qualityBadge = '🟢 1080P';
-      break;
-    case '4K':
-      qualityBadge = '🔵 4K';
-      break;
-    default:
-      qualityBadge = '';
-  }
 
   return {
     title: tmdbInfo?.title || movie.title,
@@ -84,8 +70,8 @@ async function processMovie(movie: NunflixMovie, browser: Browser, groupName: st
     group: groupName,
     streamUrl: m3u8,
     description: [
-      qualityBadge,
-      tmdbInfo?.rating ? `⭐ IMDb ${tmdbInfo.rating}` : null
+      movie.quality ? `${movie.quality}` : null,
+      tmdbInfo?.rating ? `IMDb ${tmdbInfo.rating}` : null
     ].filter(Boolean).join(' • '),
   };
 }
