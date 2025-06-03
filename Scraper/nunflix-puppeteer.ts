@@ -8,6 +8,7 @@ export interface NunflixMovie {
   poster: string;
   detailPage: string;
   watchPage: string;
+  quality?: string;
 }
 
 export interface GenreInfo {
@@ -238,7 +239,7 @@ async function extractCardData(card: any, page: Page): Promise<NunflixMovie | nu
     const id = idMatch[1];
     const detailPage = `${BASE_URL}${href}`;
     const watchPage = `${BASE_URL}/watch/movie/${id}`;
-    
+
     const rawTitle = await card.$eval('.textBlock', (el: Element) => el.textContent?.trim() || '').catch(() => '');
     const title = rawTitle.replace(/\s*\d{4}.*$/, '').trim();
 
@@ -253,12 +254,20 @@ async function extractCardData(card: any, page: Page): Promise<NunflixMovie | nu
     } catch (e) {
       // Poster extraction failed, continue without it
     }
+    let quality: string | undefined = undefined;
+    try {
+      quality = await card.$eval('.qualityTag', (el: Element) => el.textContent?.trim() || '');
+    } catch (e) {
+      // No quality tag found
+    }
 
-    return { id, title, poster, detailPage, watchPage };
+
+    return { id, title, poster, detailPage, watchPage, quality };
   } catch (err) {
     return null;
   }
 }
+
 
 // Keep your existing functions unchanged
 export async function getStreamLinksFromWatchPage(browser: Browser, watchUrl: string): Promise<string[]> {
