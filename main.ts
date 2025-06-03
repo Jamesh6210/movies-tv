@@ -11,6 +11,7 @@ import { exportToM3U, M3UItem } from './export';
 import { fetchTMDBInfo } from './Scraper/tmdb';
 import type { NunflixMovie } from './Scraper/nunflix-puppeteer';
 import type { Browser } from 'puppeteer';
+import { fetchRottenTomatoesScore } from './Scraper/rotten-tomatoes';  // You'll create this
 
 function cleanMovieTitle(rawTitle: string): string {
   return rawTitle
@@ -63,6 +64,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser, groupName: st
   console.log(`🔎 Cleaned title for TMDb: "${cleanTitle}"`);
 
   const tmdbInfo = await fetchTMDBInfo(cleanTitle);
+  const rtScore = await fetchRottenTomatoesScore(cleanTitle);
 
   return {
     title: tmdbInfo?.title || movie.title,
@@ -71,7 +73,7 @@ async function processMovie(movie: NunflixMovie, browser: Browser, groupName: st
     streamUrl: m3u8,
     description: [
       movie.quality ? `${movie.quality}` : null,
-      tmdbInfo?.rating ? `IMDb ${tmdbInfo.rating}` : null
+      rtScore ? `🍅 ${rtScore}%` : null
     ].filter(Boolean).join(' • '),
   };
 }

@@ -58,7 +58,7 @@ jobs:
       - name: Run Nunflix Scraper with Timeout
         run: |
           echo "Starting scraper..."
-          timeout -k 10m 80m npx ts-node main.ts || (echo "Script timed out or failed, checking for partial results..." && ls -la)
+          timeout -k 10m 40m npx ts-node main.ts || (echo "Script timed out or failed, checking for partial results..." && ls -la)
 
       - name: Verify M3U File
         run: |
