@@ -174,7 +174,7 @@ async function createBrowser(): Promise<Browser> {
     } else {
       console.log(`\n📂 Processing ${genres.length} genres...`);
 
-      for (let i = 0; i < genres.length && i < 12; i++) {
+      for (let i = 0; i < genres.length; i++) {
         const genre = genres[i];
 
         try {
