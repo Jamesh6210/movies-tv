@@ -72,11 +72,16 @@ async function processMovie(movie: NunflixMovie, browser: Browser, groupName: st
   };
 }
 
-async function processGenre(browser: Browser, genre: GenreInfo, items: M3UItem[]): Promise<void> {
+async function processGenre(browser: Browser, genre: GenreInfo, items: M3UItem[]): Promise<Browser> {
   console.log(`\n🎭 Processing genre: ${genre.name}`);
   console.log(`==========================================`);
 
   try {
+    try {
+      await browser.close();
+    } catch (_) {}
+    browser = await createBrowser();
+
     const movies = await withTimeout(getTrendingMoviesPuppeteer(browser, genre, 20), 120000);
     console.log(`📊 Found ${movies.length} movies for ${genre.name}`);
 
@@ -108,6 +113,8 @@ async function processGenre(browser: Browser, genre: GenreInfo, items: M3UItem[]
   } catch (err) {
     console.error(`❌ Error processing genre ${genre.name}:`, err);
   }
+
+  return browser;
 }
 
 async function createBrowser(): Promise<Browser> {
@@ -166,19 +173,8 @@ async function createBrowser(): Promise<Browser> {
         const genre = genres[i];
 
         try {
-          if (i > 0 && i % 3 === 0) {
-            console.log('\n🔄 Refreshing browser to prevent connection issues...');
-            try {
-              await browser.close();
-            } catch (e) {
-              console.warn('⚠️ Error closing old browser:', e);
-            }
-            browser = await createBrowser();
-          }
-
-          await processGenre(browser, genre, items);
+          browser = await processGenre(browser, genre, items);
           await new Promise(resolve => setTimeout(resolve, 5000));
-
         } catch (err) {
           console.error(`❌ Failed to process genre ${genre.name}:`, err);
           try {

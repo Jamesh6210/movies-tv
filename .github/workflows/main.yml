@@ -57,7 +57,7 @@ jobs:
 
       - name: Run Nunflix Scraper with Timeout
         run: |
-          echo "Starting scraper with 15 minute timeout..."
+          echo "Starting scraper..."
           # Run with timeout to ensure it doesn't hang
           timeout -k 5m 15m npx ts-node main.ts || (echo "Script timed out or failed, checking for partial results..." && ls -la)
 
