@@ -98,7 +98,7 @@ async function processGenre(browser: Browser, genre: GenreInfo, items: M3UItem[]
       }
 
       try {
-        const item = await withTimeout(processMovie(movie, browser, genre.name), 25000);
+        const item = await withTimeout(processMovie(movie, browser, genre.name), 75000);
         if (item) {
           items.push(item);
           processedCount++;
@@ -150,7 +150,7 @@ async function createBrowser(): Promise<Browser> {
     let trendingCount = 0;
     for (const movie of trendingMovies) {
       try {
-        const item = await withTimeout(processMovie(movie, browser, 'Trending Movies'), 25000);
+        const item = await withTimeout(processMovie(movie, browser, 'Trending Movies'), 75000);
         if (item) {
           items.push(item);
           trendingCount++;
