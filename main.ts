@@ -39,8 +39,8 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 async function processMovie(
-  movie: NunflixMovie, 
-  browser: Browser, 
+  movie: NunflixMovie,
+  browser: Browser,
   groupName: string
 ): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
@@ -49,7 +49,7 @@ async function processMovie(
   const embedLinks = await getStreamLinksFromWatchPage(browser, movie.watchPage);
   console.log(`\n🧩 Trying up to 3 servers for: ${movie.title}`);
 
-  const limitedLinks = embedLinks.slice(0, 5);
+  const limitedLinks = embedLinks.slice(0, 3);
   const results = await Promise.allSettled(
     limitedLinks.map((embed) => resolveM3U8FromEmbed(browser, embed))
   );
@@ -85,50 +85,49 @@ async function processMovie(
 }
 
 async function processGenre(
-  browser: Browser, 
-  genre: GenreInfo, 
+  browser: Browser,
+  genre: GenreInfo,
   items: M3UItem[]
 ): Promise<void> {
   console.log(`\n🎭 Processing genre: ${genre.name}`);
   console.log(`==========================================`);
-  
+
   try {
     const movies = await withTimeout(
-      getTrendingMoviesPuppeteer(browser, genre, 20), // Reduced from 25 to 20
-      120000 // 2 minutes timeout per genre
+      getTrendingMoviesPuppeteer(browser, genre, 15),
+      90000
     );
-    
+
     console.log(`📊 Found ${movies.length} movies for ${genre.name}`);
-    
+
     let processedCount = 0;
     for (const movie of movies) {
       try {
         const item = await withTimeout(
-          processMovie(movie, browser, genre.name), 
-          25000 // Reduced timeout for individual movies
+          processMovie(movie, browser, genre.name),
+          25000
         );
         if (item) {
           items.push(item);
           processedCount++;
           console.log(`✅ ${genre.name}: ${processedCount}/${movies.length} processed`);
         }
-      } catch (err) {
+      } catch {
         console.warn(`⚠️ Skipped "${movie.title}" in ${genre.name} due to timeout or error.`);
       }
     }
-    
+
     console.log(`🎯 Completed ${genre.name}: ${processedCount} items added`);
   } catch (err) {
     console.error(`❌ Error processing genre ${genre.name}:`, err);
   }
 }
 
-// Function to create a fresh browser instance
 async function createBrowser(): Promise<Browser> {
   return await puppeteer.launch({
     headless: true,
     args: [
-      '--no-sandbox', 
+      '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-web-security',
@@ -139,7 +138,6 @@ async function createBrowser(): Promise<Browser> {
       '--disable-backgrounding-occluded-windows',
       '--disable-renderer-backgrounding'
     ],
-    // Increase protocol timeout
     protocolTimeout: 60000,
   });
 }
@@ -149,21 +147,21 @@ async function createBrowser(): Promise<Browser> {
   const items: M3UItem[] = [];
 
   try {
-    // First, get trending movies without genre filtering
     console.log('\n🔥 Getting trending movies (no genre filter)...');
     console.log('==========================================');
-    
+
     const trendingMovies = await withTimeout(
-      getTrendingMoviesPuppeteer(browser, undefined, 25),
-      120000 // 2 minutes for trending
+      getTrendingMoviesPuppeteer(browser, undefined, 20),
+      90000
     );
+
     console.log(`📊 Found ${trendingMovies.length} trending movies`);
-    
+
     let trendingCount = 0;
     for (const movie of trendingMovies) {
       try {
         const item = await withTimeout(
-          processMovie(movie, browser, 'Trending Movies'), 
+          processMovie(movie, browser, 'Trending Movies'),
           25000
         );
         if (item) {
@@ -171,27 +169,23 @@ async function createBrowser(): Promise<Browser> {
           trendingCount++;
           console.log(`✅ Trending: ${trendingCount}/${trendingMovies.length} processed`);
         }
-      } catch (err) {
+      } catch {
         console.warn(`⚠️ Skipped "${movie.title}" in trending due to timeout or error.`);
       }
     }
-    
+
     console.log(`🎯 Completed trending movies: ${trendingCount} items added`);
 
-    // Get available genres - no longer needs browser instance
     const genres = await getAvailableGenres();
-    
     if (genres.length === 0) {
       console.warn('⚠️ No genres found, skipping genre-specific scraping');
     } else {
       console.log(`\n📂 Processing ${genres.length} genres...`);
-      
-      // Process each genre with browser refresh every 3 genres to prevent memory issues
-      for (let i = 0; i < genres.length && i < 12; i++) { // Limit to 12 genres to prevent timeouts
+
+      for (let i = 0; i < genres.length && i < 10; i++) {
         const genre = genres[i];
-        
+
         try {
-          // Refresh browser every 3 genres to prevent connection issues
           if (i > 0 && i % 3 === 0) {
             console.log('\n🔄 Refreshing browser to prevent connection issues...');
             try {
@@ -203,36 +197,29 @@ async function createBrowser(): Promise<Browser> {
           }
 
           await processGenre(browser, genre, items);
-          
-          // Add a delay between genres to be respectful
-          await new Promise(resolve => setTimeout(resolve, 5000));
-          
+          await new Promise(resolve => setTimeout(resolve, 4000));
         } catch (err) {
           console.error(`❌ Failed to process genre ${genre.name}:`, err);
-          
-          // Try to recover by creating a new browser
           try {
             await browser.close();
             browser = await createBrowser();
             console.log('🔄 Browser refreshed after error');
           } catch (e) {
             console.error('❌ Failed to refresh browser:', e);
-            break; // Exit if we can't recover
+            break;
           }
         }
       }
     }
 
-    // Export results
     if (items.length > 0) {
       exportToM3U('movies&tvshows.m3u', items);
-      
-      // Log summary by group
+
       const groupCounts = items.reduce((acc, item) => {
         acc[item.group] = (acc[item.group] || 0) + 1;
         return acc;
       }, {} as Record<string, number>);
-      
+
       console.log('\n📊 Final Summary:');
       console.log('==========================================');
       Object.entries(groupCounts).forEach(([group, count]) => {
@@ -242,11 +229,10 @@ async function createBrowser(): Promise<Browser> {
     } else {
       console.log('⚠️ No playable streams found to export.');
     }
-    
+
   } catch (err) {
     console.error('❌ Error in main flow:', err);
   } finally {
-    // Cleanup
     try {
       const pages = await browser.pages();
       for (const page of pages) {
@@ -258,7 +244,7 @@ async function createBrowser(): Promise<Browser> {
     } catch (e) {
       console.warn('⚠️ Error during cleanup:', e);
     }
-    
+
     console.log('🧹 Browser closed, script finished.');
     process.exit(0);
   }
