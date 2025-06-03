@@ -25,40 +25,31 @@ function cleanMovieTitle(rawTitle: string): string {
 async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timeoutId = setTimeout(() => reject(new Error('⏱️ Timeout exceeded')), ms);
-
-    promise
-      .then((res) => {
-        clearTimeout(timeoutId);
-        resolve(res);
-      })
-      .catch((err) => {
-        clearTimeout(timeoutId);
-        reject(err);
-      });
+    promise.then((res) => {
+      clearTimeout(timeoutId);
+      resolve(res);
+    }).catch((err) => {
+      clearTimeout(timeoutId);
+      reject(err);
+    });
   });
 }
 
-async function processMovie(
-  movie: NunflixMovie,
-  browser: Browser,
-  groupName: string
-): Promise<M3UItem | null> {
+async function processMovie(movie: NunflixMovie, browser: Browser, groupName: string): Promise<M3UItem | null> {
   console.log(`\n🎬 ${movie.title}`);
   console.log(`Watch page: ${movie.watchPage}`);
 
   const embedLinks = await getStreamLinksFromWatchPage(browser, movie.watchPage);
   console.log(`\n🧩 Trying up to 3 servers for: ${movie.title}`);
 
-  const limitedLinks = embedLinks.slice(0, 3);
+  const limitedLinks = embedLinks.slice(0, 5);
   const results = await Promise.allSettled(
     limitedLinks.map((embed) => resolveM3U8FromEmbed(browser, embed))
   );
 
-  const successful = results.find(
-    (res): res is PromiseFulfilledResult<string> => res.status === 'fulfilled' && !!res.value
-  );
-
+  const successful = results.find((res): res is PromiseFulfilledResult<string> => res.status === 'fulfilled' && !!res.value);
   const m3u8 = successful?.value;
+
   if (!m3u8) {
     console.log('❌ No .m3u8 found from any server.');
     return null;
@@ -71,9 +62,6 @@ async function processMovie(
   console.log(`🔎 Cleaned title for TMDb: "${cleanTitle}"`);
 
   const tmdbInfo = await fetchTMDBInfo(cleanTitle);
-  if (!tmdbInfo) {
-    console.log(`⚠️ TMDb not found: ${movie.title} — using fallback info.`);
-  }
 
   return {
     title: tmdbInfo?.title || movie.title,
@@ -84,35 +72,34 @@ async function processMovie(
   };
 }
 
-async function processGenre(
-  browser: Browser,
-  genre: GenreInfo,
-  items: M3UItem[]
-): Promise<void> {
+async function processGenre(browser: Browser, genre: GenreInfo, items: M3UItem[]): Promise<void> {
   console.log(`\n🎭 Processing genre: ${genre.name}`);
   console.log(`==========================================`);
 
   try {
-    const movies = await withTimeout(
-      getTrendingMoviesPuppeteer(browser, genre, 15),
-      90000
-    );
-
+    const movies = await withTimeout(getTrendingMoviesPuppeteer(browser, genre, 20), 120000);
     console.log(`📊 Found ${movies.length} movies for ${genre.name}`);
 
     let processedCount = 0;
-    for (const movie of movies) {
+    for (let i = 0; i < movies.length; i++) {
+      const movie = movies[i];
+
+      if (i > 0 && i % 10 === 0) {
+        console.log('\n🔄 Refreshing browser mid-genre to prevent memory issues...');
+        try {
+          await browser.close();
+        } catch (_) {}
+        browser = await createBrowser();
+      }
+
       try {
-        const item = await withTimeout(
-          processMovie(movie, browser, genre.name),
-          25000
-        );
+        const item = await withTimeout(processMovie(movie, browser, genre.name), 25000);
         if (item) {
           items.push(item);
           processedCount++;
           console.log(`✅ ${genre.name}: ${processedCount}/${movies.length} processed`);
         }
-      } catch {
+      } catch (err) {
         console.warn(`⚠️ Skipped "${movie.title}" in ${genre.name} due to timeout or error.`);
       }
     }
@@ -150,26 +137,19 @@ async function createBrowser(): Promise<Browser> {
     console.log('\n🔥 Getting trending movies (no genre filter)...');
     console.log('==========================================');
 
-    const trendingMovies = await withTimeout(
-      getTrendingMoviesPuppeteer(browser, undefined, 20),
-      90000
-    );
-
+    const trendingMovies = await withTimeout(getTrendingMoviesPuppeteer(browser, undefined, 25), 120000);
     console.log(`📊 Found ${trendingMovies.length} trending movies`);
 
     let trendingCount = 0;
     for (const movie of trendingMovies) {
       try {
-        const item = await withTimeout(
-          processMovie(movie, browser, 'Trending Movies'),
-          25000
-        );
+        const item = await withTimeout(processMovie(movie, browser, 'Trending Movies'), 25000);
         if (item) {
           items.push(item);
           trendingCount++;
           console.log(`✅ Trending: ${trendingCount}/${trendingMovies.length} processed`);
         }
-      } catch {
+      } catch (err) {
         console.warn(`⚠️ Skipped "${movie.title}" in trending due to timeout or error.`);
       }
     }
@@ -182,7 +162,7 @@ async function createBrowser(): Promise<Browser> {
     } else {
       console.log(`\n📂 Processing ${genres.length} genres...`);
 
-      for (let i = 0; i < genres.length && i < 10; i++) {
+      for (let i = 0; i < genres.length && i < 12; i++) {
         const genre = genres[i];
 
         try {
@@ -197,7 +177,8 @@ async function createBrowser(): Promise<Browser> {
           }
 
           await processGenre(browser, genre, items);
-          await new Promise(resolve => setTimeout(resolve, 4000));
+          await new Promise(resolve => setTimeout(resolve, 5000));
+
         } catch (err) {
           console.error(`❌ Failed to process genre ${genre.name}:`, err);
           try {
