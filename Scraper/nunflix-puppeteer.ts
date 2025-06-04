@@ -24,7 +24,6 @@ export async function getAvailableGenres(): Promise<GenreInfo[]> {
     { name: 'Animation', buttonText: 'Animation' },
     { name: 'Comedy', buttonText: 'Comedy' },
     { name: 'Crime', buttonText: 'Crime' },
-    { name: 'Documentary', buttonText: 'Documentary' },
     { name: 'Drama', buttonText: 'Drama' },
     { name: 'Family', buttonText: 'Family' },
     { name: 'Fantasy', buttonText: 'Fantasy' },
