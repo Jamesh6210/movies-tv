@@ -102,8 +102,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config user.name "Jamesh6210"
+          git config user.email "adidassport2016@gmail.com"
           
           git add "$OUTPUT_FILE"
           
