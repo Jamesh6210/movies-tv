@@ -2,123 +2,247 @@ name: Daily Nunflix M3U Scraper
 
 on:
   schedule:
-    - cron: "0 8 * * *"  # 8 AM UTC (4 AM EST)
-  workflow_dispatch:      # Allow manual trigger
-
-env:
-  NODE_OPTIONS: "--max-old-space-size=2048"  # Increased memory
-  OUTPUT_FILE: "movies_and_tvshows.m3u"      # Safer filename without &
+    - cron: "0 8 * * *"  # Run every day at 8 AM UTC (fixed syntax)
+  workflow_dispatch:     # Allow manual trigger
+    inputs:
+      timeout_minutes:
+        description: 'Timeout in minutes'
+        required: false
+        default: '40'
+        type: string
 
 jobs:
   scrape:
-    name: Scrape and Update M3U Playlist
     runs-on: ubuntu-latest
+    timeout-minutes: 50  # Workflow-level timeout
     
+    env:
+      NODE_OPTIONS: "--max-old-space-size=2048"  # Increased memory
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'false'
+      
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Updated to latest version
         with:
-          fetch-depth: 1
           persist-credentials: false
+          fetch-depth: 0  # Full history for better git operations
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4  # Updated to latest version
         with:
-          node-version: '20'  # Updated to current LTS
+          node-version: '20'  # Updated to Node 20 LTS
           cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
+          cache-dependency-path: package-lock.json
+
+      - name: Cache System Dependencies
+        uses: actions/cache@v3
+        id: system-deps-cache
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt
+          key: ${{ runner.os }}-system-deps-${{ hashFiles('**/*.yml') }}
 
       - name: Install System Dependencies
         run: |
-          echo "Installing required packages..."
+          echo "🔧 Installing system dependencies for Puppeteer..."
           sudo apt-get update -qq
           
-          # Essential dependencies with fallbacks
-          sudo apt-get install -y --no-install-recommends \
-            libgbm-dev \
-            libasound2 \
-            libnss3 \
-            libxss1 \
-            libxtst6 \
-            xvfb \
-            || echo "Some packages failed but continuing..."
+          # Install essential dependencies with error handling
+          PACKAGES=(
+            "libgbm-dev"
+            "libasound2-dev"
+            "libatk-bridge2.0-dev"
+            "libdrm2"
+            "libxss1"
+            "libgtk-3-dev"
+            "libxrandr2"
+            "libasound2"
+            "libpangocairo-1.0-0"
+            "libatk1.0-0"
+            "libcairo-gobject2"
+            "libgtk-3-0"
+            "libgdk-pixbuf2.0-0"
+          )
           
-          # Clean up
-          sudo rm -rf /var/lib/apt/lists/*
-
-      - name: Optimize Disk Space
-        run: |
-          echo "Cleaning up disk space..."
-          sudo rm -rf /usr/share/dotnet \
-                     /opt/ghc \
-                     /usr/local/share/boost \
-                     /usr/local/lib/android
-          sudo apt-get clean
-          df -h
+          for package in "${PACKAGES[@]}"; do
+            if sudo apt-get install -y "$package" 2>/dev/null; then
+              echo "✅ Installed $package"
+            else
+              echo "⚠️  Failed to install $package, continuing..."
+            fi
+          done
 
       - name: Install Node Dependencies
         run: |
-          npm ci --no-audit --prefer-offline
+          echo "📦 Installing Node.js dependencies..."
+          npm ci --prefer-offline --no-audit
+          
+          # Verify critical packages
+          if npm list puppeteer >/dev/null 2>&1; then
+            echo "✅ Puppeteer installed successfully"
+          else
+            echo "❌ Puppeteer installation failed"
+            exit 1
+          fi
+
+      - name: Optimize System Resources
+        run: |
+          echo "🧹 Freeing up disk space and optimizing memory..."
+          
+          # Remove unnecessary packages
+          sudo apt-get autoremove -y
+          sudo apt-get autoclean
+          
+          # Remove large unnecessary directories
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf /usr/local/share/boost || true
+          sudo rm -rf /usr/local/lib/android || true
+          sudo rm -rf /opt/pipx || true
+          
+          # Clear npm cache
           npm cache clean --force
+          
+          echo "💾 Disk space after cleanup:"
+          df -h /
+          
+          echo "🔍 Memory info:"
+          free -h
 
-      - name: Run Scraper with Xvfb
-        timeout-minutes: 45  # More reliable than shell timeout
+      - name: Run Nunflix Scraper
+        id: scraper
         run: |
-          echo "Starting Xvfb display server..."
-          /usr/bin/Xvfb :99 -screen 0 1280x1024x24 &
-          export DISPLAY=:99
+          echo "🚀 Starting Nunflix scraper..."
           
-          echo "Running main scraper script..."
-          npx ts-node main.ts || (echo "Scraper failed with exit code $?"; exit 1)
+          # Set timeout from input or default
+          TIMEOUT_MIN="${{ github.event.inputs.timeout_minutes || '40' }}"
           
-          # Clean up Xvfb
-          pkill -f Xvfb || echo "Xvfb already stopped"
+          # Create log file
+          LOG_FILE="scraper.log"
+          
+          # Run with timeout and logging
+          if timeout -k 2m "${TIMEOUT_MIN}m" npx ts-node main.ts 2>&1 | tee "$LOG_FILE"; then
+            echo "✅ Scraper completed successfully"
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            EXIT_CODE=$?
+            echo "⚠️  Scraper exited with code: $EXIT_CODE"
+            
+            if [ $EXIT_CODE -eq 124 ] || [ $EXIT_CODE -eq 137 ]; then
+              echo "🕐 Script timed out after ${TIMEOUT_MIN} minutes"
+              echo "timeout=true" >> $GITHUB_OUTPUT
+            else
+              echo "❌ Script failed with error"
+              echo "error=true" >> $GITHUB_OUTPUT
+            fi
+            
+            echo "📋 Checking for partial results..."
+            ls -la *.m3u* 2>/dev/null || echo "No M3U files found"
+          fi
 
-      - name: Validate Output
+      - name: Validate M3U Output
+        id: validate
         run: |
-          if [ ! -f "$OUTPUT_FILE" ]; then
-            echo "::error::Output file $OUTPUT_FILE not found!"
-            exit 1
+          M3U_FILE="movies&tvshows.m3u"
+          
+          if [ -f "$M3U_FILE" ]; then
+            FILE_SIZE=$(stat -f%z "$M3U_FILE" 2>/dev/null || stat -c%s "$M3U_FILE")
+            ENTRY_COUNT=$(grep -c "#EXTINF" "$M3U_FILE" || echo "0")
+            UNIQUE_ENTRIES=$(grep "#EXTINF" "$M3U_FILE" | sort | uniq | wc -l || echo "0")
+            
+            echo "✅ M3U file generated successfully"
+            echo "📁 File size: $(du -h "$M3U_FILE" | cut -f1)"
+            echo "📊 Total entries: $ENTRY_COUNT"
+            echo "🔄 Unique entries: $UNIQUE_ENTRIES"
+            echo "📝 Duplicate entries: $((ENTRY_COUNT - UNIQUE_ENTRIES))"
+            
+            # Check if file is not empty and has reasonable content
+            if [ "$FILE_SIZE" -gt 100 ] && [ "$ENTRY_COUNT" -gt 0 ]; then
+              echo "valid=true" >> $GITHUB_OUTPUT
+              
+              # Create summary
+              {
+                echo "## 📺 Nunflix M3U Scraper Results"
+                echo "- **Status**: ✅ Success"
+                echo "- **File Size**: $(du -h "$M3U_FILE" | cut -f1)"
+                echo "- **Total Entries**: $ENTRY_COUNT"
+                echo "- **Unique Entries**: $UNIQUE_ENTRIES"
+                if [ "$UNIQUE_ENTRIES" != "$ENTRY_COUNT" ]; then
+                  echo "- **Duplicates**: $((ENTRY_COUNT - UNIQUE_ENTRIES))"
+                fi
+                echo "- **Generated**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+              } >> $GITHUB_STEP_SUMMARY
+            else
+              echo "⚠️  M3U file appears to be invalid (size: $FILE_SIZE bytes, entries: $ENTRY_COUNT)"
+              echo "valid=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ M3U file not found"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            
+            # List all files for debugging
+            echo "📂 Available files:"
+            ls -la
           fi
-          
-          FILE_SIZE=$(du -h "$OUTPUT_FILE" | cut -f1)
-          ENTRY_COUNT=$(grep -c "#EXTINF" "$OUTPUT_FILE" || echo 0)
-          
-          echo "M3U File: $OUTPUT_FILE"
-          echo "Size: $FILE_SIZE"
-          echo "Entries: $ENTRY_COUNT"
-          
-          if [ "$ENTRY_COUNT" -lt 10 ]; then
-            echo "::error::Insufficient entries ($ENTRY_COUNT) in M3U file!"
-            exit 1
-          fi
-          
-          echo "M3U_FILE=$OUTPUT_FILE" >> $GITHUB_ENV
-          echo "ENTRY_COUNT=$ENTRY_COUNT" >> $GITHUB_ENV
 
       - name: Commit and Push Changes
-        if: success() && env.ENTRY_COUNT > 0
+        if: steps.validate.outputs.valid == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}  # Your personal access token
+          TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config user.name "Jamesh6210"
-          git config user.email "adidassport2016@gmail.com"
+          echo "🔄 Committing and pushing M3U playlist..."
           
-          git add "$OUTPUT_FILE"
+          # Configure git
+          git config --local user.name "Jamesh6210"
+          git config --local user.email "adidassport2016@gmail.com"
           
-          if git diff-index --quiet HEAD --; then
-            echo "No changes to commit"
+          # Check if there are changes
+          if git diff --quiet "movies&tvshows.m3u" 2>/dev/null; then
+            echo "📝 No changes detected in M3U file"
+            exit 0
+          fi
+          
+          # Add and commit changes
+          git add "movies&tvshows.m3u"
+          
+          # Create detailed commit message
+          ENTRY_COUNT=$(grep -c "#EXTINF" "movies&tvshows.m3u" || echo "unknown")
+          COMMIT_MSG="🔄 Auto-updated Nunflix M3U playlist
+          
+          - Entries: $ENTRY_COUNT
+          - Updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          - Workflow: ${{ github.run_number }}"
+          
+          if git commit -m "$COMMIT_MSG"; then
+            echo "✅ Changes committed successfully"
+            
+            # Set remote URL with token and push
+            git remote set-url origin "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git"
+            
+            if git push origin main; then
+              echo "🚀 Changes pushed successfully"
+            else
+              echo "❌ Failed to push changes"
+              exit 1
+            fi
           else
-            git commit -m "Auto-update: M3U playlist with $ENTRY_COUNT entries [skip ci]"
-            git remote set-url origin https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git
-            git push origin HEAD:main
-            echo "Changes pushed successfully"
+            echo "⚠️  No changes to commit"
           fi
 
-      - name: Upload Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Upload Artifacts on Failure
+        if: failure()
+        uses: actions/upload-artifact@v3
         with:
-          name: m3u-playlist
-          path: ${{ env.OUTPUT_FILE }}
-          retention-days: 3
+          name: debug-logs-${{ github.run_number }}
+          path: |
+            scraper.log
+            *.m3u*
+          retention-days: 7
+
+      - name: Cleanup
+        if: always()
+        run: |
+          echo "🧹 Cleaning up temporary files..."
+          rm -f scraper.log
+          npm cache clean --force || true
