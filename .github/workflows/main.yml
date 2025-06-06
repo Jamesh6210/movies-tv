@@ -2,12 +2,12 @@ name: Daily Nunflix M3U Scraper
 
 on:
   schedule:
-    - cron: "0 8 * * *"  # Run every day at 8 AM UTC (4 AM EST)
+    - cron: "0 8 * * *"  # 8 AM UTC (4 AM EST)
   workflow_dispatch:      # Allow manual trigger
 
 env:
-  NODE_OPTIONS: "--max-old-space-size=2048"  # Increased memory limit
-  OUTPUT_FILE: "movies&tvshows.m3u"
+  NODE_OPTIONS: "--max-old-space-size=2048"  # Increased memory
+  OUTPUT_FILE: "movies_and_tvshows.m3u"      # Safer filename without &
 
 jobs:
   scrape:
@@ -18,10 +18,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1  # Only fetch the latest commit to save time/space
+          fetch-depth: 1
           persist-credentials: false
 
-      - name: Setup Node.js Environment
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'  # Updated to current LTS
@@ -30,31 +30,29 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          echo "Installing required system packages..."
+          echo "Installing required packages..."
           sudo apt-get update -qq
           
-          # Essential dependencies for Puppeteer
+          # Essential dependencies with fallbacks
           sudo apt-get install -y --no-install-recommends \
             libgbm-dev \
             libasound2 \
             libnss3 \
             libxss1 \
             libxtst6 \
-            fonts-noto-color-emoji \
-            fonts-freefont-ttf \
             xvfb \
-            && sudo rm -rf /var/lib/apt/lists/*
+            || echo "Some packages failed but continuing..."
           
-          # Verify installed packages
-          dpkg -l | grep -E 'libgbm-dev|libasound2|libnss3'
+          # Clean up
+          sudo rm -rf /var/lib/apt/lists/*
 
       - name: Optimize Disk Space
         run: |
           echo "Cleaning up disk space..."
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet \
+                     /opt/ghc \
+                     /usr/local/share/boost \
+                     /usr/local/lib/android
           sudo apt-get clean
           df -h
 
@@ -63,19 +61,20 @@ jobs:
           npm ci --no-audit --prefer-offline
           npm cache clean --force
 
-      - name: Run Scraper with Virtual Frame Buffer
+      - name: Run Scraper with Xvfb
         timeout-minutes: 45  # More reliable than shell timeout
         run: |
-          echo "Starting scraper with Xvfb..."
+          echo "Starting Xvfb display server..."
           /usr/bin/Xvfb :99 -screen 0 1280x1024x24 &
           export DISPLAY=:99
           
           echo "Running main scraper script..."
           npx ts-node main.ts || (echo "Scraper failed with exit code $?"; exit 1)
           
-          pkill -f Xvfb  # Clean up Xvfb process
+          # Clean up Xvfb
+          pkill -f Xvfb || echo "Xvfb already stopped"
 
-      - name: Validate Output File
+      - name: Validate Output
         run: |
           if [ ! -f "$OUTPUT_FILE" ]; then
             echo "::error::Output file $OUTPUT_FILE not found!"
@@ -85,12 +84,12 @@ jobs:
           FILE_SIZE=$(du -h "$OUTPUT_FILE" | cut -f1)
           ENTRY_COUNT=$(grep -c "#EXTINF" "$OUTPUT_FILE" || echo 0)
           
-          echo "File: $OUTPUT_FILE"
+          echo "M3U File: $OUTPUT_FILE"
           echo "Size: $FILE_SIZE"
           echo "Entries: $ENTRY_COUNT"
           
           if [ "$ENTRY_COUNT" -lt 10 ]; then
-            echo "::error::Too few entries ($ENTRY_COUNT) in M3U file!"
+            echo "::error::Insufficient entries ($ENTRY_COUNT) in M3U file!"
             exit 1
           fi
           
@@ -100,7 +99,7 @@ jobs:
       - name: Commit and Push Changes
         if: success() && env.ENTRY_COUNT > 0
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}  # Your personal access token
         run: |
           git config user.name "Jamesh6210"
           git config user.email "adidassport2016@gmail.com"
@@ -111,11 +110,12 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Auto-update: M3U playlist with $ENTRY_COUNT entries [skip ci]"
-            git push origin main
+            git remote set-url origin https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git
+            git push origin HEAD:main
             echo "Changes pushed successfully"
           fi
 
-      - name: Upload M3U as Artifact
+      - name: Upload Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
