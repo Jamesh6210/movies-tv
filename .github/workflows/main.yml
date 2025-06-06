@@ -35,7 +35,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Cache System Dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: system-deps-cache
         with:
           path: |
@@ -232,7 +232,7 @@ jobs:
 
       - name: Upload Artifacts on Failure
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: debug-logs-${{ github.run_number }}
           path: |
