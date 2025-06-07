@@ -1,19 +1,22 @@
 #EXTM3U
 
-# Trending Movies (20 items)
+# Trending Movies (21 items)
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/tUae3mefrDVTgm5mRzqWnZK6fOP.jpg" group-title="Trending Movies", Lilo & Stitch - CAM • IMDb 7.1
+https://ikm.fleurixsun.xyz/file2/vL4vrfTEFfkDj1Gk8io+nfvawm~JM08SXspzdyytj4jG7cX79LnVCZBtOJVcVkLRWxXePCvOqavU8AC0EG2cFjzUfS+yT8y856DFvPFuhRlGQuZ33BB0EeXNLVbx3SAFxdal+psJKN01z8F7l2I4Ewzg2pNb+LFHMO~7te~xVr8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yqsCU5XOP2mkbFamzAqbqntmfav.jpg" group-title="Trending Movies", Sinners - 4K • IMDb 7.5
 https://ikm.fleurixsun.xyz/file2/BalUq0bht~l2uFB~qmMvueFKn9jrCaqmV7cIrcfy~2L1Qmav8egmmp6wHHFLvXpbvIrWAH8oZvqqmYq4NxifJgpu0uzLOv7KQ~NOjjtDqQ5frrpy8xOeA4iabdgxan2UhptssH2DFhdulySDlBKnDlA+W2JhAtoVPPqyzZ8XvPg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" group-title="Trending Movies", A Minecraft Movie - 4K • IMDb 6.5
 https://ikm.fleurixsun.xyz/file2/yU43CpEjnYr~~uY~FCTB8KfdUPbnXqIecgU~5WSqSsUp1Y4PnYBVQeW1CaiAKUAlsON+mKuvsoRSrZI1qJFEd8wWTq6P1EZ7t6Z6crIGKK3ztQ72uQcLRHJSqTMWn16Vxj07tuR2TH9Ki4Q9e+pCJLtPSiOJle~nBZMlQsVr7qk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Trending Movies", Shadow Force - 4K • IMDb 6.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Trending Movies", Shadow Force - 4K • IMDb 6.3
 https://ikm.fleurixsun.xyz/file2/vDaV5gHQC7+RtNJsj5mHejEu7T1L9kgthBtOYUl~hvALvSPTXqR9oX1mqxIKTIg~rN~bTAoYT+byAdZncchZErfiEVuZ8YM1E2Tdd9TVsXbHI5CHccU78XIzU7PHIm6lQLh7P~OUifPTc+UxeUhOM5cpqe4xDMq2f7rzSClRxeg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kMDUS7VmFhb2coRfVBoGLR8ADBt.jpg" group-title="Trending Movies", The Accountant² - 4K • IMDb 7.1
-https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTU5L3F1dm14MG8xaTA1N18sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1KVFVhNXRydG5tZVVpcU5hSDdseGtuYkRGNXNvM0t1c3JVWU9FdWtycXpRJnM9MTc0OTI1MjI2NyZlPTE0NDAwJmY9NzI3OTg5NTUmbm9kZT01THBLSWhzdjk1SFYxUTN4N2pyZlJYbGR3cDN5OENUNVBkWDhhTTU4OGdRPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPTZDb2RvbndaenZSYU1WTWJhTDNnNkdwNUVpZWN2Q3A2TjdRQ3BsNWoiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiI1ZjEyNTE5YSJ9.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kMDUS7VmFhb2coRfVBoGLR8ADBt.jpg" group-title="Trending Movies", The Accountant² - 4K • IMDb 7.2
+https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTU5L3F1dm14MG8xaTA1N18sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1VWWlWZmhuVWVBYlVrN3BFaFozYThMdElvMzJhLTRGSGdMVkV3bkRUaUtNJnM9MTc0OTI4MTIwMiZlPTE0NDAwJmY9NzI3OTg5NTUmbm9kZT1td3drL28rNXNuQWxVWCs0RWJVSXpKZ25NSVRabHQwRThpWmdjUWpzRzlvPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPXZDWDNDNzZvNUJFMlkwWWd6ZEFsd1I1V0doWDhxTHlnempTUHhGZ2giLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiI1M2VjNmYyZSJ9.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pVVc22lqclqBgJxaIguRRkfqhT1.jpg" group-title="Trending Movies", Sikandar - 4K • IMDb 5.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/t48miSSfe7COqgbgMyRIyPVTBoM.jpg" group-title="Trending Movies", Sikandar - 4K • IMDb 5.2
 https://ikm.fleurixsun.xyz/file2/vQRzDlRLuqhzvetf1gyYOc63s7bVjPFjpwilKXwBh9LvL9HkSbqe984MaHqjJB862gFn5yYhmLhuecep++Svj1dIllVUQ8YAbNtTyoUelYxUVEFJFBtEPqkjWH3++LmWuVkSBM0Bwd7djKvY30Wh6fTIB0iiq73pMSQrftZpwDg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Trending Movies", A Working Man - 4K • IMDb 6.7
@@ -27,6 +30,9 @@ https://ikm.fleurixsun.xyz/file2/oZWivBtc1KRH04~MKjb+4Cg5s63V7OySPSgNX3GYu4LYB28
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" group-title="Trending Movies", Avengers: Infinity War - 4K • IMDb 8.2
 https://ikm.fleurixsun.xyz/file2/sM4ch+nDHgreEIUCBTTTGJRoDZED12RVtYRUALXAb4o4wdFwM2SLABEGYedWuxrJtDYWZu2sd2Ps4Ju5UAVfiZElVAUxjHVPLOAoqKkjioIbNZ6oYDuMgO6q9eNx92yuYP~DO4hGljbgcn6J1zO+4IsxdKfqw8~h8sIvIu628~s=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg" group-title="Trending Movies", Spider-Man: Homecoming - 4K • IMDb 7.3
+https://ikm.fleurixsun.xyz/file2/fBj9MzT1EYEjUA272hfdzkREGGNI2NDMK5BUYATcpcl2PdoNxyt7z+4yNcUOpOvxjhAO2~TJoXzYJ6iyfivzMOerok55ojIVqhKkPpFkJdf~yc4CxC+rBr7xCE~pD8zklwXOvldiJzdeEh6kWdqPaWRwfYyQnnXpNj9GUy26N38=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/q61qEyssk2ku3okWICKArlAdhBn.jpg" group-title="Trending Movies", The Suicide Squad - 4K • IMDb 7.5
 https://ikm.fleurixsun.xyz/file2/veJV2v7l1bRzOh1V81chP+SE5dEjWMU6yviEfyBW3wDxNWvYh7rAk6HP4vy31G~6OLWQgS6wjrvRQdYst+OayYNlvfnxKTMLxo3egrCDseo83XYx5v1KJjpAhDYPNpLjJLCJMxpXNjZi~NOtUBzzitKnoUOjo328NXXHudHFxkk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -42,9 +48,6 @@ https://ikm.fleurixsun.xyz/file2/0WaOoVGqj89pgb5RE7Ad4gFAGbuIfQqlP7JMicqPgi31EkN
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/srj9rYrjefyWqkLc6l2xjTGeBGO.jpg" group-title="Trending Movies", Warfare - 4K • IMDb 7.3
 https://ikm.fleurixsun.xyz/file2/WBuVMfbHcTs8adkVp3r1ndwNGMcGDTQQKnRWCTThYahx3DtPb1xPP2vl3Y9gdI78TFfGb0nakOB103~6M1370aGoydiDmQ4H5YL+1Hj+kNJuWyfvRq42f7x+IN93W3irt7CNE6H8P450MCNFbo8iOsWQoj3wVZWVXXbeOA7tpc0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg" group-title="Trending Movies", Spider-Man: Homecoming - 4K • IMDb 7.3
-https://ikm.fleurixsun.xyz/file2/fBj9MzT1EYEjUA272hfdzkREGGNI2NDMK5BUYATcpcl2PdoNxyt7z+4yNcUOpOvxjhAO2~TJoXzYJ6iyfivzMOerok55ojIVqhKkPpFkJdf~yc4CxC+rBr7xCE~pD8zklwXOvldiJzdeEh6kWdqPaWRwfYyQnnXpNj9GUy26N38=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/juA4IWO52Fecx8lhAsxmDgy3M3.jpg" group-title="Trending Movies", Until Dawn - 4K • IMDb 6.5
 https://ikm.fleurixsun.xyz/file2/O361k45VodMH86~psg~tviVzBx~i2C8qxmD6yC+3ipJAUwkG0ffqDNGyzbF+9sBACn2zyqm0E9mArX8enzbzF7Vm4VHbAhtu~PFczgP~CQUbulzSVnO2VpNcaZ+4ZVzwtsPKN5nGx7t~Vkd38UXx7BwQWZockkqFMZdGaLoTYG8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -62,17 +65,14 @@ https://ikm.fleurixsun.xyz/file2/9sZkcPgfhDhQaizroHtivyDckHtif4onwY4m8OhGie6DiHW
 https://ikm.fleurixsun.xyz/file2/rW9JLB69FurvEeHCgtrMCzg~hLD9oWMYw9YQMdn93hmPGMG7gAj+sSZx2tx7de6kkDDPYQgZt8Y4eIe+8SWa3twMILEvitjch7SbHyWyARvujtjyPjZh3mIrOQMUc4sveIoBnzu9haz7GBAyWPN5j26axdcPE88Ol91KMJpmAW4=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Action (18 items)
+# Action (17 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yqsCU5XOP2mkbFamzAqbqntmfav.jpg" group-title="Action", Sinners - IMDb 7.5
 https://ikm.fleurixsun.xyz/file2/BalUq0bht~l2uFB~qmMvueFKn9jrCaqmV7cIrcfy~2L1Qmav8egmmp6wHHFLvXpbvIrWAH8oZvqqmYq4NxifJgpu0uzLOv7KQ~NOjjtDqQ5frrpy8xOeA4iabdgxan2UhptssH2DFhdulySDlBKnDlA+W2JhAtoVPPqyzZ8XvPg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Action", Shadow Force - IMDb 6.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Action", Shadow Force - IMDb 6.3
 https://ikm.fleurixsun.xyz/file2/vDaV5gHQC7+RtNJsj5mHejEu7T1L9kgthBtOYUl~hvALvSPTXqR9oX1mqxIKTIg~rN~bTAoYT+byAdZncchZErfiEVuZ8YM1E2Tdd9TVsXbHI5CHccU78XIzU7PHIm6lQLh7P~OUifPTc+UxeUhOM5cpqe4xDMq2f7rzSClRxeg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kMDUS7VmFhb2coRfVBoGLR8ADBt.jpg" group-title="Action", The Accountant² - IMDb 7.1
-https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTU5L3F1dm14MG8xaTA1N18sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1KVFVhNXRydG5tZVVpcU5hSDdseGtuYkRGNXNvM0t1c3JVWU9FdWtycXpRJnM9MTc0OTI1MjI2NyZlPTE0NDAwJmY9NzI3OTg5NTUmbm9kZT01THBLSWhzdjk1SFYxUTN4N2pyZlJYbGR3cDN5OENUNVBkWDhhTTU4OGdRPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPTZDb2RvbndaenZSYU1WTWJhTDNnNkdwNUVpZWN2Q3A2TjdRQ3BsNWoiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiI1ZjEyNTE5YSJ9.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pVVc22lqclqBgJxaIguRRkfqhT1.jpg" group-title="Action", Sikandar - IMDb 5.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/t48miSSfe7COqgbgMyRIyPVTBoM.jpg" group-title="Action", Sikandar - IMDb 5.2
 https://ikm.fleurixsun.xyz/file2/vQRzDlRLuqhzvetf1gyYOc63s7bVjPFjpwilKXwBh9LvL9HkSbqe984MaHqjJB862gFn5yYhmLhuecep++Svj1dIllVUQ8YAbNtTyoUelYxUVEFJFBtEPqkjWH3++LmWuVkSBM0Bwd7djKvY30Wh6fTIB0iiq73pMSQrftZpwDg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Action", A Working Man - IMDb 6.7
@@ -106,7 +106,7 @@ https://ikm.fleurixsun.xyz/file2/rW9JLB69FurvEeHCgtrMCzg~hLD9oWMYw9YQMdn93hmPGMG
 https://ikm.fleurixsun.xyz/file2/Mk6iwk2dT~0O2457afxG8LKlNUX6i2I81XM4dZuTYtojE82833TrcRjdIsVh6J87PSE2SisnHYGYqtDiPSGS~NfYHVrC~Mpmxk0r4eCbryRzCge1DJZe+kqOMnVZa+Cc2VjRpSL1tbJsg8P0JXCYxfZPRcYFstZ7DLeGzsxduQU=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/mKp4euM5Cv3m2U1Vmby3OGwcD5y.jpg" group-title="Action", Ballerina - 1080p • IMDb 7.5
-https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9pLWNkbi0wLmtvYWVhMzU4a29tLmNvbS9zdHJlYW0yL2ktY2RuLTAvZjJlOWUwMWY0MTExYzNiYmQyMjk2YmY1YTY4OGJhMWUvTUpUTXNwMVJzaEdUeWduTU5SVVIyTjJNU2xuV1haRWRNTkRaelFXZTVNRFp6TW1kWkpUTzFSMlJXVkhaRGxqZWtoa1NzbDFWd1luV3R4MmNpaFZUMjkwVlpSalRVMVVNWnBtVHAxRVZPbFdUcXRHZU9SMGEzbEZWbmhYV3FWMU1hZFZWeTBFVmsxbVRYVlZQOjE3NDkyNTU4NTc6MTUyLjUzLjE4Mi4xMTE6YmI3YjEzYzQyZDdlNmY0MDA3NzViOWE0NTU1NDcwMWNmNDVkM2ZmNjUzNGI1ZmFiM2I0NTQxMDQwMDgwMTNkYi9pbmRleC5tM3U4IiwibyI6Imh0dHBzOi8va29hZWEzNThrb20uY29tIiwiciI6Imh0dHBzOi8va29hZWEzNThrb20uY29tLyIsImgiOiJkYTJiZGU1NyJ9.m3u8
+https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTY4L2dnMGxxMmxzOGx1eF8sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1LSUduTVhrNElwZmp4Tnh1alJkcGhDTHdnZ0E2emFuOF9JZFllTDFweGhrJnM9MTc0OTI4MjI5NSZlPTE0NDAwJmY9NzI4NDA4MDImbm9kZT1lSVNBS0RXUmQwc2d4LytYZFA0SGF6d3QyZjVqUktuS0wwSEQ1bXY1Z1JzPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPUFKUU9rdkhERXk4N3VRQm84NTRTeXJWVm5wU1djTDZqU3RlcThROUgiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiIxZDcxNDhiOCJ9.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6HU667T8fxoIvgsgu2eyaznntsp.jpg" group-title="Action", Tin Soldier - 4K • IMDb 5
 https://ikm.fleurixsun.xyz/file2/RztGzRUkplz9RHimJE5n0Y3rhyaaC8X01Bioyu~~lIBsoUl7aGNycC1XiuLDpMrz1RndiWn5G4KNRSKlr5JaVyqxAUz+YjYUC8NYHq+e86Ju3YaoNw5LhJvyOJycm9Qhg6WvE0qau1WR00XXTVyDGAccOVmZRjMaVQhxSzEqpLo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -118,7 +118,7 @@ https://ikm.fleurixsun.xyz/file2/tZavlpdLl2iOOa8+ZW0jc+GB+2RAL1EA6lOp~K8G0+4aTYT
 https://ikm.fleurixsun.xyz/file2/BKE7~R04wSiGPXlfkbFL3HAtImC0zupFeouLbilUP1jvMuhNn4NE8MpalbTlRNCY5hJyfO7CoWBt~eYb9HiSTavpG~DxE7DpMqWlNEv9NJ+4rednbh3UMHZrxF3MdqnICFJr+LMuAvdM5m8vMba5dKrghyrRmITAsnriaTkJfgo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Adventure (18 items)
+# Adventure (16 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" group-title="Adventure", A Minecraft Movie - IMDb 6.5
 https://ikm.fleurixsun.xyz/file2/yU43CpEjnYr~~uY~FCTB8KfdUPbnXqIecgU~5WSqSsUp1Y4PnYBVQeW1CaiAKUAlsON+mKuvsoRSrZI1qJFEd8wWTq6P1EZ7t6Z6crIGKK3ztQ72uQcLRHJSqTMWn16Vxj07tuR2TH9Ki4Q9e+pCJLtPSiOJle~nBZMlQsVr7qk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
@@ -145,12 +145,6 @@ https://ikm.fleurixsun.xyz/file2/Mk6iwk2dT~0O2457afxG8LKlNUX6i2I81XM4dZuTYtojE82
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg" group-title="Adventure", Star Wars: The Last Jedi - 1080P • IMDb 6.8
 https://ikm.fleurixsun.xyz/file2/tZavlpdLl2iOOa8+ZW0jc+GB+2RAL1EA6lOp~K8G0+4aTYTlgvukKPByxPEGVN5BGLZqvfo97pZvFJq6Ipqm2oGsy8O8LpWMX1qUIQjDYzyFxuRDnBl0Fb6JGmHeYOaVTLhEXuZs43wjU1ygnTj3QFmmX1xxPjfGmai8WJ22nv0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/v4ncgZjG2Zu8ZW5al1vIZTsSjqX.jpg" group-title="Adventure", Wonder Woman - 4K • IMDb 7.2
-https://ikm.fleurixsun.xyz/file2/BKE7~R04wSiGPXlfkbFL3HAtImC0zupFeouLbilUP1jvMuhNn4NE8MpalbTlRNCY5hJyfO7CoWBt~eYb9HiSTavpG~DxE7DpMqWlNEv9NJ+4rednbh3UMHZrxF3MdqnICFJr+LMuAvdM5m8vMba5dKrghyrRmITAsnriaTkJfgo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg" group-title="Adventure", Black Widow - 4K • IMDb 7.2
-https://ikm.fleurixsun.xyz/file2/rm8W4j2kpB86BYLvSsLCDVnol7Eh8~l5bqwnaH33s2wgYtssnUXvoimbDHJRM8Egdmph2vAzZB9GOEYoaXe3JvhWjqJCusjTJUL+a4s6N1dROFJPoLu6adiGzHCIDhfaGgApStzY0EDjezfxnLrjORHNRE+UinrWyUa~196eJ6Y=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg" group-title="Adventure", Avengers: Endgame - 4K • IMDb 8.2
 https://ikm.fleurixsun.xyz/file2/gbFtj~KVbTvgRnKRId8jUML8EmU+aIV+LVwYVyr9yisO4HvK+x65DVUjDxZGkRgOz5Di4l6K9A4bU0OPIuBmJnQuHYBvXCg~ggZRWCPp5ETissaQ4mF9GgXNi1Q1n91iCdOXAMx~B3M6WNRXl5k6My3tIRnS6Pq3x4OPHV61ag0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -249,20 +243,20 @@ https://ikm.fleurixsun.xyz/file2/EQ8b1sR~+sSOnz46SoDJSTtBoPCpCz62Lri9AGfN9fePL6U
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/l4gsNxFPGpzbq0D6QK1a8vO1lBz.jpg" group-title="Comedy", Laila - 4K • IMDb 5
 https://ikm.fleurixsun.xyz/file2/iFM0Aa7mhqdQw+eBTjvg62GHIJn~Fr7wsJAhW0sAjbOiuNTIVbra+Q9G4VjT8piewtG2vfOfT0RMYe6jvVGviU5KyMx+0U5p55WF7PMhza~VDEAf2wQaS9hF2kuezpOKXbEihtJMp5BKgYuA3kFF5x68xKaANOCkyCJJUsRBP4g=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg" group-title="Comedy", Moana 2 - 4K • IMDb 7.1
+https://ikm.fleurixsun.xyz/file2/C6~pzJ0xDVm10~8pp3BdJa4efR2xSrcCZy4MRTNr665HRl~uYU+i503d+nqFNgY3H8XCN2RUMCFkeVyx1wVyVKqDjDCeK+ynpUyJ14MGayAbPQDfe7u2mkRifeFCCqNwBedVQNnClddCnW7wLy+sIK4KFW9nLb7sdapF~nAiy4Y=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/oJD9KQFoObZmxAS1je56SIFVNJt.jpg" group-title="Comedy", Ready or Not - 4K • IMDb 7
 https://ikm.fleurixsun.xyz/file2/vVXMUq4E4jv+kux+m6ImAjcUk4EcBTiGy2GnXilEt09o6v1Kctt+k0m71va3YDZ1~xSGvRZqVMxEKnuZAlHCD3Q4GOTDODqOYcVuikXUEkkir6A4vy4XomksY5xkjc7I+VhCRG8ZyGWs4ADGlVY3gjxVLofAFsAczR3nNVmYK9M=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6HE4xd8zloDqmjMZuhUCCw2UcY1.jpg" group-title="Comedy", Baywatch - 4K • IMDb 6.1
 https://ikm.fleurixsun.xyz/file2/B6W91pYGK5O14LXrQcOVFK9FXjomUT1eNOOMGP~4k5UrYqWUAd3lXNm7FfM6m9umkXnDfh+dgAipgLCaLhS7uAr12LwhACbj2ulgMJDSPaEvrHiZknXzG6xUo85zwgBGtAFpxdSmaqKAVkLxbBwS4oZpg0hdwh5fYSSEAwqUcgo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ejYX4ygRoupGRjFgmmtnK0sMxhN.jpg" group-title="Comedy", Graduation Trip: Mallorca - 4K • IMDb 5.4
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/ejYX4ygRoupGRjFgmmtnK0sMxhN.jpg" group-title="Comedy", Graduation Trip: Mallorca - 4K • IMDb 5.2
 https://ikm.fleurixsun.xyz/file2/gqURgGbL7vY2jUHaFQohgVuJq~G+PD8iAtmqNRC9SOYhwoxV0sKckJRntelIAxqux8CkKjLV+32AgU8KlFNGpD5~y5NleORpbYh4x6njYfe9RAsJh0~8FPYtmWvprRRgXByIOJ0vkhMC8mVDkJxCLJYD8DghjwryxM4UytQUAKc=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/zR9j2auEEQIaBbi7uTIFtDChmmA.jpg" group-title="Comedy", Brave Citizen - 1080p • IMDb 6.8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/zR9j2auEEQIaBbi7uTIFtDChmmA.jpg" group-title="Comedy", Brave Citizen - 1080p • IMDb 6.9
 https://ikm.fleurixsun.xyz/file2/BnwFupAHtJAQduu6Doh9d3mVfwcoTpXp4ofkPInroFJsJbUIgEyPOBmqlPPxqZANO5osanrJzrb3rmKl8IKFLTC8SyBnZtih6ZQACdWHgRrdWbl+1D+vL6cS58oWLEtna6Zik2lEeWjRp8K3s~nNhvNPDWP4gnoY5etndYGHj0w=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg" group-title="Comedy", Moana 2 - 4K • IMDb 7.1
-https://ikm.fleurixsun.xyz/file2/C6~pzJ0xDVm10~8pp3BdJa4efR2xSrcCZy4MRTNr665HRl~uYU+i503d+nqFNgY3H8XCN2RUMCFkeVyx1wVyVKqDjDCeK+ynpUyJ14MGayAbPQDfe7u2mkRifeFCCqNwBedVQNnClddCnW7wLy+sIK4KFW9nLb7sdapF~nAiy4Y=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/1mqL7VG4Ix8wmxwypmCA1HTHBky.jpg" group-title="Comedy", Jojo Rabbit - 4K • IMDb 8
 https://ikm.fleurixsun.xyz/file2/rSEvtBb8AkVRs2iwUu7EOFqGBt7oKgHISU4aPw~bC5SpmkNdratAt0MUMLK80TnixEOr5mrIyyLYsv01Dc95f8~uwwtWue4TJbZBbaj+hEcOhf2fHyo22zadulRC1qE5lce6UfyXd3dY2iKGVmn+FE2ihTLJTL~QClt8F9L9Ae0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -286,9 +280,12 @@ https://ikm.fleurixsun.xyz/file2/odMQylVBbjjSbslEsl+f7qe8SADjcs3iH93S0MEqRgAMbXM
 https://ikm.fleurixsun.xyz/file2/j9OjpXkdfmdbzmXkh4VUDlYVd66dzWv2I4bSZQIvt8NnupIpWU~NsbXiuKI+uoQlWlBjwriVZlJcRUSQTuY7PnvqgUwEvy1145sQ1jF9sXrFOtP8Gw++BsHJ~2uH0ZkZTaaJqIYg+sXAMN4ts7UFXKa0VsH4wNRqBx1UiRA6e6s=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Crime (17 items)
+# Crime (16 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Crime", A Working Man - IMDb 6.7
 https://ikm.fleurixsun.xyz/file2/RG7sOYvXNbZpxmLOOmLNPknQKpjckMvd6B+~LfXIxtb+Uft0WYO0sV+4rVccpoCiJlMf6MmqcRbRyRNGUtEWjHRB0qOiI~cW1C+uSMyxV2yVNIzvCeQUAoMgs3ZGic+3UlUvSeN0IaT8EoSCRRsb4wfnxY1oV6IfcaoLNMVUTeM=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/mKp4euM5Cv3m2U1Vmby3OGwcD5y.jpg" group-title="Crime", Ballerina - 1080p • IMDb 7.5
+https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTY4L2dnMGxxMmxzOGx1eF8sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1LSUduTVhrNElwZmp4Tnh1alJkcGhDTHdnZ0E2emFuOF9JZFllTDFweGhrJnM9MTc0OTI4MjI5NSZlPTE0NDAwJmY9NzI4NDA4MDImbm9kZT1lSVNBS0RXUmQwc2d4LytYZFA0SGF6d3QyZjVqUktuS0wwSEQ1bXY1Z1JzPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPUFKUU9rdkhERXk4N3VRQm84NTRTeXJWVm5wU1djTDZqU3RlcThROUgiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiIxZDcxNDhiOCJ9.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg" group-title="Crime", Pulp Fiction - 4K • IMDb 8.5
 https://ikm.fleurixsun.xyz/file2/I5Hod~7jiOq5Owt1WBbprQcvZapG8c1NqVZOyO3sMPoE7Mq5z8YbNeAU1u6Pa4gSYTscFulg3ro4qk3XC0~C3YUIhJw5SO0LbT4DKA2pLDDeQ4bt3jV5WvVn5N4EN0IBCZS6UQnz0pntjwTW6gSpJ3jIUJbfTdaKSTdx~ZKJBwY=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -310,12 +307,6 @@ https://ikm.fleurixsun.xyz/file2/+LgH~J+3Zjjjmf2PF~j8Jpt6CNHbnE80wLVwTg9iwddNjQT
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/vJ6RQ5l4ITQHulMQFxHgHm44OjP.jpg" group-title="Crime", Cursed Psychic Video XXX (Triple X) Masterpiece Selection 3 - 1080P • IMDb 8.7
 https://ikm.fleurixsun.xyz/file2/BphG9HLKeyEPvd2c8E3pxrggTFZhp~~ejWlC3d89~WpIlsp3e~IX8qsiAOOd5+THWXCbTSPRTP~UBJuzTZXzZzeFCplETNkanlL+9wTjvN+O0jWwM+fu8xwjSkYgVn65khR9tqhz~S8ryL6O0GVCtccczHqHXLjOgBqOzNr4LCk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/jmzxlDBwgvRbpPJzNQwizyn9UEn.jpg" group-title="Crime", Bullet Train Explosion - 1080P • IMDb 6.9
-https://ikm.fleurixsun.xyz/file2/Ta~jQSCQYKzI9fmInYytARDOwaZoUkSJEwz4vPleKVpwdlnknjp2Q1wl49DbFuRuLlKu2BUgWQda4r~oFCcR1Ju0Rybc+8tlZ3DldjEdevsrfwMVlySz6fknW1ptFuIPozWSXd82m53EV0vYTF9Ag7NbhU7NjwmEyl6YfL4p1HI=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" group-title="Crime", John Wick: Chapter 4 - 4K • IMDb 7.7
-https://ikm.fleurixsun.xyz/file2/6H8jGzZ9kSD85TIQxtTX5Vp6VHZMoXpLg7qNNUyCINiVO6OdWnZi1JEFbssk4xoaI~TnjqXWUJ2kJlr~+UDF6VuiNlf8STBEZBKoIV09uPavokLqikyXwHps0UftudTqEaCk7zty90w+YeQ8tGnk+DytWvvrcQAFTZvmj7sPSds=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" group-title="Crime", The Godfather - 4K • IMDb 8.7
 https://ikm.fleurixsun.xyz/file2/F504DZbUC2q57fwRexym9u5LgpVBrTaUnR~mVoat0GsDd1vIyMWyRL8QlFLnt~MCwh5twcp2R1JJGSNxgjhVhzJocJu0WAOZll9uHkHJuVke6Pmz978WbGkqmvM6Atv1L18TiDvJ1t5x57vVCgtE+gnDfsgUvi2p3ei+MxnI8LM=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -340,10 +331,10 @@ https://ikm.fleurixsun.xyz/file2/CCiSNVMpnuEI0SGtpidiv0rWdJAcriGQpPqq4eifiYbifrx
 
 
 # Drama (17 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Drama", Shadow Force - IMDb 6.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Drama", Shadow Force - IMDb 6.3
 https://ikm.fleurixsun.xyz/file2/vDaV5gHQC7+RtNJsj5mHejEu7T1L9kgthBtOYUl~hvALvSPTXqR9oX1mqxIKTIg~rN~bTAoYT+byAdZncchZErfiEVuZ8YM1E2Tdd9TVsXbHI5CHccU78XIzU7PHIm6lQLh7P~OUifPTc+UxeUhOM5cpqe4xDMq2f7rzSClRxeg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pVVc22lqclqBgJxaIguRRkfqhT1.jpg" group-title="Drama", Sikandar - IMDb 5.1
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/t48miSSfe7COqgbgMyRIyPVTBoM.jpg" group-title="Drama", Sikandar - IMDb 5.2
 https://ikm.fleurixsun.xyz/file2/vQRzDlRLuqhzvetf1gyYOc63s7bVjPFjpwilKXwBh9LvL9HkSbqe984MaHqjJB862gFn5yYhmLhuecep++Svj1dIllVUQ8YAbNtTyoUelYxUVEFJFBtEPqkjWH3++LmWuVkSBM0Bwd7djKvY30Wh6fTIB0iiq73pMSQrftZpwDg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/crX9rSg9EohybhkEe8iTQUCe55y.jpg" group-title="Drama", The Ugly Stepsister - IMDb 7.1
@@ -361,7 +352,7 @@ https://ikm.fleurixsun.xyz/file2/EQ8b1sR~+sSOnz46SoDJSTtBoPCpCz62Lri9AGfN9fePL6U
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/fceheXB5fC4WrLVuWJ6OZv9FXYr.jpg" group-title="Drama", The Accountant - 4K • IMDb 7.1
 https://ikm.fleurixsun.xyz/file2/igdgNnYh+xiKv4p2fi7bkzIROefxOp+k+Nk~w08ysn4eQz0kTuKLbXBYch4F2dMzqe45IoG4U1b1sjtEJfhXj+EnAaTSr4CTinmiNMD8Q1pPDDRZEOj8s1Phc97PARTVvKkvHJEspyzGKgdqTYxMwbOI18SwbS6pk4cwiJ54zbs=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/zR9j2auEEQIaBbi7uTIFtDChmmA.jpg" group-title="Drama", Brave Citizen - 1080p • IMDb 6.8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/zR9j2auEEQIaBbi7uTIFtDChmmA.jpg" group-title="Drama", Brave Citizen - 1080p • IMDb 6.9
 https://ikm.fleurixsun.xyz/file2/BnwFupAHtJAQduu6Doh9d3mVfwcoTpXp4ofkPInroFJsJbUIgEyPOBmqlPPxqZANO5osanrJzrb3rmKl8IKFLTC8SyBnZtih6ZQACdWHgRrdWbl+1D+vL6cS58oWLEtna6Zik2lEeWjRp8K3s~nNhvNPDWP4gnoY5etndYGHj0w=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/1mqL7VG4Ix8wmxwypmCA1HTHBky.jpg" group-title="Drama", Jojo Rabbit - 4K • IMDb 8
@@ -382,14 +373,14 @@ https://ikm.fleurixsun.xyz/file2/FiaGOJDnvId6KP3A~hP+pZU7SGJo6GUNSXd04u5N+~8hVG5
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/w46Vw536HwNnEzOa7J24YH9DPRS.jpg" group-title="Drama", My Fault - 4K • IMDb 7.8
 https://ikm.fleurixsun.xyz/file2/xOhtbhUm8WVNjyLjGruTsHUOv17u1unDt7wYlhxMNXgHio8GTiTCaZHQBeyzAAKyg9mH2TZJFly+1xSLLsGpMY1Q2OEEIb0wKKrAJb5nsl8MCcZOiBTqvP~HSEI2eOgx1B5zn00byYg9tnGLgLO7K9LiRP7kPnagyjZ2uT52utY=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/4spOdjLgRAbIYO7mu22DQ2iInz7.jpg" group-title="Drama", Juliet & Romeo - 1080p • IMDb 6
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/4spOdjLgRAbIYO7mu22DQ2iInz7.jpg" group-title="Drama", Juliet & Romeo - 1080p • IMDb 6.8
 https://ikm.fleurixsun.xyz/file2/rHxY9ZlJjqK8L4nfLpTu~WT0KprImtZ96yZ7EOKMDOGgWx+8twNNGEKGVd77KtVgq4AL9FMF9APSiuCbEKH~RvNqcX6s4+e6NpMD3~dVj4c+XlyHmktbfsCvy81EgfUrNG4GqwlJC1VSgvMh36QjaXvSoGLxoGt2h7Z1SoxBX5o=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/t4MiAeYpjL7saYvqvcn9xtOfA4K.jpg" group-title="Drama", Conjuring the Cult - 1080p • IMDb 5.5
 https://ikm.fleurixsun.xyz/file2/hybSXAeTQXT9+HyL6~rUkEgHCCV8vwN~BOQiM2E2NcczKp~OsBgEKSJLD+bcknVRXam+xtwhqPpMLXlSW55RpnPVbXLvDE0JpXi1r9A1JfaDutGZeJjtvT0TTwbHsK5P3065dfEBsdhskndZnqOpq2PGSblxfrwOgLUyAXOmpiQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/1105WNYals12Va2f4F3VeBZdcWX.jpg" group-title="Drama", Devara: Part 1 - 1080P • IMDb 7
-https://vfs.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly85c3RyLW0zdTgtcGxheS0wMjEwMjQucHB6ai15b3V0dWJlLmNmZC9tM3U4L3RwMS1yZHYxLzEwODAvNjQyYmNlODU2ZWRkN2NhYjUxMTkzMWEyLzY3MzIwZjEzNDE4ZTE1MjNhZGZiMjMxMy81MzYxNmM3NDY1NjQ1ZjVmMTVkNDQwNGIzZGUzZWY3YTdhZjE5ZmQ0NjgxNGIzZjE3NjBlYjk0OGJjYjE1ODFiLzE3NDkyNjU3MjIvMjNmZDhmZmZjNjUxOTk3NDk0NWQyZDM0NjU3NjY0ZTEiLCJvIjoiaHR0cHM6Ly9pZjkucHB6ai15b3V0dWJlLmNmZCIsInIiOiJodHRwczovL2lmOS5wcHpqLXlvdXR1YmUuY2ZkLyIsImgiOiIxYzgzZmQwMyJ9.m3u8
+https://vfs.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly85c3RyLW0zdTgtcGxheS0wMjEwMjQucHB6ai15b3V0dWJlLmNmZC9tM3U4L3RwMS1yZHYxLzEwODAvNjQyYmNlODU2ZWRkN2NhYjUxMTkzMWEyLzY3MzIwZjEzNDE4ZTE1MjNhZGZiMjMxMy81MzYxNmM3NDY1NjQ1ZjVmOWNiOWI5ZDFlOGFmNDI4ZDI0NmI0M2M1OWQ3NWVkODZlZmI5YWNiOTc3Y2Q4YjFkLzE3NDkyOTQ0MjQvYTMzYmZmZDk5OGFkYzI2M2IwMmJjZjBiM2NmZjBiNTIiLCJvIjoiaHR0cHM6Ly9pZjkucHB6ai15b3V0dWJlLmNmZCIsInIiOiJodHRwczovL2lmOS5wcHpqLXlvdXR1YmUuY2ZkLyIsImgiOiIxNDE4YmQzNyJ9.m3u8
 
 
 # Family (17 items)
@@ -445,10 +436,7 @@ https://ikm.fleurixsun.xyz/file2/xDBNJ~afvvMbuaEBv3Vyen0VSRaQojE2auaHvt6OlyG9Jfi
 https://ikm.fleurixsun.xyz/file2/f7zhXC9Ghi5QMsl6kyNTDTXnB+wGYhPXk8dr1sBWC9ezppVamXSTXndW0JlrkCEahg1i13hbLLLZxKrBTfpi9CZGVmREMfYaiga2vfyUuFLeakHaw8gx3ktrC1S~Y33AK3w6+T0YYUJ3pjrVXaIMk5Y5R4bIe1alm0nMXYoKLtE=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Fantasy (17 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" group-title="Fantasy", A Minecraft Movie - IMDb 6.5
-https://ikm.fleurixsun.xyz/file2/yU43CpEjnYr~~uY~FCTB8KfdUPbnXqIecgU~5WSqSsUp1Y4PnYBVQeW1CaiAKUAlsON+mKuvsoRSrZI1qJFEd8wWTq6P1EZ7t6Z6crIGKK3ztQ72uQcLRHJSqTMWn16Vxj07tuR2TH9Ki4Q9e+pCJLtPSiOJle~nBZMlQsVr7qk=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
+# Fantasy (16 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/crX9rSg9EohybhkEe8iTQUCe55y.jpg" group-title="Fantasy", The Ugly Stepsister - IMDb 7.1
 https://ikm.fleurixsun.xyz/file2/c~jQgzj2yCZMw2jev8Ez0iNQwj3WG7zTphZN8WgLVPCMf3ZpgRiUdJzmleetp4NCQLpf3x6Uz2jSfdWpoi8nmNg3Rc+iCfB2M9lFcSx4imktbVDAXqzDZvouZZ2~JTMlXTDbeqQLBdvEYJte7zNzjLl+8xf71E5EqOIQQwCil44=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
@@ -498,10 +486,7 @@ https://ikm.fleurixsun.xyz/file2/vgC8LsnD2PcC1QqeldkRyWfF+xtEn91IR6zacEEYyS23J~X
 https://ikm.fleurixsun.xyz/file2/T7pMTzSpNSVxXyYfKydY2rL+qxJY7omTW64qBMm8CYhyRseJVR0DU5jzY4S5PCORm3Pr9FfBB1aAgo6zL2TiGzB42AD6gejjx+N4NMGy7TfZar5LhKq7imrg+bIn780v9qdD5bkroyQCzHqj0MQt+w==/NzIw/aW5kZXgubTN1OA==.m3u8
 
 
-# History (16 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" group-title="History", Oppenheimer - 4K • IMDb 8.1
-https://ikm.fleurixsun.xyz/file2/OyChGeFGeULqZJ9M+usCSEKPlV+3wTI3KVFumfYX9qutE3KHL4CT0F2LjXbCS~F+TlpZ+8ee1MD86bjyAhPksvrbX7slb7gSclDkMXzAsadXRh56RylfnnzbV~hN4MWEFOobl02V5KytTrJqwf3FKwQ06qBpcTe0htYG1V9XcSQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
+# History (18 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/fWy0A3VojTCb0S2MKtEJjpquubF.jpg" group-title="History", Battle of the Sexes - 4K • IMDb 6.8
 https://ikm.fleurixsun.xyz/file2/p4UTraKYnyAt8C0UBK0Dc9+3LwqfHk8IN4Nv1ArRpjed5NVVba6L2n6zAXlXbeQY95E66Y0Ntck5Zu35UElEeIi4pjzekX8csORDfuhWEQw7LYQY5OjfGxlY8cxsMY36caUkqPuY3Z5aixL3GG4h1Ryb9uC3eDYY9QqisXPOzBE=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
@@ -526,6 +511,15 @@ https://ikm.fleurixsun.xyz/file2/4YoPnqslBTyRscBP+8dbhL12Q9ZkIf4usI4SU7CrlUTEZED
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/a07wLy4ONfpsjnBqMwhlWTJTcm.jpg" group-title="History", Troy - 1080P • IMDb 7.2
 https://ikm.fleurixsun.xyz/file2/~KRytfcfZbXbRGYxah8DfMEzKieiuKtsbqbSreh8Dd9EJhPz30XFW4oK73EKIIrBnJO3hxbiDBG7h1XpyFjI01oDyXgYBXkJrbuSbkK~oZQ5C~sNAWnaeeQEG9~WCvJTUZvIq1TeXRlLkx2LGAf1jsOZrrg~NVDkflqE1h8IVWE=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/gZnsMbhCvhzAQlKaVpeFRHYjGyb.jpg" group-title="History", I'm Still Here - 4K • IMDb 8
+https://ikm.fleurixsun.xyz/file2/s63PQdCAVoM~FG2TmDTJ1HlVuYXA5fXeHNqUc9OTui6LQjR1IvJWa5XzPRapbrEe5tAHpSPv4YJ7HMhKr6uTcEZl0j9JLuGDTZuFOw1UlYWSi5ho6nb5Lx6khm4VJoG8XAU+9qgN0b4IeQFunBgt3TcCPLA92mesTKvyFK7eRB4=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/imGygQbmuc7gC1JZiAVhJLsUWXq.jpg" group-title="History", Black Hawk Down - 4K • IMDb 7.4
+https://ikm.fleurixsun.xyz/file2/iJFgVt5E8P2Y9MTTSjGYTTNt0gLIjRT7aJTgcNxVuzXvcLa7OZeGGxIXIeOSZ6NKpjQRVl66M~LKPLoHMO77pHUShvXnWzhWxtXLjqFd98L3IolqoWO1to3Qgsdm~kDY57F8XbKkCBsrtVTLss4C51peuracdWvSZjttc+Oq5i0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/95KmR0xNuZZ6DNESDwLKWGIBvMg.jpg" group-title="History", The Alto Knights - 4K • IMDb 6.2
+https://ikm.fleurixsun.xyz/file2/rRZMYivkwQFpDF8kN35lYcTbyiiZrE3gsPhDI7rfiTqyQX4HauimPSF4g8W4bhvC8m2txsVnpQbE4crSbDXXDD41YRyQwOWDN36fliJFj8hhoJMUE65p8cJ75qRQXoF6hKpUDr0AjUaWxN3cWZH25o7221V+z4s47D05eZSOdnw=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg" group-title="History", Green Book - 4K • IMDb 8.2
 https://ikm.fleurixsun.xyz/file2/sl49yB45+P~ITU5OPZeJ21ydgQAOdDkmAQ3UUoSiMcLB9ZeaztBt3LzT3ScxB9vJcILakjMcJTZTUdzx8DjHajP5MQ1zJFeDjpx8dZSBX4I7SaqWt8KgOpiJnifwA7VyFC2D+wIqjRrBc5M1O2sBZljURgShT5jywfaTEVqIJ2Q=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
@@ -548,18 +542,9 @@ https://ikm.fleurixsun.xyz/file2/76r3y+5vva0UNyHv9dndd0N5KXEJUTFd6GUZ~w2yA1h0q2g
 https://ikm.fleurixsun.xyz/file2/qOzaep2XBqnstewRtCMzbqw2cJsF4XWToFeFRcxsdb~nNqH62yNstpfV4GlgWyAeBTYjcc6X~4ekCk5wwqaT63tS6lEzIWZi4v8peHolWcJs9uAOp5kLfiOFJFFEpahnTXP~XJRuUpamuT7Aikw9dTKTJMZlIx~AoOsc5vhz~4k=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Horror (16 items)
+# Horror (13 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yqsCU5XOP2mkbFamzAqbqntmfav.jpg" group-title="Horror", Sinners - IMDb 7.5
 https://ikm.fleurixsun.xyz/file2/BalUq0bht~l2uFB~qmMvueFKn9jrCaqmV7cIrcfy~2L1Qmav8egmmp6wHHFLvXpbvIrWAH8oZvqqmYq4NxifJgpu0uzLOv7KQ~NOjjtDqQ5frrpy8xOeA4iabdgxan2UhptssH2DFhdulySDlBKnDlA+W2JhAtoVPPqyzZ8XvPg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg" group-title="Horror", Final Destination Bloodlines - IMDb 7
-https://ikm.fleurixsun.xyz/file2/~Rx3zMQs2GhQKHeDYssc9fo6Q~qaNOTJDO71h3ATxmB6MZGzMSx2ZVhfYVR0pOGWjH1UzdHxHurQqzpOyU4jQY9VdNagZGV1JOlK7aTh+Wfg0vVQR3fQJsaWaGq8xcz+X1TnYV0rN+XrrYXxrZo5CKB+r9WJ4DRIpJJGq92IwaQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/crX9rSg9EohybhkEe8iTQUCe55y.jpg" group-title="Horror", The Ugly Stepsister - IMDb 7.1
-https://ikm.fleurixsun.xyz/file2/c~jQgzj2yCZMw2jev8Ez0iNQwj3WG7zTphZN8WgLVPCMf3ZpgRiUdJzmleetp4NCQLpf3x6Uz2jSfdWpoi8nmNg3Rc+iCfB2M9lFcSx4imktbVDAXqzDZvouZZ2~JTMlXTDbeqQLBdvEYJte7zNzjLl+8xf71E5EqOIQQwCil44=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/juA4IWO52Fecx8lhAsxmDgy3M3.jpg" group-title="Horror", Until Dawn - IMDb 6.5
-https://ikm.fleurixsun.xyz/file2/O361k45VodMH86~psg~tviVzBx~i2C8qxmD6yC+3ipJAUwkG0ffqDNGyzbF+9sBACn2zyqm0E9mArX8enzbzF7Vm4VHbAhtu~PFczgP~CQUbulzSVnO2VpNcaZ+4ZVzwtsPKN5nGx7t~Vkd38UXx7BwQWZockkqFMZdGaLoTYG8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/oJD9KQFoObZmxAS1je56SIFVNJt.jpg" group-title="Horror", Ready or Not - 4K • IMDb 7
 https://ikm.fleurixsun.xyz/file2/vVXMUq4E4jv+kux+m6ImAjcUk4EcBTiGy2GnXilEt09o6v1Kctt+k0m71va3YDZ1~xSGvRZqVMxEKnuZAlHCD3Q4GOTDODqOYcVuikXUEkkir6A4vy4XomksY5xkjc7I+VhCRG8ZyGWs4ADGlVY3gjxVLofAFsAczR3nNVmYK9M=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -646,6 +631,9 @@ https://ikm.fleurixsun.xyz/file2/voBsZu1B+fLRuE4fdfkLruIJ5rTk7kgfljN0qRaEsxeNqkT
 
 
 # Mystery (17 items)
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg" group-title="Mystery", Final Destination Bloodlines - IMDb 7
+https://ikm.fleurixsun.xyz/file2/~Rx3zMQs2GhQKHeDYssc9fo6Q~qaNOTJDO71h3ATxmB6MZGzMSx2ZVhfYVR0pOGWjH1UzdHxHurQqzpOyU4jQY9VdNagZGV1JOlK7aTh+Wfg0vVQR3fQJsaWaGq8xcz+X1TnYV0rN+XrrYXxrZo5CKB+r9WJ4DRIpJJGq92IwaQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/juA4IWO52Fecx8lhAsxmDgy3M3.jpg" group-title="Mystery", Until Dawn - IMDb 6.5
 https://ikm.fleurixsun.xyz/file2/O361k45VodMH86~psg~tviVzBx~i2C8qxmD6yC+3ipJAUwkG0ffqDNGyzbF+9sBACn2zyqm0E9mArX8enzbzF7Vm4VHbAhtu~PFczgP~CQUbulzSVnO2VpNcaZ+4ZVzwtsPKN5nGx7t~Vkd38UXx7BwQWZockkqFMZdGaLoTYG8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
@@ -667,10 +655,7 @@ https://ikm.fleurixsun.xyz/file2/6sC0qvbxBLT+k4TCQWUK3E65R7Y7YR1ElkYBlmTUhpYFjHE
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/5uRF7zATPr0hIMfDcMEfnhMGw6a.jpg" group-title="Mystery", Final Destination 5 - 4K • IMDb 6.1
 https://ikm.fleurixsun.xyz/file2/Vxy7B1L71N1I5wIWGBq8PQ+s2moKJUux1+lu2W3scjkW~vbEaG53ZEtUFTDydHm80z0ZGhgzeBg8B+MYq2tH64VnnEXqFrHey+CVg+f~f815W9j2xi7M459KGyVPX+Yasr8eW+GXcXDkUDQYRFsRhVR7~s2IRuFDmUy1MhZicKg=/NzIw/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/S21BfLrJSD9njucBfY3CKqp8rD.jpg" group-title="Mystery", Desert Dawn - 720p • IMDb 7.5
-https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly82MmxjeG5ieHI0NTYucHJlbWlsa3l3YXkuY29tL2hsczIvMDEvMTAzNDkvMXo3bjBuZmowYTl6X24vaW5kZXgtdjEtYTEubTN1OD90PS05a1JBUERoaENOSDl4MmJUZjEwRGRIcXNodDBXOHZBQUJ5RUhSdXZNcm8mcz0xNzQ5MjUxODUwJmU9MTI5NjAwJmY9NTE3NDYyNjQmc3J2PWt4YmcwaDg1ZGFlOCZpPTAuNCZzcD01MDAmcDE9a3hiZzBoODVkYWU4JnAyPWt4YmcwaDg1ZGFlOCZhc249NDQ0NzciLCJvIjoiaHR0cHM6Ly9zd2lmdHBsYXllcnMuY29tIiwiciI6Imh0dHBzOi8vc3dpZnRwbGF5ZXJzLmNvbS8iLCJoIjoiNGM4ZGI5ZjMifQ.m3u8
-
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/n0WS2TsNcS6dtaZKzxipyO7LuCJ.jpg" group-title="Mystery", The Woman in the Yard - 4K • IMDb 6.3
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/n0WS2TsNcS6dtaZKzxipyO7LuCJ.jpg" group-title="Mystery", The Woman in the Yard - 4K • IMDb 6.2
 https://ikm.fleurixsun.xyz/file2/OBdboLCvKlK5fT59Q+l+HxzbNd+omtfmLUf~Vn5xv1UfppqKloBVCQ4XQZ7kBJ6kJdx6O7AOi0Pq5MAs22pC5sa3frlAYprDvRv7I8yOCl0Wp5t6JPFuZlsWrBzM6gMxIa60VXJHuIznSjUYM5Z68z8nEjMJV6dN61bNu~dQmv8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/dg6Tf98InieJSClSKQJTQevYWmB.jpg" group-title="Mystery", Final Destination 2 - 4K • IMDb 6.3
@@ -720,7 +705,7 @@ https://ikm.fleurixsun.xyz/file2/xOhtbhUm8WVNjyLjGruTsHUOv17u1unDt7wYlhxMNXgHio8
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/7iMBZzVZtG0oBug4TfqDb9ZxAOa.jpg" group-title="Romance", The Gorge - 4K • IMDb 7.7
 https://ikm.fleurixsun.xyz/file2/kK0isr395wvwaGeMOx2+Cs7woaT937NCvsQ0vbpMktBceBsx3MHoqcpFXDuJF~DmkUlwBVm85jwBhSbocOJqk59hhLW9ExELrDyCcezw2L4eMbYHuLIWKVjfkOjkE7+9olZFsC4TAbKsopwJl+okZifrtaqhKQ9j5w0UOjLG5n4=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/4spOdjLgRAbIYO7mu22DQ2iInz7.jpg" group-title="Romance", Juliet & Romeo - 1080p • IMDb 6
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/4spOdjLgRAbIYO7mu22DQ2iInz7.jpg" group-title="Romance", Juliet & Romeo - 1080p • IMDb 6.8
 https://ikm.fleurixsun.xyz/file2/rHxY9ZlJjqK8L4nfLpTu~WT0KprImtZ96yZ7EOKMDOGgWx+8twNNGEKGVd77KtVgq4AL9FMF9APSiuCbEKH~RvNqcX6s4+e6NpMD3~dVj4c+XlyHmktbfsCvy81EgfUrNG4GqwlJC1VSgvMh36QjaXvSoGLxoGt2h7Z1SoxBX5o=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uvygZlicNXBIpklnLuAbgwkMMSL.jpg" group-title="Romance", The Neverending Wedding - 1080P • IMDb 4.5
@@ -748,18 +733,15 @@ https://ikm.fleurixsun.xyz/file2/hVVXChVCKftfkcE4G5Pabueu~TFYKm7z3fJ9BpS151g8M5J
 https://ikm.fleurixsun.xyz/file2/Wbd3YjdzLy5kn54ZgBJwKtVKW2ZlfreO4qFePVGNCl2l1s~79jbLxqoKthxtUhplnBgARMhLxe7ViYd~YTtPGrDEykxD~v0bxNgbTawbkrGMS3W6Xtxicei6fsDOUS+Z+MCqugWISIggDD~+n7AtX85BEBLIcnCDR9yup55LU2k=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Science Fiction (19 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/tUae3mefrDVTgm5mRzqWnZK6fOP.jpg" group-title="Science Fiction", Lilo & Stitch - IMDb 7.1
-https://ikm.fleurixsun.xyz/file2/vL4vrfTEFfkDj1Gk8io+nfvawm~JM08SXspzdyytj4jG7cX79LnVCZBtOJVcVkLRWxXePCvOqavU8AC0EG2cFjzUfS+yT8y856DFvPFuhRlGQuZ33BB0EeXNLVbx3SAFxdal+psJKN01z8F7l2I4Ewzg2pNb+LFHMO~7te~xVr8=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
+# Science Fiction (18 items)
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" group-title="Science Fiction", Avengers: Infinity War - IMDb 8.2
 https://ikm.fleurixsun.xyz/file2/sM4ch+nDHgreEIUCBTTTGJRoDZED12RVtYRUALXAb4o4wdFwM2SLABEGYedWuxrJtDYWZu2sd2Ps4Ju5UAVfiZElVAUxjHVPLOAoqKkjioIbNZ6oYDuMgO6q9eNx92yuYP~DO4hGljbgcn6J1zO+4IsxdKfqw8~h8sIvIu628~s=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg" group-title="Science Fiction", Black Panther - IMDb 7.4
-https://ikm.fleurixsun.xyz/file2/6Vr13lvfqCB+LB8NrDnUoh1NM+3NBe55qJJaGLaJ~bC2AjBtB6MWKKR6g~T~z83mKgUNBI2mZaM518wqZvFiUsDMa2hz6cN8YUarMUXRpo2dD58g~xojyGhoITE5Q6IXquMu+T80n4vYNiLyZYE+OdrlpLmoMSxvyFLf3kyjtbg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
-
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg" group-title="Science Fiction", Spider-Man: Homecoming - IMDb 7.3
 https://ikm.fleurixsun.xyz/file2/fBj9MzT1EYEjUA272hfdzkREGGNI2NDMK5BUYATcpcl2PdoNxyt7z+4yNcUOpOvxjhAO2~TJoXzYJ6iyfivzMOerok55ojIVqhKkPpFkJdf~yc4CxC+rBr7xCE~pD8zklwXOvldiJzdeEh6kWdqPaWRwfYyQnnXpNj9GUy26N38=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg" group-title="Science Fiction", Black Panther - IMDb 7.4
+https://ikm.fleurixsun.xyz/file2/6Vr13lvfqCB+LB8NrDnUoh1NM+3NBe55qJJaGLaJ~bC2AjBtB6MWKKR6g~T~z83mKgUNBI2mZaM518wqZvFiUsDMa2hz6cN8YUarMUXRpo2dD58g~xojyGhoITE5Q6IXquMu+T80n4vYNiLyZYE+OdrlpLmoMSxvyFLf3kyjtbg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg" group-title="Science Fiction", Captain America: Brave New World - IMDb 6.1
 https://ikm.fleurixsun.xyz/file2/u9MRN2RQyLeHtS903jdHdRWZ9ShBj0L1+rBth7xykY0mHLpqA4jUgs7t5dKVbyoyC6XNcvw4SIZhR0ucEROI4WS~Pcj9X0MX~gi4oQJ+8dWk~HbX6ypSLHiawFhLc3kz9D6mCdmq8ckd4sf3TI7hvKywJekkMrylhFyLqSIOu0k=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -807,12 +789,12 @@ https://ikm.fleurixsun.xyz/file2/dCjXQHTrXL5VWmkFvGEEIrCyskIr6MZERXLYef0sUKuY12E
 https://ikm.fleurixsun.xyz/file2/kK0isr395wvwaGeMOx2+Cs7woaT937NCvsQ0vbpMktBceBsx3MHoqcpFXDuJF~DmkUlwBVm85jwBhSbocOJqk59hhLW9ExELrDyCcezw2L4eMbYHuLIWKVjfkOjkE7+9olZFsC4TAbKsopwJl+okZifrtaqhKQ9j5w0UOjLG5n4=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# Thriller (16 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Thriller", Shadow Force - IMDb 6.1
+# Thriller (17 items)
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uX6FaNE86a4Xnf1mFFEryvjqB1D.jpg" group-title="Thriller", Shadow Force - IMDb 6.3
 https://ikm.fleurixsun.xyz/file2/vDaV5gHQC7+RtNJsj5mHejEu7T1L9kgthBtOYUl~hvALvSPTXqR9oX1mqxIKTIg~rN~bTAoYT+byAdZncchZErfiEVuZ8YM1E2Tdd9TVsXbHI5CHccU78XIzU7PHIm6lQLh7P~OUifPTc+UxeUhOM5cpqe4xDMq2f7rzSClRxeg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kMDUS7VmFhb2coRfVBoGLR8ADBt.jpg" group-title="Thriller", The Accountant² - IMDb 7.1
-https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTU5L3F1dm14MG8xaTA1N18sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1KVFVhNXRydG5tZVVpcU5hSDdseGtuYkRGNXNvM0t1c3JVWU9FdWtycXpRJnM9MTc0OTI1MjI2NyZlPTE0NDAwJmY9NzI3OTg5NTUmbm9kZT01THBLSWhzdjk1SFYxUTN4N2pyZlJYbGR3cDN5OENUNVBkWDhhTTU4OGdRPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPTZDb2RvbndaenZSYU1WTWJhTDNnNkdwNUVpZWN2Q3A2TjdRQ3BsNWoiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiI1ZjEyNTE5YSJ9.m3u8
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/kMDUS7VmFhb2coRfVBoGLR8ADBt.jpg" group-title="Thriller", The Accountant² - IMDb 7.2
+https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTU5L3F1dm14MG8xaTA1N18sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD16eU9ZSU5BTEVWWmxHaWpTZFdLeW1fZ1NkX01wUzhSR2lTODBUem9wN2JvJnM9MTc0OTI4NDgwNyZlPTE0NDAwJmY9NzI3OTg5NTUmbm9kZT1td3drL28rNXNuQWxVWCs0RWJVSXpKZ25NSVRabHQwRThpWmdjUWpzRzlvPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPUNOTGJTMlR6VW5vck1Odjg1dm9JVlBnTHdtV3lZSWIyN2o3b0N3ZFYiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiI4MTFjMjM1ZCJ9.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg" group-title="Thriller", A Working Man - IMDb 6.7
 https://ikm.fleurixsun.xyz/file2/RG7sOYvXNbZpxmLOOmLNPknQKpjckMvd6B+~LfXIxtb+Uft0WYO0sV+4rVccpoCiJlMf6MmqcRbRyRNGUtEWjHRB0qOiI~cW1C+uSMyxV2yVNIzvCeQUAoMgs3ZGic+3UlUvSeN0IaT8EoSCRRsb4wfnxY1oV6IfcaoLNMVUTeM=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -825,6 +807,9 @@ https://ikm.fleurixsun.xyz/file2/u9MRN2RQyLeHtS903jdHdRWZ9ShBj0L1+rBth7xykY0mHLp
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/yZOdrJDl2GwREoigC0y40kMosxj.jpg" group-title="Thriller", A Widow's Game - 4K • IMDb 6.5
 https://ikm.fleurixsun.xyz/file2/a+OTNXgDH3etcMxE6R9AhKIhO2+B8BGEnop6aO4fP8~GDgNlAROiwsH~VvcEKBLtrGnbSbP78xwewaXzBlagtcKZ~i6Def7yS+cQn+OIRQqYI91nbcMrAZl25qHDoAefv0MLJYnOwbWNnhFpXMZMsNhkaAEiMRYjjkVtQYcnMYg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/mKp4euM5Cv3m2U1Vmby3OGwcD5y.jpg" group-title="Thriller", Ballerina - 1080p • IMDb 7.5
+https://vfs0.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly9jZG4ta3VjM2VocHo0d25jemZ5ei5vcmJpdGNhY2hlLmNvbS9lbmdpbmUvaGxzMi1jLzAxLzE0NTY4L2dnMGxxMmxzOGx1eF8sbiwudXJsc2V0L2luZGV4LXYxLWExLm0zdTg_dD1LSUduTVhrNElwZmp4Tnh1alJkcGhDTHdnZ0E2emFuOF9JZFllTDFweGhrJnM9MTc0OTI4MjI5NSZlPTE0NDAwJmY9NzI4NDA4MDImbm9kZT1lSVNBS0RXUmQwc2d4LytYZFA0SGF6d3QyZjVqUktuS0wwSEQ1bXY1Z1JzPSZpPTE4NS4yMzQmc3A9MjUwMCZhc249NDQ0NzcmcT1uJnJxPUFKUU9rdkhERXk4N3VRQm84NTRTeXJWVm5wU1djTDZqU3RlcThROUgiLCJvIjoiaHR0cHM6Ly9qaWxsaWFuZGVzY3JpYmVjb21wYW55LmNvbSIsInIiOiJodHRwczovL2ppbGxpYW5kZXNjcmliZWNvbXBhbnkuY29tLyIsImgiOiIxZDcxNDhiOCJ9.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6HU667T8fxoIvgsgu2eyaznntsp.jpg" group-title="Thriller", Tin Soldier - 4K • IMDb 5
 https://ikm.fleurixsun.xyz/file2/RztGzRUkplz9RHimJE5n0Y3rhyaaC8X01Bioyu~~lIBsoUl7aGNycC1XiuLDpMrz1RndiWn5G4KNRSKlr5JaVyqxAUz+YjYUC8NYHq+e86Ju3YaoNw5LhJvyOJycm9Qhg6WvE0qau1WR00XXTVyDGAccOVmZRjMaVQhxSzEqpLo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -857,15 +842,15 @@ https://ikm.fleurixsun.xyz/file2/odMQylVBbjjSbslEsl+f7qe8SADjcs3iH93S0MEqRgAMbXM
 https://ikm.fleurixsun.xyz/file2/8p7LaKBqWZQmH52TXYutVJR5NLNB6syN9fzKtU2ZJR~tUlct21sY4NY9kVxnGpAwWwfjDoK8yYiAkCrti93sL7GHUhD4N~CthwqnnR6z9WzrtKs69TZkIhssd4OrqasaMYdwEQ45GVy0DKIgfXOrlEQIAEZEoJWe+iBsu8A~Eqg=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 
-# War (15 items)
-#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/srj9rYrjefyWqkLc6l2xjTGeBGO.jpg" group-title="War", Warfare - 4K • IMDb 7.3
+# War (18 items)
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/srj9rYrjefyWqkLc6l2xjTGeBGO.jpg" group-title="War", Warfare - IMDb 7.3
 https://ikm.fleurixsun.xyz/file2/WBuVMfbHcTs8adkVp3r1ndwNGMcGDTQQKnRWCTThYahx3DtPb1xPP2vl3Y9gdI78TFfGb0nakOB103~6M1370aGoydiDmQ4H5YL+1Hj+kNJuWyfvRq42f7x+IN93W3irt7CNE6H8P450MCNFbo8iOsWQoj3wVZWVXXbeOA7tpc0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/1mqL7VG4Ix8wmxwypmCA1HTHBky.jpg" group-title="War", Jojo Rabbit - 4K • IMDb 8
 https://ikm.fleurixsun.xyz/file2/rSEvtBb8AkVRs2iwUu7EOFqGBt7oKgHISU4aPw~bC5SpmkNdratAt0MUMLK80TnixEOr5mrIyyLYsv01Dc95f8~uwwtWue4TJbZBbaj+hEcOhf2fHyo22zadulRC1qE5lce6UfyXd3dY2iKGVmn+FE2ihTLJTL~QClt8F9L9Ae0=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/6UhejYX4FbMWUWb89UoykKNCKMn.jpg" group-title="War", Amaran - 1080P
-https://vfs.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly85c3RyLW0zdTgtcGxheS0wMjEwMjQucHB6ai15b3V0dWJlLmNmZC9tM3U4L3RwMS1yZHYxLzEwODAvNjQyYmNlODU2ZWRkN2NhYjUxMTkzMWEyLzY3NTQwZDM4NDE4ZTE1MjNhZGZjMWI5Yy81MzYxNmM3NDY1NjQ1ZjVmZjY5MmRjYWVlZmU0ODliYzgwMTQ2OWE5OWZhZDE5NmE5NWUxM2IxNWRjZGQ3Mzk4LzE3NDkyNjYzNjAvNDJhZDQxYmYwOWRiM2E4ODMyZTQ4NDM5YTNhZDYyMGEiLCJvIjoiaHR0cHM6Ly9pZjkucHB6ai15b3V0dWJlLmNmZCIsInIiOiJodHRwczovL2lmOS5wcHpqLXlvdXR1YmUuY2ZkLyIsImgiOiJjNmU2MDQ2OCJ9.m3u8
+https://vfs.feltrixfire11.xyz/eyJ1IjoiaHR0cHM6Ly85c3RyLW0zdTgtcGxheS0wMjEwMjQucHB6ai15b3V0dWJlLmNmZC9tM3U4L3RwMS1yZHYxLzEwODAvNjQyYmNlODU2ZWRkN2NhYjUxMTkzMWEyLzY3NTQwZDM4NDE4ZTE1MjNhZGZjMWI5Yy81MzYxNmM3NDY1NjQ1ZjVmNDAzZGU2MTlkZGE5MTE2NTM3NTU0ZjI3OTQ1YmQ4MGYxNTFlOGIyNmI2MTM5Yzk2LzE3NDkyOTYzOTMvMTNmMjlkNTFkMDhmYTNmOGE4OWM1NDI1OTZkZjQzODMiLCJvIjoiaHR0cHM6Ly9pZjkucHB6ai15b3V0dWJlLmNmZCIsInIiOiJodHRwczovL2lmOS5wcHpqLXlvdXR1YmUuY2ZkLyIsImgiOiIyYjVhMTk5ZCJ9.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg" group-title="War", Schindler's List - 4K • IMDb 8.6
 https://ikm.fleurixsun.xyz/file2/IjxUGJwds6HcayfRDYJ07KUQLhPwwO6~APgsMo0Da0x1rTFzBrtDVez2XuIG706cMv2unNLwYnAWykqhS3bk2BAApzFbbd3AgdeynRRr85SJpR5mPcFnbBGkclMLBcUfkEhnY5lnBuwndMOZzk58NBupXPDcQo8t0VCqOjYfoWw=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
@@ -881,6 +866,15 @@ https://ikm.fleurixsun.xyz/file2/qyccgtJcnGQ6dad+RVjNFI2giGb~Jjv4u8foVt6pRtShncJ
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/jhWbYeUNOA5zAb6ufK6pXQFXqTX.jpg" group-title="War", Hacksaw Ridge - 4K • IMDb 8.2
 https://ikm.fleurixsun.xyz/file2/u8cVr6wS9PtSbHr9TIr4r6CHJWnTtyHlRi56+IFsCshTrlQN2imeHc8PK95jvzetkB~wRtnrAjx7l2XChyqbOM7iuWotx5TL40sLhEBL9lIEsgRwQVi3L~rrStaETavG4vvCFcM5z~99rThu8L~VHjcmXvIV6d2CxsRGlFn~+NI=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/uqx37cS8cpHg8U35f9U5IBlrCV3.jpg" group-title="War", Saving Private Ryan - 4K • IMDb 8.2
+https://ikm.fleurixsun.xyz/file2/NKXHj8EC3N9iBlZXgJJB3erqBhAEivs7+Dy6OOG47SX2U2y7tVgl0Ivto92kWv9u9M8v6huZhzfm2Pj8HM0fwlFNHJOGXTQkF+HaEW0m2Ak4XXqM5GLoJy56UBW0WlQ7jO78e3uRJRHHzuxQrGXcaSXXPxexuNdz59To9GlcLAo=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg" group-title="War", Civil War - 1080P • IMDb 6.9
+https://ikm.fleurixsun.xyz/file2/S2esppPp4QWcVXmRubGOuRXdyZ~R7nXXUfWmWviNoGGx8Wd8wzMEHCjUtz3na69QNFiVUDj8ZzthXecBlW9Hc5nnCDuQyEW4+4EAjWt4vAd~LkUR2oLUo~DCPCZAQF3vxpbSAHR4yPOnayb1dZf3wQ==/MTA4MA==/aW5kZXgubTN1OA==.m3u8
+
+#EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/8aF0iAKH9MJMYAZdi0Slg77RYa2.jpg" group-title="War", The Ministry of Ungentlemanly Warfare - 1080P • IMDb 7.1
+https://ikm.fleurixsun.xyz/file2/tHv9f5abzPrK5liRf+j1CpYtXTnD9b9ZfEfEkm+m2gv9GAbtGFhWccmf79oAMf0pJqB~DhYVgLiqqEu19DixfKIOZLyPw9kzXj~Ew6u1vf9GaEhJ64Z~0Ou+x~UDDLaSUNyt9fSfUA3435fAPs0B+Q==/MTA4MA==/aW5kZXgubTN1OA==.m3u8
 
 #EXTINF:-1 tvg-logo="https://image.tmdb.org/t/p/w500/4qDIb9K9qLxCVT8cKGt5YrF54Xb.jpg" group-title="War", Spartacus - 4K • IMDb 6.7
 https://ikm.fleurixsun.xyz/file2/~OOD+KjBFqypDZALN8dkNYX~Vjb~hkzCofRg9ajf8JPXDWT~+cx6LL1NTAqMQDtrX3dWRnA2loOpRUewgXIcQMFp3TwV4DuA4bkvbq7kZ6XW0OkzIDiuAOBKwojnM8PjxnqXzdRFFXvxJb6JdVmfyapHdZ0rxVz2gfeL2EAXnxQ=/MTA4MA==/aW5kZXgubTN1OA==.m3u8
