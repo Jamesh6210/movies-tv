@@ -116,7 +116,7 @@ jobs:
           echo "🚀 Starting Nunflix scraper..."
           
           # Set timeout from input or default
-          TIMEOUT_MIN="${{ github.event.inputs.timeout_minutes || '40' }}"
+          TIMEOUT_MIN="${{ github.event.inputs.timeout_minutes || '100' }}"
           
           # Create log file
           LOG_FILE="scraper.log"
