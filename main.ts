@@ -18,12 +18,17 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 async function processMovie(movie: TMDBMovie, browser: Browser, groupName: string): Promise<M3UItem | null> {
+  console.log(`Processing: ${movie.title} (${movie.year}) - TMDB ID: ${movie.id}`);
+  
   try {
-    const m3u8Url = await withTimeout(getM3U8FromVidFast(browser, movie.id), 10000);
+    const m3u8Url = await withTimeout(getM3U8FromVidFast(browser, movie.id), 30000);
     
     if (!m3u8Url) {
+      console.log(`No stream found for ${movie.title}`);
       return null;
     }
+    
+    console.log(`✅ Found stream for ${movie.title}`);
     
     return {
       title: movie.title,
@@ -37,6 +42,7 @@ async function processMovie(movie: TMDBMovie, browser: Browser, groupName: strin
       ].filter(Boolean).join(' • ')
     };
   } catch (error) {
+    console.warn(`Failed to process ${movie.title}:`, error);
     return null;
   }
 }
@@ -49,43 +55,39 @@ async function processMovieList(
   const items: M3UItem[] = [];
   let browser = await createBrowser();
   
-  console.log(`\nProcessing ${groupName}: ${Math.min(movies.length, maxItems)} movies`);
+  console.log(`\nProcessing ${groupName}: ${movies.length} movies`);
+  console.log('==========================================');
   
   try {
-    const promises: Promise<M3UItem | null>[] = [];
+    let processedCount = 0;
     
-    // Process 5 movies concurrently for speed
-    for (let i = 0; i < Math.min(movies.length, maxItems); i += 5) {
-      const batch = movies.slice(i, i + 5);
+    for (let i = 0; i < Math.min(movies.length, maxItems); i++) {
+      const movie = movies[i];
       
-      // Create concurrent promises for this batch
-      const batchPromises = batch.map(movie => processMovie(movie, browser, groupName));
-      promises.push(...batchPromises);
-      
-      // Process batch and collect results
-      const batchResults = await Promise.allSettled(batchPromises);
-      
-      batchResults.forEach((result, idx) => {
-        const movie = batch[idx];
-        if (result.status === 'fulfilled' && result.value) {
-          items.push(result.value);
-          console.log(`✅ ${movie.title} (${items.length}/${maxItems})`);
-        } else {
-          console.log(`❌ ${movie.title}`);
-        }
-      });
-      
-      // Restart browser every 15 movies to prevent memory issues
-      if (i > 0 && i % 15 === 0) {
+      // Restart browser every 10 movies to prevent memory issues
+      if (i > 0 && i % 10 === 0) {
         await browser.close();
         browser = await createBrowser();
+        console.log('🔄 Restarted browser');
       }
       
-      // Small delay between batches
-      await new Promise(resolve => setTimeout(resolve, 500));
+      try {
+        const item = await processMovie(movie, browser, groupName);
+        if (item) {
+          items.push(item);
+          processedCount++;
+          console.log(`✅ ${processedCount}/${maxItems} processed`);
+        }
+        
+        // Small delay between requests
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+      } catch (error) {
+        console.warn(`Skipped ${movie.title}: ${error}`);
+      }
     }
     
-    console.log(`Completed ${groupName}: ${items.length} streams found`);
+    console.log(`Completed ${groupName}: ${processedCount} items found`);
     
   } finally {
     await browser.close();
@@ -117,24 +119,30 @@ async function processMovieList(
       allItems.push(...popularItems);
     }
     
-    // 3. Get movies by genre (reduced for speed)
-    console.log('🎭 Processing genres...');
+    // 3. Get movies by genre
+    console.log('🎭 Fetching genres...');
     const genres = await getTMDBGenres();
     
-    // Process fewer genres but more efficiently
-    const selectedGenres = ['Action', 'Comedy', 'Horror', 'Thriller', 'Adventure'];
+    // Select top genres to process
+    const selectedGenres = [
+      'Action', 'Comedy', 'Drama', 'Horror', 'Thriller', 
+      'Adventure', 'Animation', 'Crime', 'Fantasy', 'Romance'
+    ];
     
     for (const genreName of selectedGenres) {
       const genre = genres.find(g => g.name === genreName);
       if (!genre) continue;
       
       console.log(`🎯 Fetching ${genreName} movies...`);
-      const genreMovies = await getMoviesByGenre(genre.id, 1, 15);
+      const genreMovies = await getMoviesByGenre(genre.id, 1, 25);
       
       if (genreMovies.length > 0) {
-        const genreItems = await processMovieList(genreMovies, genreName, 8);
+        const genreItems = await processMovieList(genreMovies, genreName, 10);
         allItems.push(...genreItems);
       }
+      
+      // Delay between genres to be respectful
+      await new Promise(resolve => setTimeout(resolve, 2000));
     }
     
     // 4. Export results
